@@ -1,0 +1,65 @@
+name: Build Gold Rush SBF program
+
+# The Anchor program cannot be built on the dev Windows box (no MSVC toolchain),
+# so the SBF object is produced here and committed back to this branch. Deploy
+# is still done locally with `solana program deploy`.
+on:
+  push:
+    branches: [er-build]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Solana CLI
+        run: |
+          sh -c "$(curl -sSfL https://release.anza.xyz/v4.1.1/install)"
+          echo "$HOME/.local/share/solana/install/active_release/bin" >> "$GITHUB_PATH"
+
+      - name: Versions
+        run: |
+          solana --version
+          cargo-build-sbf --version
+
+      - name: Build SBF
+        id: build
+        continue-on-error: true
+        run: |
+          set +e
+          cargo-build-sbf --manifest-path programs/goldrush/Cargo.toml --sbf-out-dir dist 2>&1 | tee build.log
+          echo "rc=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Show artifact
+        if: always()
+        run: ls -la dist/ || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: goldrush-build
+          path: |
+            dist/goldrush.so
+            build.log
+
+      # The log is committed back so it can be read without an API token.
+      - name: Commit artifact and log back
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p ci
+          tail -c 60000 build.log > ci/build.log
+          git add -f ci/build.log
+          git add -f dist/goldrush.so 2>/dev/null || true
+          git commit -m "ci: build output" || exit 0
+          git push origin HEAD:er-build
+
+      - name: Fail if build failed
+        if: always() && steps.build.outputs.rc != '0'
+        run: exit 1

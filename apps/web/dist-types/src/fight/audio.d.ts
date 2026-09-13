@@ -1,0 +1,46 @@
+type MusicMode = 'menu' | 'fight';
+type HitStrength = 'light' | 'medium' | 'heavy' | 'critical';
+declare class FightAudio {
+    private muted;
+    private readonly synth;
+    private readonly samples;
+    private musicNames;
+    private manifestReady;
+    private currentMode;
+    private pending;
+    private music;
+    constructor();
+    private loadManifest;
+    private pick;
+    /** Small per-play pitch wobble so repeated hits do not sound identical. */
+    private vary;
+    unlock(): Promise<void>;
+    isMuted(): boolean;
+    toggle(): boolean;
+    private setMuted;
+    startMusic(mode?: MusicMode): void;
+    stopMusic(): void;
+    hover(): void;
+    press(): void;
+    ui(): void;
+    entry(): void;
+    round(): void;
+    fight(): void;
+    victory(): void;
+    defeat(): void;
+    swing(heavy?: boolean, ..._rest: unknown[]): void;
+    hit(strength: HitStrength, bladed?: boolean, ..._rest: unknown[]): void;
+    block(bladed?: boolean, ..._rest: unknown[]): void;
+    parry(..._rest: unknown[]): void;
+    guardBreak(..._rest: unknown[]): void;
+    dodge(..._rest: unknown[]): void;
+    dash(..._rest: unknown[]): void;
+    jump(..._rest: unknown[]): void;
+    land(..._rest: unknown[]): void;
+    footstep(intensity?: number, ..._rest: unknown[]): void;
+    exhausted(..._rest: unknown[]): void;
+    ability(..._rest: unknown[]): void;
+    ultimate(..._rest: unknown[]): void;
+}
+export declare const fightAudio: FightAudio;
+export {};

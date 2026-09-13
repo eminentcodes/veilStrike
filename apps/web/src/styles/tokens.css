@@ -1,0 +1,183 @@
+/*
+ * Veilstrike — design tokens
+ *
+ * EVERY value below is sampled directly from the approved UI reference art in
+ * `docs/ui/`. No colour, radius or type value may be added here unless it was
+ * pixel-sampled from one of those files. The source file + pixel is cited on
+ * each token so any future change can be re-verified against the art.
+ *
+ * Reference art:
+ *   docs/ui/01-landing.png            (745 x 514)  — landing screen
+ *   docs/ui/02-master-ui-sheet.png    (1536 x 1024) — documented swatch strip
+ */
+
+@theme {
+  /* ---------------------------------------------------------------------- *
+   * Documented palette — the swatch strip on 02-master-ui-sheet.png         *
+   * ---------------------------------------------------------------------- */
+  --color-gr-gold: #f4bd45;
+  --color-gr-green: #7b9c3d;
+  --color-gr-purple: #a562eb;
+  --color-gr-brown: #5b3a20;
+  --color-gr-cream: #e6d3b7;
+  --color-gr-charcoal: #544c44;
+
+  /* ---------------------------------------------------------------------- *
+   * Page + panel — 01-landing.png                                          *
+   * ---------------------------------------------------------------------- */
+  /* Area outside the game panel. Sampled at (5, 5). */
+  --color-gr-page: #f3f1ec;
+  /* Panel outer border stroke. Sampled at (16, 260). */
+  --color-gr-panel-border: #684628;
+
+  /* ---------------------------------------------------------------------- *
+   * Primary button ramp — "START EXPEDITION", 01-landing.png x=255          *
+   * Vertical colour scan, top to bottom.                                    *
+   * ---------------------------------------------------------------------- */
+  --color-gr-primary-outline: #211b06; /* y245 + y294, 1px keyline */
+  --color-gr-primary-highlight: #fee97b; /* y246-248, inner top highlight */
+  --color-gr-primary-face-top: #f8c549; /* y249 */
+  --color-gr-primary-face-mid: #f3ba3d; /* y268 */
+  --color-gr-primary-face-bottom: #e8a932; /* y282-289 */
+  --color-gr-primary-bevel: #b06c16; /* y290-292, 3D lower lip */
+  --color-gr-primary-bevel-dark: #985f19; /* y293 */
+  --color-gr-primary-label: #211b06; /* glyph fill, x272..438 */
+
+  /* ---------------------------------------------------------------------- *
+   * Secondary button ramp — "HOW TO PLAY" / "LEADERBOARD", x=255            *
+   * ---------------------------------------------------------------------- */
+  --color-gr-secondary-outline: #1d1302; /* y302 + y351 */
+  --color-gr-secondary-rim: #9b6b32; /* y304-306, top rim highlight */
+  --color-gr-secondary-body-top: #633f1c; /* y307 */
+  --color-gr-secondary-body-bottom: #4b2f18; /* y345 */
+  --color-gr-secondary-bevel: #2e1e0c; /* y348-350 */
+  --color-gr-secondary-label: #ffffff; /* glyph fill */
+
+  /* ---------------------------------------------------------------------- *
+   * Chips — status pill + settings button, y57..84                          *
+   * ---------------------------------------------------------------------- */
+  --color-gr-chip-body: #232116; /* pill fill, sampled (35, 62) */
+  --color-gr-chip-body-alt: #2e271a; /* settings fill, sampled (660, 62) */
+  --color-gr-chip-rim: #68583d; /* 1px rim, sampled (30, 58) */
+  --color-gr-chip-label: #ffffff; /* glyph fill */
+  --color-gr-online-dot: #7dad35; /* live indicator, sampled (36, 70) */
+
+  /* ---------------------------------------------------------------------- *
+   * Footer scrim — MagicBlock attribution band, y432..486                   *
+   * ---------------------------------------------------------------------- */
+  --color-gr-footer-scrim: #1d2a16; /* sampled (300, 455) */
+  --color-gr-footer-label: #ffffff; /* glyph fill, all three lines */
+
+  /* ---------------------------------------------------------------------- *
+   * Modal chrome — 06-screens-modals-states.png                            *
+   *                                                                        *
+   * There is no wallet-connect modal in the reference art, so the connect   *
+   * dialog is assembled from the two plain dialogs that ARE drawn: panel 7  *
+   * (PAUSE MENU) and panel 11 (DISCONNECT / RECONNECT). Both use one        *
+   * treatment: a parchment card in a wooden frame with corner rivets, a     *
+   * heavy dark title, stacked green buttons, and red for destructive.       *
+   * Every value below is scanned from panel 7 — see                         *
+   * scripts/sample_modal_chrome.py and sample_modal_chrome2.py.             *
+   * ---------------------------------------------------------------------- */
+  /* Parchment card. Vertical scan x=110 runs light at the top to warm at    *
+   * the foot, so it is reproduced as a gradient between these two stops.    */
+  --color-gr-parchment: #e8d3ab; /* y884, card top */
+  --color-gr-parchment-deep: #d8b57a; /* y972, card foot */
+  --color-gr-parchment-line: #c19c62; /* hairline divider */
+
+  /* Wooden frame, horizontal scan y=940 through the left edge. */
+  --color-gr-frame-outline: #331e0a; /* x31, outermost keyline */
+  --color-gr-frame-wood: #9e7240; /* x34, frame body */
+  --color-gr-frame-wood-light: #c59959; /* x39, inner highlight */
+  --color-gr-frame-rivet: #6b4a25; /* corner rivet */
+
+  /* Modal title + body copy. */
+  --color-gr-modal-title: #241a0e; /* darkest cluster, "PAUSED" */
+  --color-gr-modal-body: #4a361d; /* subtitle weight */
+
+  /* Green button ramp — "Resume", x=60 scan y909..y928. */
+  --color-gr-btn-green-rim: #768c3c; /* y910, top rim highlight */
+  --color-gr-btn-green-top: #566a1e; /* y911 */
+  --color-gr-btn-green-mid: #45571b; /* y919 */
+  --color-gr-btn-green-bottom: #3a491a; /* y927 */
+  --color-gr-btn-green-outline: #182405; /* y928, keyline */
+
+  /* Red button ramp — "Leave Expedition", x=60 scan y985..y1002. */
+  --color-gr-btn-red-rim: #b4502e; /* y985 */
+  --color-gr-btn-red-top: #8b2b11; /* y986 */
+  --color-gr-btn-red-mid: #7e2f15; /* y994 */
+  --color-gr-btn-red-bottom: #692914; /* y1001 */
+  --color-gr-btn-red-outline: #271107; /* y1002 */
+
+  --color-gr-btn-label: #f4ecd8; /* button glyph fill, both ramps */
+
+  /* ---------------------------------------------------------------------- *
+   * Expedition flow — 04-matchmaking-crewready.png, left panel             *
+   * ("PREPARING EXPEDITION"). Sampled by scripts/sample_matchmaking.py.     *
+   * Reused by the setup modal, matchmaking and crew-ready screens, which    *
+   * share one visual language in the art.                                   *
+   * ---------------------------------------------------------------------- */
+  --color-gr-card: #edd0a0; /* card body, dominant cluster (100,490)-(660,800) */
+  --color-gr-card-rim: #dbb377; /* card rim, sampled (99, 560) */
+  --color-gr-card-tile: #e4c48d; /* inset avatar/slot tile, sampled (160, 581) */
+  --color-gr-card-line: #d5b27a; /* row divider */
+  --color-gr-card-title: #483b23; /* row label, sampled (230, 517) */
+  --color-gr-status-ok: #6b8623; /* "Connected" check ring, sampled (627, 517) */
+  --color-gr-tip-tile: #dead5c; /* TIP swatch, sampled (160, 765) */
+  --color-gr-tip-rim: #736c34; /* TIP swatch rim, sampled (133, 740) */
+
+  /* Dark progress panel at the foot of the left plate. */
+  --color-gr-bar-panel: #1d2b17; /* sampled (300, 856) */
+  --color-gr-bar-rim: #172312; /* sampled (95, 845) */
+  --color-gr-track-empty: #472e15; /* unfilled track, sampled (600, 906) */
+  --color-gr-track-fill: #6c822b; /* filled track, sampled (200, 906) */
+
+  /* Banner — "PREPARING EXPEDITION" headline plate. */
+  --color-gr-banner: #f2d59d; /* sampled (380, 185) */
+  --color-gr-banner-wood: #b4874b; /* sampled (170, 165) */
+
+  /* "Cancel Expedition" — parchment button, vertical scan x=378 y936..y990. */
+  --color-gr-cancel-rim: #f3c777; /* y939, gold top rim */
+  --color-gr-cancel-top: #f2d6a6; /* y948 */
+  --color-gr-cancel-bottom: #e0bc7f; /* y981 */
+  --color-gr-cancel-bevel: #895b26; /* y986, 3D lower lip */
+  --color-gr-cancel-outline: #2b281c; /* y990, keyline */
+
+
+  /* ---------------------------------------------------------------------- *
+   * Mine interior — 05-hud-notifications.png, panel A (IN-GAME HUD)        *
+   *                                                                        *
+   * The mine is rendered, not painted, so these are the dominant clusters   *
+   * of the panel rather than single pixels: a 14-colour median-cut quantise *
+   * of the play area (190,30)-(1030,600), plus targeted quantises of the    *
+   * crystal cluster and a lantern. Nothing here is invented.                *
+   * ---------------------------------------------------------------------- */
+  --color-gr-mine-void: #090904; /* deepest background, 10.8% of the panel */
+  --color-gr-mine-wall: #1c1b12; /* cavern wall body */
+  --color-gr-mine-wall-lit: #333030; /* wall where lantern light reaches */
+  --color-gr-mine-floor: #281f16; /* walkable stone */
+  --color-gr-mine-floor-lit: #382414; /* floor inside a light pool */
+  --color-gr-mine-rock: #553419; /* boulders + hewn edges */
+  --color-gr-mine-rock-light: #654733; /* rock top faces */
+  --color-gr-mine-timber: #9c7f5f; /* pit props, rails, cart timber */
+  --color-gr-mine-cool: #181e29; /* cool shadow cast by crystal light */
+
+  /* Crystal seams — quantise of (405,140)-(470,300). */
+  --color-gr-crystal-core: #859bce; /* brightest facet */
+  --color-gr-crystal-mid: #4a66ab;
+  --color-gr-crystal-deep: #13337d;
+  --color-gr-crystal-shadow: #182034;
+
+  /* Lantern flame — quantise of (200,120)-(230,175). */
+  --color-gr-lantern-flame: #5e3910;
+  --color-gr-lantern-glow: #422a0f;
+
+  /* ---------------------------------------------------------------------- *
+   * Typography — Nunito, matching the rounded-terminal grotesque in the art *
+   * (GDD 7.13: "Large readable headings, rounded friendly fonts, minimal    *
+   * decorative text.")                                                      *
+   * ---------------------------------------------------------------------- */
+  --font-display:
+    'Nunito', ui-rounded, 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-display);
+}
