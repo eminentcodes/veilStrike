@@ -44,6 +44,10 @@ coverage/
 .vite/
 .eslintcache
 
+# Python bytecode
+__pycache__/
+*.py[cod]
+
 # Solana / Anchor
 contracts/target/
 contracts/.anchor/

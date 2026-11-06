@@ -1,0 +1,10 @@
+{
+  "checks": [
+    {
+      "name": "app renders",
+      "passed": true,
+      "text": "Wayfarer\nWAYFARER · 0 WINS\nVEILSTRIKE\nTHE OATHBOUND ARENA\n0\nEMBERS\nCHARACTERS\n3 / 10\nARENAS\n6 WORLDS\nCONTROLS\n\nTHE BLADE FIGHTER\n\nKAREN\n\nHuman woman · Swordfighter\n\nBASIC\nLEVEL 1\n\nArming sword & throwing blades\n\nSIGNATURE MOVE\nBLADE TOSS\nHUMAN\nYOUR ARENA AWAITS\nBest of three · ASHEN SANCTUM\nGAME MODE\nAI DUEL\nWARRIOR · VS TAREN\nENTER THE VEIL\nPLAY"
+    }
+  ],
+  "errors": []
+}

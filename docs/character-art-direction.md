@@ -1,0 +1,34 @@
+# Veilstrike: original character art direction
+
+The current roster specification is in `agent.md`. This file defines implementation choices for the authorized character development. The user's reference is `C:/Users/Great/Downloads/SAMPLECHARA.jpg`: dark fantasy with grounded anatomy, shaped armor, layered cloth, detailed equipment, and restrained character-specific magic.
+
+## Modeling standard
+
+Create original editable models and rigs, not recolored stock meshes. At human scale, use continuous sculpted surfaces and natural joints, faces with lids, irises, brows, shaped noses, lips, ears, and individual hairstyles. Hands need fingers and believable weapon grips. Female and male characters have individually designed faces and proportions. Undead and supernatural anatomy must support their identity rather than borrow a helmeted human silhouette.
+
+Outfits should show their construction: overlapping cloth, seams, straps, fasteners, repaired armor, wear, and profession-specific tools. Differentiate material roughness, metallic reflection, skin, glass, cloth, leather, and obsidian. Keep luminous details limited to actual supernatural features. Design distinct silhouettes from the front, side, and back, and provide useful close-up and turntable views.
+
+Every model needs its own idle stance, movement character, weapon grips, light combo, heavy strike, signature choreography, and ultimate. Animation timing must follow the combat simulation. Signature actions need readable anticipation, impact, and recovery, and actual mechanics that agree with the visible action.
+
+## Individual direction
+
+| Fighter | Body and face | Clothing, material, and silhouette | Signature expression |
+|---|---|---|---|
+| Karen | Athletic human woman; warm brown skin, expressive amber eyes, firm jaw, tied auburn hair; uncovered face | Fitted oxblood leather brigandine over a cream shirt, one worked shoulder guard, worn brown riding boots, sword belt with three throwing-blade loops; slim practical silhouette | Blade Toss: reaches to her belt, turns the shoulder, releases an actual steel blade, recovers into sword guard |
+| Taren | Broad human man; older weathered face, deep-set eyes, dark greying hair and beard, facial scar | Dented gunmetal cuirass over navy quilted cloth, leather straps, repaired rectangular tower shield, short ash-shaft spear; broad defensive silhouette | Oath Charge: braces behind the shield, drives forward, follows with a spear counter; blocks build momentum |
+| Nomet | Muscular undead man; ashen scarred skin, sunken pale eyes, damaged lips, sparse dark hair; one forearm exposes radius/ulna | Bare scarred torso, stitched pit trousers, rope belt, iron wrist shackles, dirty wraps and exposed bone; hunched heavyweight silhouette | Grave Fist: fist hits the floor; telegraphed cracks open ahead and a bone fist uppercuts; heavy is Ribbreaker, ultimate is Last Burial |
+| Veyra | Tall athletic human woman; deep brown skin, green eyes, braided black hair; alert angular face | Moss-green sleeveless hunt coat, tan hide vest, fitted charcoal trousers, leather arm winding harness, chain loops and hooked dagger; asymmetric hunting silhouette | Chain Pierce: chain visibly uncoils, dagger launches, tightens on hit, reels in the opponent, then retrieves; distinct chain stance |
+| Mawren | Elderly human man; lean long face, high cheekbones, pale hazel eyes, silver beard, swept-back white hair | Indigo layered sorcerer's robe with sand-gold embroidered borders, asymmetrical stole, rune-scroll belt and gnarled bronze staff; tall narrow robed silhouette | Rune Seal: inscribes a visible seal; Arcane Bolt (heavy) activates it; forward Arcane Ward protects during cast; Rune Collapse ultimate |
+| Neris | Wiry human woman; pale olive skin, narrow alert eyes, silver cropped side-swept hair, small eyebrow scar | Asymmetrical charcoal coat, petrol-blue scarf, reinforced black trousers, hooked daggers, concealed wire reels and smoke canister; low forward assassin silhouette | Silent Snare: places a visible fine tripwire, rolls smoke across the floor, repositions, and lunges when the wire is crossed |
+| Vesper | Human man; refined narrow middle-aged face, dark eyes, combed black hair and short moustache | Bone-white split physician's coat, burgundy waistcoat, inked bare hands, belt with glass medicine vessels, individual surgical needle weapons; upright precise silhouette | Crimson Prescription: precise needles apply poison marks; heavy activates accumulated marks for burst damage; small crimson/green medicine cues |
+| Rhoven | Cursed human man; gaunt face, dark hair, tired eyes, visible luminous fractures across skin and clothing | Ragged soot-brown layered cloth and faded teal sash, asymmetric physical and spectral blades; torn, narrow silhouette with a lingering human shadow | Scatter: surface fractures shed actual body fragments, full particle cloud disperses, then reconstructs head/body/clothing/feet; automatic cycle shares cooldown |
+| Seyra | Female spirit; translucent pale-blue glass anatomy, visible human facial structure and luminous eyes, long flowing silver hair | Fractured glass edges beneath flowing pale mourning dress and gauze sleeves, dark waist ties, crystal weapon; light hovering silhouette | Severance: exactly one complete animated second body separates, fights autonomously, remains linked by a soul thread, then visibly reunites |
+| Varkesh | Massive nonhuman furnace demon; angular volcanic face, deep ember eye sockets, irregular horns with one broken, clawed hands, heavy digitigrade feet | Obsidian plated skin with molten cracks, iron chain girdle, cracked forged arm bands; asymmetrical huge shoulder/arm mass, no human outfit template | Molten Exile: received damage heats and enlarges one fist; detaches and throws it, leaving a reduced regrowing arm; overheating has a cost |
+
+Gender and facial choices above are implementation choices where the approved specification left them open. Preserve Karen/Veyra as human women, the approved entities, and the three Basic / four Premium / three Legendary split.
+
+## Review and provenance
+
+Original source is generated by `scripts/build-characters.py` with Blender; retain editable `.blend` scenes under `assets/characters/` and export GLBs under `apps/web/public/models/characters/`. Record regeneration commands, modeling evidence, browser screenshots, animation inspections, and meaningful combat tests. The post provides tools; it does not provide ready-made characters. The sample image is an art reference and is not distributed as a game asset.
+
+Balance timings, prices, and upgrade tuning remain configurable proposals. Do not call modeling or signature development finished until the actual game loads the assets, the browser shows the details, and combat tests cover the selected signature behavior.

@@ -1,0 +1,317 @@
+﻿# Veilstrike development log
+
+Requested cadence: update this file at least every 15 minutes during active development. Times use Africa/Lagos (UTC+1).
+
+The latest specification is **2026-11-05 — Character roster, upgrades, and Embers** below. It supersedes older roster and currency descriptions. Earlier log entries remain as historical implementation notes.
+
+## 2026-11-03 15:25 WAT
+
+- Goal: upgrade the existing fighter into Souls-like 3D arena combat with distinct weapons, multiple environments, stronger effects, better animation, smart AI, and real PvP.
+- Audited the React, Phaser, Three.js, combat data, model loader, audio system, and Flaunch integration.
+- Baseline `npm run typecheck` passed.
+- Existing combat constrains movement to one horizontal axis. Multiplayer currently uses `createMockRoom` to score local events.
+- Existing characters share KayKit models. The renderer uses hard-coded bone names and generic animation matching, despite an existing rig adapter.
+- Read the supplied X post through the public X embed and FxTwitter. It lists animation/3D/audio tools, including Three.js, Blender MCP, Motion, postprocessing, and Three.quarks.
+- Verified the Loadout jam rules through a public page reader. Entries close 6 November 2026 at 15:00 UTC (16:00 WAT). Actual gameplay clip of at least 15 seconds must tag @loadoutprotocol. Judging: gameplay 40%, originality 25%, execution 20%, development plan 15%. Existing AI-assisted games qualify; a token launch is optional.
+- Direction: build a shared 3D combat simulation first, with stamina, dodge invulnerability, telegraphed attacks, and AI that reacts to observed actions; use that simulation for an authoritative PvP room server.
+- The exact “Soul Bound” reference has not been identified. Current working interpretation is Souls-like combat, based on the request for a less flat game and smart opponents.
+- No submission or public posting has been made.
+
+Next log update due by 15:40 WAT.
+
+## 2026-11-03 15:40 WAT
+
+- Added `duel/catalog.ts`: six champion loadouts and three arena themes (Ashen Sanctum, Cinder Forge, Drowned Grove).
+- Added a shared arena combat simulation: two-axis movement, stamina/sprint costs, directional weapon reach, attack startup/active/recovery, dodge invulnerability, guards, parries, guard breaks, combos, signature abilities, ultimates, and best-of-three rounds.
+- Added delayed-observation AI with difficulty-specific reaction times, spacing, stamina recovery, flank movement, defensive responses, and recovery punishes.
+- Added `ChampionRig.ts`: cached model loading, actual skeleton resolution, named combat clips, animation blending, distinct 3D weapons and armor attachments.
+- Added a full 3D environment renderer with a following camera, three environments, bloom, attack telegraphs, particle impacts, slash trails, shockwaves, and damage numbers.
+- Added keyboard/mouse input handling with reset on blur and separate local PvP controls.
+- Added a GLB inventory utility. Confirmed each KayKit model ships with 75 clips and `handslot.l`/`handslot.r` attachments; the previous renderer missed those names.
+- Dependency installation exposed pre-existing undeclared Howler/Rapier imports. Adding the required runtime packages so a clean install builds reliably.
+- New systems are being connected to the app. Functional/browser checks are still pending; these entries are implementation progress, not claims of completed validation.
+
+Next log update due by 15:55 WAT.
+
+## 2026-11-03 15:54 WAT
+
+- Replaced the old app flow with live 3D menu/loadout previews, six champion choices, three arenas, AI difficulty/opponent selection, local PvP, and a private online room lobby.
+- Connected the new match screen: health, stamina, soul charge, abilities, round results, mouse/keyboard/touch controls, target lock, pause and input cleanup.
+- Added a WebSocket room server. It validates/clamps player input and runs shared combat authoritatively at 60 ticks per second, broadcasts state, waits for both models to load, and handles disconnects and room expiry.
+- Added one-command development startup for both the web app and PvP server, plus separate server build/start commands.
+- Declared the existing Howler/Rapier dependencies; added WebSocket support and browser verification tooling.
+- Production build passed. Nine combat/server tests passed, covering attack timing, arcs, dodge invulnerability, parry, guard break, stamina/ultimate gating, rounds, AI behavior, and two real synchronized PvP clients.
+- Fixed UTF-8 BOM output that disrupted Vite's package/config loading on Windows.
+- Browser verification caught an unbound `isMuted` initializer before the menu rendered; corrected it. Visual and browser interaction verification continues.
+
+Next log update due by 16:09 WAT.
+
+## 2026-11-03 16:21 WAT
+
+- New direction from the user: remove local duels, add more arenas, add locked fighters purchased with earned in-game coins/points, improve audio, and give fighters more natural movement plus specialized battle effects.
+- Preserve AI duels and authoritative online PvP. Expand the progression and presentation systems around them.
+- Existing audio manifest has no samples or music files; all sound currently falls back to synthesis. Audio work will add a richer arena sound layer and weapon/ability-specific voices.
+- Browser reached the new menu/loadout with no application errors and captured screenshots. The interaction check needs its button selector adjusted because the visible arrow is included in the accessible button name.
+- No new external character pack has yet been imported. Investigating compatible animated character assets and the Blender/Three.js creation route supplied by the user.
+
+Next log update due by 16:36 WAT during active work.
+
+## 2026-11-05 — Character roster, upgrades, and Embers
+
+### User direction and current authorization
+
+- The previous character replacements were not satisfactory. Design ten more distinctive fighters.
+- The user initially required ideating all ten before physical character development. This discussion established their identities, selected abilities, access tiers, progression, and currency.
+- The user requested documenting the entire discussion in this file, then explicitly authorized moving into character development when documentation is finished, and said to continue. Complete the documentation and proceed with development.
+- This section records design decisions and proposals, not claims that characters, animations, progression, rewards, or purchases have already been implemented.
+- Preserve the previous development log and unrelated working-tree changes. The new roster replaces the historical six-fighter target.
+- Soul-bound is the game's theme, not a requirement that every fighter be a spirit or have a soul-based power. Include human fighters, assassins, demons, a sorcerer, and supernatural fighters.
+- Mortal Kombat is an inspiration for impactful combat, memorable special moves, and currency style. Build original character identities around the selected concepts.
+- Aim for distinct silhouettes, weapons, movement, personalities, readable abilities, and meaningful weaknesses.
+- Rendering style remains open: dark stylized 3D, realistic dark fantasy, and anime-inspired dark fantasy were offered without a selection. The existing game renders in 3D.
+
+### Current roster: exactly ten characters
+
+**Three Basic, four Premium, three Legendary.** Tier and character level are independent.
+
+| Character | Tier | Identity and access |
+|---|---|---|
+| Karen | Basic | Free starter 1; human swordfighter with throwing blades |
+| Taren | Basic | Free starter 2; human shield-and-spear warrior |
+| Nomet | Basic | Free starter 3; undead hand-to-hand brawler |
+| Veyra | Premium | Human huntress with a launched chained dagger |
+| Mawren | Premium | Sorcerer using bolts, charged runes, and a ward |
+| Neris | Premium | Human assassin with daggers, tripwires, and smoke |
+| Vesper | Premium | Combat physician/assassin with needles and poison marks |
+| Rhoven | Legendary | Cursed human assassin who periodically becomes particles |
+| Seyra | Legendary | Spirit fighter whose temporary second body separates, fights, and rejoins |
+| Varkesh | Legendary | Furnace demon with a transforming, throwable molten fist |
+
+- Karen, Taren, and Nomet are free at the beginning, in that order. Taren fills the previously undecided second starter slot.
+- Seven Premium/Legendary fighters unlock with in-game currency or money. Money prices and payment mechanics remain undecided.
+- Use **Nomet**, the user's current spelling; the first draft called him Nemet.
+- **Karen replaces Oru**. Oru is removed, not an eleventh character.
+- **Vesper** is the current working replacement name proposed for **Amara**, included in the roster the user subsequently accepted.
+- All characters start at Level 1 when obtained and can reach Level 3.
+
+### Character specification
+
+Core selections below should be preserved. Move names, numerical damage, durations, cooldowns, and detailed balance are proposals to tune.
+
+#### Karen — The Blade Fighter
+
+- **Basic, starter 1.** Straightforward human fighter designed for beginners.
+- Proposed appearance: athletic woman in practical leather armor, with a sword and throwing blades secured at her waist.
+- Quick sword slashes, a heavier finisher, accessible combos, balanced movement, and reliable defense.
+- **Blade Toss:** simple ranged throwing-blade attack.
+- Weakness: moderate reach/damage and a brief opening after throwing.
+- Explicitly replaces Oru's beast identity and all ancestral transformations.
+
+#### Taren — The Iron Oath
+
+- **Basic, starter 2.** Grounded human shield-and-spear warrior.
+- Weathered soldier, practical armor, repaired tower shield, and short spear.
+- Precisely timed blocks build momentum for a shield charge and spear counterattack.
+- Strong guard, defensive timing, counters, and pushing opponents backward.
+- Weakness: slow pursuit and exposed flank after missed charges.
+- Latest kit uses physical weapon mastery; the earlier dead-brother possession/armor transformation was exploratory and is superseded.
+
+#### Nomet — The Gravebreaker
+
+- **Basic, starter 3.** User accepted the Mortal Kombat-inspired brawler replacement.
+- Undead pit fighter: muscular humanoid build, grey scarred skin, iron wrist guards, exposed bone along one forearm. Uses fists, elbows, knees, and grabs.
+- **Grave Fist:** punches the floor; a large skeletal fist erupts a short distance ahead and uppercuts the opponent. Cracks telegraph its emergence.
+- **Ribbreaker:** slow, powerful body punch with knockback.
+- **Burial Drop:** grabs, lifts, and slams the opponent.
+- **Last Burial, ultimate:** body blows, rising uppercut, and downward slam.
+- Visual signature: arm bones glow; the erupting skeletal fist mirrors his punching motion.
+- Weakness: slow recovery after missed heavy attacks; poor pursuit.
+- Old funeral bell and delayed shockwave rings are superseded.
+
+#### Veyra — The Chain Huntress
+
+- **Premium.** User chose a dagger with chains that she launches at the opponent.
+- Human weapon master; dagger chain secured at her forearm. Launch, hook, retract, and control engagement distance.
+- **Chain Pierce:** straight dagger launch; successful hit briefly hooks the opponent.
+- **Reel In:** pulls the hooked opponent toward her for a close-range combo.
+- **Hunter's Rush:** pulls herself toward the hooked opponent, finishing with a knee strike.
+- **Returning Fang:** sweeping dagger recall that can hit along its return path.
+- **Captive Steel, ultimate:** chain restraint, forward rush/precise strikes, backward throw, dagger retrieval.
+- Show the chain uncoiling, tightening on a catch, and whipping back around her arm. Give her distinct chain-handling stances and animations.
+- Weakness: missed launches expose her during retrieval; launch can be dodged or blocked.
+- Premium value comes from specialized play, positioning, follow-ups, and presentation.
+- Previous articulated sword, whip blade, and double-ended meteor hammer proposals are superseded.
+
+#### Mawren — The Rune Sorcerer
+
+- **Premium.** User changed the demon grappler into a sorcerer with magic.
+- Proposed staff, rotating inscriptions around hands/weapon, and runes brightening before activation. Species, costume, and detailed backstory remain open.
+- **Arcane Bolt:** concentrated magic projectile.
+- **Rune Seal:** visible ground rune; hitting it with Arcane Bolt activates an eruption.
+- **Arcane Ward:** brief forward barrier.
+- **Rune Collapse, ultimate:** a large seal draws in the opponent and detonates; pull behavior/counterplay need tuning.
+- Focus on spell timing and rune placement.
+- Chest-mouth, projectile swallowing, Bound Hunger lore, and chain grappling are superseded.
+
+#### Neris — The Silent Hunt
+
+- **Premium.** Human assassin using speed, preparation, and deceptive movement.
+- Proposed silver cropped hair, asymmetrical dark coat, hooked daggers, concealed traps.
+- Tripwires briefly disrupt opponents, opening a lunging follow-up; smoke conceals repositioning. Traps have readable clues.
+- Weakness: fragile in direct combat and needs preparation time.
+- Current kit is weapons/traps/smoke. Earlier name-stealing soul lore and independently hunting detached shadow were exploratory and are superseded.
+
+#### Vesper — The Crimson Physician
+
+- **Premium.** Working name replacing Amara.
+- Human combat physician/assassin with needle weapons and poison combinations.
+- Proposed bone-white coat, inked hands, medicine vessels, and long surgical needles.
+- Needle hits apply poison marks; a precise finisher activates accumulated marks for burst damage.
+- Weakness: requires repeated accurate hits; limited immediate stopping power.
+- Current identity is precision and poison. The original mandatory dead-patients soul bond and self-health-sacrifice kit were exploratory.
+
+#### Rhoven — The Unravelling
+
+- **Legendary**, explicitly assigned by the user.
+- Cursed human assassin with worn clothing, glowing fractures, and a proposed physical/spectral blade pair.
+- **Selected core:** periodically transforms from a human body into particles, disperses briefly, then visibly reforms.
+- Sequence: fractures and escaping body/clothing fragments; full dark-particle body around a luminous core; reconstruction of outline, body, and clothing, with feet touching down last.
+- Proposed signature detail: human shadow lingers after the body vanishes.
+- Proposed play: guide cloud a short distance; no attacks while dispersed; brief vulnerable reformation. Use actual particle transformation, not simply toggling model visibility.
+- **Scatter** proposal: activate early, consuming the upcoming automatic phase. **Soulstorm** ultimate proposal: swirling particle form with clearly signaled strikes before reforming.
+- Around ten seconds between phases and one second dispersed were suggested, not finalized. Define cooldown versus full-cycle timing before tuning.
+- Minor particle loss can vary cosmetically; combat phase must have readable visual/audio cues.
+- Interrupted execution, fading memories, and name carved into wrist are optional story details.
+- Earlier delayed attack echoes / Split Second identity is superseded by particle transformation.
+
+#### Seyra — The Divided
+
+- **Legendary**, explicitly assigned by the user.
+- Spirit fighter with fractured translucent glass body and flowing mourning garments.
+- **Selected core: exactly two bodies total, main Seyra plus one temporary double.**
+- Double visibly separates, independently moves and fights the same opponent, then returns and merges after a timer. Player controls main; double acts autonomously.
+- Separation: overlapping second silhouette pulls sideways through head, shoulders, arms, and legs, then steps free.
+- Fight: both are complete animated fighters. Main retains glass appearance; double is luminous/smoky with readable limbs and weapon. Thin soul thread connects them.
+- Expiry: timer beside health; double sheds particles near expiry, stops attacking, stretches into fragments along the thread, and enters main body's back/shoulders. Flash marks reunion.
+- Proposed starting numbers: four seconds separated, twelve seconds between separations; durations are provisional. Define cooldown versus full cycle explicitly.
+- Proposed balance: reduced double damage; opponent can hit it enough to force early reunion. Coordinated pressure should have readable openings.
+- Village memories / Last Witness story is optional lore.
+- Original attack-copying and three memory bodies/swordsman/guardian proposals are superseded. Upgrades must never add a third body.
+
+#### Varkesh — The Living Furnace
+
+- **Legendary**, explicitly assigned by the user.
+- Massive volcanic demon, broken horn, molten skin cracks, armored fists.
+- Taking damage builds heat and visibly transforms one arm into an oversized molten fist.
+- Heat powers crushing strikes; can detach/throw fist, then gradually regrow arm. Ground eruption was also proposed.
+- Weakness: overheating self-damage; missing/regrowing arm temporarily reduces reach and defense.
+- Furnace Exile / Cinder Debtor and child-soul restraint ideas remain optional lore, not a required story premise.
+
+### Three-level progression
+
+- **Level 1 → Level 2 → Level 3 maximum.** Two upgrades after obtaining a character, not three upgrades above the initial level.
+- Purchase with **Embers**. No automatic XP progression was selected.
+- Upgrades permanently apply to the individual character, not all fighters.
+- Level 1 has starting performance and signature abilities available.
+- Level 2 improves base stats and an aspect of the fighting style.
+- Level 3 provides maximum progression performance, further signature improvements, and richer weapon/armor/ability visuals without losing the recognizable silhouette.
+- User approved staged performance upgrades. Exact enhancements below are tuning proposals.
+- Suggested stat totals relative to Level 1: Level 2 **+5% health, +3% damage**; Level 3 **+10% health, +6% damage**. Level 3 percentages are cumulative totals, not additional bonuses stacked on Level 2.
+- Tune stats and signature changes together.
+
+| Character | Proposed Level 2 | Proposed Level 3 |
+|---|---|---|
+| Karen | Faster thrown-blade recovery | Stronger sword combos and blade damage |
+| Taren | Better guard durability | Stronger counters and shield charges |
+| Nomet | Faster Grave Fist activation | Stronger grabs and Grave Fist damage |
+| Veyra | Faster dagger retrieval | Stronger Reel In / Hunter's Rush follow-ups |
+| Mawren | Shorter Arcane Bolt cooldown | Stronger rune eruptions and more durable ward |
+| Neris | Faster trap placement/recovery | Stronger trap follow-ups and shorter smoke cooldown |
+| Vesper | Longer poison mark duration | Higher mark-activation damage |
+| Rhoven | Shorter transformation interval | Faster dispersed movement and reformation |
+| Seyra | Higher double damage | Longer double duration; still two bodies total |
+| Varkesh | Less overheating self-damage | Stronger molten fist and faster arm regrowth |
+
+### Confirmed currency: Embers
+
+- User's final naming choice: **"lets gowith embers"**. Use **Embers** for balances, rewards, unlocks, and upgrades.
+- One main earned currency. No separate premium currency is selected.
+- Naming history: Marks, Aether, Embers, Sigils, Obols, Essence, Coins/Koins, Crowns/Krowns, and Crystals. Only Embers is current.
+- Aether was explained as a heavenly substance/fantasy magical energy. User preferred Mortal Kombat-style naming, shortlisted Crystals/Embers, then chose Embers.
+- Mortal Kombat reference currencies discussed: Koins; Dragon Krystals in MK1; Soul Fragments and Hearts in MK11. These are references, not currencies to implement here.
+- Currency icon remains open; glowing embers or ember-like crystal fragments are possible visual directions.
+- Proposed earning: completed matches, daily goals, weekly challenges, and one-time achievements. AI matches count so players can progress while learning.
+- Match rewards apply to a whole match, not each round.
+- Premium/Legendary characters can have direct money unlock options. Money prices, payment provider, currency packs, blockchain/token behavior, and checkout are not selected.
+
+#### Proposed rewards, subject to tuning
+
+| Activity | Embers |
+|---|---:|
+| Completed match win | 60 |
+| Completed match loss | 25 |
+| First daily win | 75 bonus |
+| Daily objective: complete three matches | 75 bonus |
+| Weekly challenges | 200–400 |
+| Character mastery achievements | 50–200 once per achievement |
+| Introductory tutorial | 100 once |
+
+- Objective ideas: successful blocks, different fighters, and matches with Basic fighters.
+- Draws, forfeits, disconnects, repeat-match eligibility, reset rules, AI reward validation, and precise challenge definitions remain unspecified.
+
+#### Proposed prices, subject to tuning
+
+| Purchase | Embers |
+|---|---:|
+| Karen / Taren / Nomet at Level 1 | Free |
+| One Premium unlock | 1,500 |
+| One Legendary unlock | 4,000 |
+| Level 1 → Level 2 | 300 |
+| Level 2 → Level 3 | 900 |
+
+- Proposed full upgrade cost: **1,200 Embers** per character, in addition to unlock cost. Upgrade prices are proposed to be equal across tiers.
+- Example: three wins (180), two completed losses (50), first-win bonus (75), three-match objective (75) = **380 Embers**. Excludes tutorial, mastery, and weekly rewards.
+- At that example pace: Level 2 in one session, Premium unlock in roughly four sessions, Legendary unlock in roughly eleven sessions.
+- Earning rates/prices depend on actual match duration and desired unlock pace. These are estimates, not final economy commitments.
+
+### Development handoff
+
+- Preserve ten characters and the three-tier split; do not restore the older six-fighter target or rejected weapons/forms.
+- Preserve selected core mechanics, especially Rhoven's visible timed particles, Seyra's two actual separating/reuniting fighters, Varkesh's molten arm, Veyra's launched chained dagger, and the starter order Karen/Taren/Nomet.
+- Keep provisional move details, timings, percentages, and prices identifiable while implementing and testing.
+- Final art direction, model/rig sources, animations, sound assets, persistence, reward accounting, unlock UI, payment mechanics, and precise balance still require development decisions.
+- **Next authorized step: character development after this documentation is finished.** Inspect the current roster, rigs, renderer, and combat simulation and carry the approved identities into the game. Record actual implementation and verification separately from this specification.
+
+## 2026-11-05 13:40 WAT — Original character development
+
+- User reaffirmed continuing physical character development, with meticulous detail rather than quick replacements. Build each fighter deliberately, including facial anatomy, clothing, actions, and the smallest identity details.
+- Every character must portray its actual entity: humans must visibly be humans, with recognizable male/female presentation; undead, spirits, and demons must express their own anatomy and nature. Do not give everybody robotic limbs, identical helmets, armor, colors, size, or shape.
+- Clothing and equipment must differ and belong to the individual's skills and identity. Every fighter must have a distinct signature move.
+- User supplied `C:/Users/Great/Downloads/SAMPLECHARA.jpg` as visual inspiration in some cases. Inspected the image: grounded dark fantasy, proportional figures, detailed shaped armor, layered cloth, and character-specific restrained magic. This is a visual influence, not authorization to replace the approved identities with the pictured characters.
+- Read the supplied reference post: https://x.com/e1genqq/status/2116270712390316375. Relevant references include Blender, Three.js, postprocessing, and particle VFX. The installed paid reader could not retrieve the post; its balance is zero. The public FxTwitter copy succeeded. No paid calls, subscriptions, or image-generation purchases were made.
+- Audit confirmed the active catalog still contains twelve superseded fighters and `humanRig.ts` builds nearly identical metal bodies/visors. Existing arena, AI, and authoritative PvP systems will be retained while integrating the approved ten.
+- Preparing an original, editable Blender modeling/rigging pipeline, exported game models, unique animation choreography, a close-up character inspection view, and species-specific signature mechanics. None is yet claimed complete or verified.
+
+Next log update due by 13:55 WAT during active work.
+
+## 2026-11-05 15:00 WAT — Deadline, lobby, and audio steering
+
+- User needs a submission today and asked to work promptly. Quality remains important; user prefers Blender for character authoring and Three.js for runtime. Continue other game work during the tool download.
+- The first 399,051,129-byte Blender download ended early at 73,564,160 bytes. Eight attempted range requests also failed. Restarted from the official RWTH Aachen mirror, keeping the partial file in Temp. Blender is not yet installed.
+- User asked for better combat audio and occasional AI voice cues. The lobby should have a separate quiet background track.
+- User requested a Free Fire/CODM-like lobby: one selected fighter in the center, automatic periodic signature choreography, profile card upper left, side controls for mode and character selection, and Play at the lower right.
+- Ten approved character definitions now exist in `duel/roster.ts`; catalog exports only the approved ten. Assets, animation integration, signature simulation, and verification remain unfinished.
+- Installed edge-tts tooling into the ignored workspace cache for neural announcer asset generation. Added an original reproducible audio pack generator. Beginning lobby and audio integration; no completed validation claimed.
+
+Next log update due by 15:15 WAT during active work.
+
+## 2026-11-05 17:25 WAT — Karen quality correction
+
+- Blender 4.5.9 is downloaded and extracted (100%). Executable is `.cache/blender/blender-4.5.9-windows-x64/blender.exe`.
+- New lobby renders at `http://localhost:5173/`; the last basic browser capture reported no application errors. Full combat interaction validation remains pending.
+- Only Karen has a generated Blender GLB. The user rejected its crude face, shapeless clothing, anatomy, and sword grip. That asset is not accepted or complete. Do not expand its rejected design to the rest of the roster.
+- Rebuilding Karen using the CC0 MakeHuman anatomical mesh and female/athletic morphs, with fitted dark-fantasy equipment, natural hands, and a proportionate uncovered face. Inspect the replacement portrait and actual live lobby before calling it improved.
+- Latest steering: Karen needs a flexible human body, believable sword holding, and living idle behavior in both lobby and combat. User withdrew the request for a side-by-side Three.js comparison; show the upgraded Blender version in the single-character lobby.
+- Signature simulation, full jump/grapple/throw mechanics, and a valid CosyVoice voice pack remain unfinished. The earlier procedural audio remains in place and is not presented as approved quality.
+
+Next log update due by 17:40 WAT during active work.

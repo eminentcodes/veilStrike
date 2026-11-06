@@ -1,0 +1,25 @@
+{
+  "checks": [
+    {
+      "name": "main menu is playable",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "six selectable fighters",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "three selectable arenas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "verification failed",
+      "passed": false,
+      "detail": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'BEGIN DUEL', exact: true })\u001b[22m\n"
+    }
+  ],
+  "errors": []
+}

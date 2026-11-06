@@ -10,9 +10,12 @@
     "typecheck": "tsc --build"
   },
   "dependencies": {
-    "@fontsource/nunito": "^5.1.0",
+    "@dimforge/rapier3d-compat": "^0.21.0",
     "@flayerlabs/gamemode-client": "^0.4.3",
     "@flayerlabs/gamemode-spec": "^0.4.3",
+    "@fontsource/nunito": "^5.1.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "howler": "^2.2.4",
     "phaser": "^3.90.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

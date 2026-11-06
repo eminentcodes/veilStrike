@@ -1,20 +1,16 @@
 import { fileURLToPath, URL } from 'node:url';
-
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
-
 export default defineConfig({
-  // Relative URLs keep the Flaunch ZIP playable from any hosted path and when
-  // opened locally for a quick smoke test.
   base: './',
   plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
+  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   server: {
     port: 5173,
+    host: '0.0.0.0',
+    proxy: { '/duel': { target: 'ws://127.0.0.1:8787', ws: true }, '/health': { target: 'http://127.0.0.1:8787' } },
   },
+  preview: { port: 4173 },
 });
+

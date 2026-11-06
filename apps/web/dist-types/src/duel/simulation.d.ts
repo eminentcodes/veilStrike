@@ -1,0 +1,121 @@
+import type { DuelConfig, MoveId, Move, ChampionId } from './catalog.js';
+export type Slot = 0 | 1;
+export type FighterState = 'idle' | 'move' | 'sprint' | 'attack' | 'dodge' | 'guard' | 'stagger' | 'jump' | 'grapple' | 'grabbed' | 'thrown' | 'knockdown' | 'getup' | 'dead';
+export type Phase = 'intro' | 'fight' | 'roundEnd' | 'complete';
+export interface InputFrame {
+    x: number;
+    z: number;
+    sprint: boolean;
+    guard: boolean;
+    light: boolean;
+    heavy: boolean;
+    dodge: boolean;
+    special: boolean;
+    ultimate: boolean;
+    jump: boolean;
+    grapple: boolean;
+    lockOn: boolean;
+}
+export declare function emptyInput(): InputFrame;
+export interface AttackState {
+    id: MoveId;
+    elapsed: number;
+    combo: number;
+    connected: boolean;
+    startedAt: number;
+    power: number;
+    released: boolean;
+    aimX: number;
+    aimZ: number;
+}
+export interface FighterFrame {
+    id: ChampionId;
+    x: number;
+    z: number;
+    yaw: number;
+    hp: number;
+    stamina: number;
+    charge: number;
+    state: FighterState;
+    attack: AttackState | null;
+    stateTime: number;
+    vx: number;
+    vz: number;
+    guardTime: number;
+    regenDelay: number;
+    dodgeCooldown: number;
+    combo: number;
+    comboUntil: number;
+    y: number;
+    vy: number;
+    dodgeX: number;
+    dodgeZ: number;
+    grabbedBy: Slot | null;
+    stunDuration: number;
+    specialCooldown: number;
+    momentum: number;
+}
+export interface DuelEvent {
+    id: number;
+    kind: 'attack' | 'release' | 'hit' | 'guard' | 'parry' | 'break' | 'dodge' | 'spell' | 'ultimate' | 'death' | 'round' | 'jump' | 'land' | 'grab' | 'throw';
+    slot: Slot;
+    x: number;
+    z: number;
+    damage?: number;
+    move?: MoveId;
+}
+export declare const INPUT_BUFFER_TIME = 0.24;
+export declare const DODGE_DURATION = 0.34;
+export interface DuelSnapshot {
+    time: number;
+    round: number;
+    timer: number;
+    phase: Phase;
+    phaseTime: number;
+    wins: [number, number];
+    fighters: [FighterFrame, FighterFrame];
+    aiIntent: string;
+    events: DuelEvent[];
+    winner: Slot | null;
+}
+export declare const ARENA_RADIUS = 9;
+export declare const ROUND_LENGTH = 90;
+export declare function clamp(value: number, min: number, max: number): number;
+export declare function angleDelta(a: number, b: number): number;
+export declare function moveDuration(move: Move): number;
+export declare class DuelSimulation {
+    readonly config: DuelConfig;
+    fighters: [FighterFrame, FighterFrame];
+    time: number;
+    round: number;
+    timer: number;
+    phase: Phase;
+    phaseTime: number;
+    wins: [number, number];
+    winner: Slot | null;
+    aiIntent: string;
+    private sequence;
+    private events;
+    private rngState;
+    private aiNext;
+    private aiPlan;
+    private observations;
+    private habit;
+    private buffered;
+    private freeze;
+    constructor(config: DuelConfig, seed?: number);
+    private random;
+    private emit;
+    drainEvents(): DuelEvent[];
+    snapshot(events?: DuelEvent[]): DuelSnapshot;
+    advance(delta: number, input0: InputFrame, input1?: InputFrame): void;
+    private integrate;
+    private captureInput;
+    private startDodge;
+    private startAttack;
+    private bound;
+    private separate;
+    private resolveAttack;
+    private endRound;
+    private thinkAI;
+}
