@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "rootDir": "../apps/web/src",
+    "outDir": "./dist",
+    "noEmit": false,
+    "declaration": false,
+    "composite": false,
+    "types": []
+  },
+  "include": ["../apps/web/src/duel/simulation.ts", "../apps/web/src/duel/catalog.ts"]
+}
+

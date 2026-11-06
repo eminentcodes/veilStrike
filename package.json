@@ -1,0 +1,43 @@
+{
+    "name":  "veilstrike",
+    "private":  true,
+    "version":  "0.1.0",
+    "description":  "Veilstrike: a 3D arena fighter with adaptive AI and private PvP duels.",
+    "type":  "module",
+    "workspaces":  [
+                       "apps/web"
+                   ],
+    "engines":  {
+                    "node":  "\u003e=20.11.0"
+                },
+    "scripts":  {
+                    "dev":  "npm run build:server \u0026\u0026 node scripts/dev.mjs",
+                    "build":  "npm run build:server \u0026\u0026 npm run build --workspace @veilstrike/web",
+                    "preview":  "npm run preview --workspace @veilstrike/web",
+                    "lint":  "eslint .",
+                    "format":  "prettier --write .",
+                    "format:check":  "prettier --check .",
+                    "typecheck":  "tsc --build --force",
+                    "build:server":  "tsc -p server/tsconfig.json",
+                    "start:server":  "node server/index.mjs",
+                    "test:duel":  "npm run build:server \u0026\u0026 node --test server/duel.test.mjs"
+                },
+    "devDependencies":  {
+                            "@eslint/js":  "^9.18.0",
+                            "@types/howler":  "^2.2.13",
+                            "eslint":  "^9.18.0",
+                            "eslint-config-prettier":  "^10.0.1",
+                            "eslint-plugin-react-hooks":  "^5.1.0",
+                            "eslint-plugin-react-refresh":  "^0.4.18",
+                            "globals":  "^15.14.0",
+                            "playwright":  "^1.64.1",
+                            "prettier":  "^3.4.2",
+                            "typescript":  "^5.7.3",
+                            "typescript-eslint":  "^8.21.0"
+                        },
+    "dependencies":  {
+                         "@flayerlabs/gamemode-client":  "^0.4.3",
+                         "@flayerlabs/gamemode-spec":  "^0.4.3",
+                         "ws":  "^8.22.1"
+                     }
+}

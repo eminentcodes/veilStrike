@@ -1,0 +1,6 @@
+import {readFileSync} from 'node:fs'; import * as THREE from 'three';
+const b=readFileSync('apps/web/public/models/kaykit/Knight.glb'); const j=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());
+const objects=j.nodes.map(n=>{const o=new THREE.Object3D();o.name=n.name||''; if(n.matrix) o.applyMatrix4(new THREE.Matrix4().fromArray(n.matrix)); else {if(n.translation)o.position.fromArray(n.translation);if(n.rotation)o.quaternion.fromArray(n.rotation);if(n.scale)o.scale.fromArray(n.scale);}return o;});
+j.nodes.forEach((n,i)=>(n.children||[]).forEach(k=>objects[i].add(objects[k])));const scene=new THREE.Scene();j.scenes[j.scene||0].nodes.forEach(i=>scene.add(objects[i]));scene.updateMatrixWorld(true);
+for(const name of ['hips','spine','chest','head','upperarm.r','lowerarm.r','hand.r','handslot.r','upperleg.r','lowerleg.r','foot.r']){const o=objects.find(x=>x.name===name);console.log(JSON.stringify({name,local:o?.position.toArray(),world:o?.getWorldPosition(new THREE.Vector3()).toArray(),rotation:o?.quaternion.toArray(),scale:o?.scale.toArray()}));}
+console.log('translation tracks',JSON.stringify([...new Set(j.animations.flatMap(a=>a.channels.filter(c=>c.target.path==='translation').map(c=>j.nodes[c.target.node].name)))]));
