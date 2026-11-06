@@ -32,6 +32,7 @@ export declare class DuelRenderer {
     private reducedMotion;
     private slot;
     locked: boolean;
+    inspection: boolean;
     private look;
     private desiredCamera;
     private desiredLook;

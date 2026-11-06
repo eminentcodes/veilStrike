@@ -30,3 +30,33 @@
 .roster-choice.coming-soon { cursor: default; opacity: .58; }
 .roster-choice.coming-soon:hover { transform: none; border-color: rgba(178, 196, 204, .16); }
 .roster-choice.coming-soon > span { color: #a6aeb4; letter-spacing: .12em; }
+.collection-model { height: 330px; position: relative; overflow: hidden; border: 1px solid #43505a; margin-bottom: 18px; background: #111b25; }
+.collection-model .lobby-scene { position: absolute; inset: 0; }
+.dialog-full { width: calc(100vw - 40px); max-width: none; height: calc(100dvh - 40px); max-height: none; }
+.battle-mode-cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; margin-top: 20px; }
+.battle-mode-card { position: relative; overflow: hidden; min-height: 430px; border: 1px solid #4a5359; background: #182a37; text-align: left; color: #f1e4ca; cursor: pointer; }
+.battle-mode-card.selected { border: 2px solid #dcbd79; }
+.battle-mode-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.mode-card-shade { position: absolute; inset: 0; background: linear-gradient(0deg,rgba(8,15,21,.98),rgba(8,15,21,.05) 80%); }
+.battle-mode-card > div { position: absolute; left: 26px; right: 24px; bottom: 30px; }
+.battle-mode-card strong { display: block; font: 34px Georgia,serif; margin: 14px 0; }
+.battle-mode-card small { letter-spacing: .16em; color: #dbbd80; }
+.battle-mode-card p { font-size: 14px; line-height: 1.7; color: #c0c5c9; }
+.mode-select,.mode-coming { display:flex; align-items:center; gap: 12px; margin-top: 26px; font-size: 12px; letter-spacing: .12em; }
+.battle-mode-card:disabled { cursor: default; filter: saturate(.5); }
+.mode-screen-footer { display:flex; justify-content:space-between; align-items:center; gap:24px; margin-top:26px; }
+.mode-screen-footer .duel-primary { width:auto; min-width:220px; margin-left:auto; }
+.lobby-spin-event { position:absolute; right:34px; top:30%; width:154px; height:154px; border:3px solid #c19a52; border-radius:50%; background:conic-gradient(#583620 0deg 45deg,#222f3b 45deg 90deg,#74552a 90deg 135deg,#273b41 135deg 180deg,#583620 180deg 225deg,#222f3b 225deg 270deg,#74552a 270deg 315deg,#273b41 315deg); color:#f0dba6; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:6px; box-shadow:0 0 0 7px #18252dc9,0 8px 26px #0008; cursor:pointer; z-index:2; }
+.lobby-spin-event:before { content:'▼'; position:absolute; top:-17px; left:calc(50% - 8px); color:#ffe1a1; font-size:20px; }
+.lobby-spin-event small { font-size:8px; letter-spacing:.12em; background:#132027d9; padding:5px 8px; }
+.lobby-spin-event strong { font-size:14px; text-shadow:0 2px 5px #000; }
+.lobby-spin-event > span { font-size:9px; background:#132027c9; padding:4px 8px; border-radius:10px; }
+.ember-spin { text-align:center; display:grid; justify-items:center; gap:18px; }
+.ember-spin > p { max-width:370px; color:#b9c2c6; line-height:1.7; }
+.spin-wheel-wrap { position:relative; padding:16px; }
+.spin-pointer { position:absolute; top:0; left:calc(50% - 10px); color:#ffe0a0; font-size:25px; z-index:3; }
+.spin-wheel { position:relative; width:280px; height:280px; border:7px solid #c7a25c; border-radius:50%; background:conic-gradient(#71522c 0deg 45deg,#293e4c 45deg 90deg,#946a36 90deg 135deg,#284149 135deg 180deg,#71522c 180deg 225deg,#293e4c 225deg 270deg,#946a36 270deg 315deg,#284149 315deg); display:grid; place-items:center; transition:transform 1.9s cubic-bezier(.14,.7,.18,1); box-shadow:inset 0 0 24px #0007,0 0 0 4px #354047; }
+.spin-wheel > span { position:absolute; left:calc(50% - 18px); top:calc(50% - 9px); width:36px; font-size:17px; font-weight:800; color:#ffedd0; }
+.spin-wheel > svg { background:#1a2833; color:#e0b765; box-sizing:content-box; padding:22px; border:3px solid #c7a25c; border-radius:50%; }
+.spin-reward { font:30px Georgia,serif; color:#f6d28f; }
+@media(max-width:800px) { .battle-mode-cards { gap:10px; } .battle-mode-card { min-height:350px; } .battle-mode-card > div { left:12px; right:12px; bottom:20px; } .battle-mode-card strong { font-size:21px; } .lobby-spin-event { right:18px; top:29%; width:105px; height:105px; } .lobby-spin-event > svg { width:18px; height:18px; } .lobby-spin-event strong { font-size:10px; } .lobby-spin-event > span { display:none; } .collection-model { height:300px; } }

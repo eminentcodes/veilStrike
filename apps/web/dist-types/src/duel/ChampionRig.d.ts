@@ -12,7 +12,6 @@ export declare class ChampionRig {
     private actions;
     private current;
     private currentKey;
-    private lastAttack;
     private lastState;
     private dead;
     private animatedCloth;

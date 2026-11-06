@@ -6,9 +6,19 @@ export interface PlayerProfile {
   version: 1; name: string; id: string; embers: number; matches: number; wins: number;
   levels: Partial<Record<ChampionId, CharacterLevel>>; claimed: string[];
   daily: { day: string; matches: number; firstWin: boolean; threeMatches: boolean };
+  spin?: { day: string; reward: number };
 }
 const KEY = 'veilstrike:profile:v1';
 export const UPGRADE_COST = { 1: 300, 2: 900, 3: 0 };
+export const SPIN_REWARDS = [25, 50, 75, 100, 150, 200, 300, 500];
+export const spinDay = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Lagos', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+export function spinEmbers(profile: PlayerProfile, random = crypto.getRandomValues(new Uint32Array(1))[0]! / 4294967296): { profile: PlayerProfile; index: number; reward: number } {
+  if (profile.spin?.day === spinDay()) return { profile, index: SPIN_REWARDS.indexOf(profile.spin.reward), reward: 0 };
+  const weights = [40, 25, 16, 10, 5, 2, 1, 1]; let roll = Math.max(0, Math.min(.999999, random)) * 100, index = 0;
+  while (index < weights.length - 1 && roll >= weights[index]!) { roll -= weights[index]!; index++; }
+  const reward = SPIN_REWARDS[index]!;
+  return { profile: { ...profile, embers: profile.embers + reward, spin: { day: spinDay(), reward } }, index, reward };
+}
 const today = () => new Date().toISOString().slice(0, 10);
 export function newProfile(): PlayerProfile {
   return { version: 1, name: 'Wayfarer', id: crypto.randomUUID().slice(0, 8).toUpperCase(), embers: 0, matches: 0, wins: 0,
@@ -25,6 +35,7 @@ export function loadProfile(): PlayerProfile {
     for (const [id, level] of Object.entries(raw.levels ?? {})) if (validFighter(id) && [1, 2, 3].includes(level as number)) fresh.levels[id] = level as CharacterLevel;
     if (Array.isArray(raw.claimed)) fresh.claimed = raw.claimed.filter((id: unknown) => typeof id === 'string').slice(-80);
     if (raw.daily?.day === today()) fresh.daily = { day: today(), matches: Math.max(0, Number(raw.daily.matches) || 0), firstWin: raw.daily.firstWin === true, threeMatches: raw.daily.threeMatches === true };
+    if (raw.spin?.day === spinDay() && SPIN_REWARDS.includes(raw.spin.reward)) fresh.spin = { day: raw.spin.day, reward: raw.spin.reward };
   } catch { /* A private browser profile can still play with the starter roster. */ }
   return fresh;
 }

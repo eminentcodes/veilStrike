@@ -15,11 +15,22 @@ export interface PlayerProfile {
         firstWin: boolean;
         threeMatches: boolean;
     };
+    spin?: {
+        day: string;
+        reward: number;
+    };
 }
 export declare const UPGRADE_COST: {
     1: number;
     2: number;
     3: number;
+};
+export declare const SPIN_REWARDS: number[];
+export declare const spinDay: () => string;
+export declare function spinEmbers(profile: PlayerProfile, random?: number): {
+    profile: PlayerProfile;
+    index: number;
+    reward: number;
 };
 export declare function newProfile(): PlayerProfile;
 export declare function loadProfile(): PlayerProfile;

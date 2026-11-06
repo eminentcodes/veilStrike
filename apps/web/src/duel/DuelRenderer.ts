@@ -43,6 +43,7 @@ export class DuelRenderer {
   private reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   private slot: Slot = 0;
   locked = true;
+  inspection = false;
   private look = new THREE.Vector3();
   private desiredCamera = new THREE.Vector3();
   private desiredLook = new THREE.Vector3();
@@ -137,8 +138,8 @@ export class DuelRenderer {
     if (this.preview) {
       const size = CHAMPIONS[state.fighters[0].id].size;
       const portrait = this.camera.aspect < 1;
-      this.desiredCamera.set(this.reducedMotion ? .25 : .25 + Math.sin(this.time * .06) * .18, 1.95 * size, (portrait ? 8.9 : 6.6) * size);
-      this.desiredLook.set(-.35, 1.4 * size, 0);
+      this.desiredCamera.set(this.reducedMotion ? .25 : .25 + Math.sin(this.time * .06) * .18, 1.95 * size, (this.inspection ? 5.4 : portrait ? 8.9 : 6.6) * size);
+      this.desiredLook.set(this.inspection ? 0 : -.35, 1.4 * size, 0);
     } else {
       const self = state.fighters[this.slot], enemy = state.fighters[this.slot === 0 ? 1 : 0];
       const yaw = this.locked ? Math.atan2(enemy.x - self.x, enemy.z - self.z) : self.yaw;
