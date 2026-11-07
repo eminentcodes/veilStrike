@@ -1,0 +1,38 @@
+{
+  "checks": [
+    {
+      "name": "supplied lobby track playing",
+      "mode": "menu",
+      "source": "/audio/music-lobby-storm.mp3"
+    },
+    {
+      "name": "one cue per pointer hover and click",
+      "passed": true
+    },
+    {
+      "name": "keyboard activation gets click sound",
+      "passed": true
+    },
+    {
+      "name": "wheel animation uses mechanical spin cue and reward chime",
+      "passed": true
+    },
+    {
+      "name": "battle soundtrack replaces lobby track",
+      "passed": true
+    },
+    {
+      "name": "lobby soundtrack returns after match",
+      "passed": true
+    },
+    {
+      "name": "500 Ember reward has its own richer chime",
+      "passed": true
+    },
+    {
+      "name": "closing the spin panel stops its sound and cancels delayed chime",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

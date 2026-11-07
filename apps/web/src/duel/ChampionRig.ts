@@ -8,6 +8,7 @@ import { resolveBones, indexClips, resolveClip } from '../fight/rig';
 import type { BoneRole } from '../fight/rig';
 import type { ChampionId } from './catalog';
 import { buildHumanFighter } from './humanRig';
+import { buildStanceClips, FIGHTING_STANCES } from './stances';
 
 const loader = new GLTFLoader();
 const modelCache = new Map<string, Promise<{ scene: THREE.Group; animations: THREE.AnimationClip[] }>>();
@@ -21,11 +22,22 @@ function loadModel(name: string) {
   return promise;
 }
 type CharacterAsset = { file: string; height: number; clips: string[] };
+type CharacterManifest = { characters?: Partial<Record<ChampionId, CharacterAsset>> };
+let manifestRequest: Promise<CharacterManifest> | undefined;
+function characterManifest(): Promise<CharacterManifest> {
+  if (!manifestRequest) {
+    manifestRequest = fetch(import.meta.env.BASE_URL + 'models/characters/manifest.json', { cache: 'no-cache' }).then(response => {
+      if (!response.ok) throw new Error('Character manifest could not load.');
+      return response.json() as Promise<CharacterManifest>;
+    });
+    void manifestRequest.catch(() => { manifestRequest = undefined; });
+  }
+  return manifestRequest;
+}
 async function loadCharacter(id: ChampionId) {
   let entry: CharacterAsset | undefined;
   try {
-    const response = await fetch(import.meta.env.BASE_URL + 'models/characters/manifest.json', { cache: 'no-store' });
-    const manifest = await response.json() as { characters?: Partial<Record<ChampionId, CharacterAsset>> };
+    const manifest = await characterManifest();
     entry = manifest.characters?.[id];
   } catch { /* The previous rig keeps the lobby usable while assets are built. */ }
   if (!entry) return { ...await loadModel(CHAMPIONS[id].model), original: false, height: 0 };
@@ -119,13 +131,18 @@ export class ChampionRig {
   private dead = false;
   private animatedCloth: THREE.Object3D[] = [];
   private blinkMeshes: THREE.Mesh[] = [];
+  private hitMaterials: { material: THREE.MeshStandardMaterial; color: THREE.Color; intensity: number }[] = [];
+  private hitAge = 100;
+  private hitPower = 0;
+  private equipment: THREE.Mesh[] = [];
+  private equipmentReleased = false;
   private resolveReady: Promise<void>;
-  constructor(id: ChampionId) {
+  constructor(id: ChampionId, autoload = true) {
     this.id = id;
     this.root.name = 'champion-' + id;
     const shadow = mesh(new THREE.CircleGeometry(.62, 32), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: .24, depthWrite: false }));
     shadow.rotation.x = -Math.PI / 2; shadow.position.y = .025; this.root.add(shadow);
-    this.resolveReady = this.install();
+    this.resolveReady = autoload ? this.install() : Promise.resolve();
   }
   ready(): Promise<void> { return this.resolveReady; }
   private async install(): Promise<void> {
@@ -133,7 +150,7 @@ export class ChampionRig {
     if (this.dead) return;
     const model = clone(asset.scene) as THREE.Group;
     this.modelSource = asset.original ? 'blender' : 'legacy';
-    const clips = asset.original ? asset.animations : buildHumanFighter(model, this.id, asset.animations);
+    const clips = [...(asset.original ? asset.animations : buildHumanFighter(model, this.id, asset.animations))];
     model.traverse(o => {
       if (o instanceof THREE.Mesh) {
         const originals = Array.isArray(o.material) ? o.material : [o.material];
@@ -141,12 +158,14 @@ export class ChampionRig {
           const mat = original.clone() as THREE.MeshStandardMaterial;
           if (!asset.original) { mat.roughness = .64; mat.metalness = .12; }
           if (mat.map) mat.map.colorSpace = THREE.SRGBColorSpace;
+          if (mat.emissive) this.hitMaterials.push({ material: mat, color: mat.emissive.clone(), intensity: mat.emissiveIntensity });
           return mat;
         });
         o.material = Array.isArray(o.material) ? materials : materials[0]!;
         if (o instanceof THREE.SkinnedMesh) o.frustumCulled = false;
         if (o.morphTargetDictionary?.Blink !== undefined) this.blinkMeshes.push(o);
         o.castShadow = true; o.receiveShadow = true;
+        if (asset.original && /^(Sword (?!vest|coat)|Spear |Shield |arming sword|blade |pommel|crossguard|grip winding|hand binding|spear socket|Forged hooked chain dagger|Hooked dagger leather grip|Gnarled bronze rune staff|Restrained rune staff focus|Curved staff focus guard)/i.test(o.name)) this.equipment.push(o);
       }
     });
     this.bones = resolveBones(model);
@@ -155,7 +174,9 @@ export class ChampionRig {
       const left = model.getObjectByName('wrist.L') ?? model.getObjectByName('wristL') ?? model.getObjectByName('wrist.l') ?? model.getObjectByName('wristl');
       if (right) this.bones.set('HandR', right);
       if (left) this.bones.set('HandL', left);
+      const hips = model.getObjectByName('root'); if (hips) this.bones.set('Hips', hips);
     }
+    clips.push(...buildStanceClips(model, clips, this.bones, this.id));
     const box = new THREE.Box3().setFromObject(model);
     const size = box.getSize(new THREE.Vector3());
     const scale = 2.45 * CHAMPIONS[this.id].size / Math.max(asset.original ? asset.height : size.y, .01);
@@ -172,11 +193,13 @@ export class ChampionRig {
     };
     if (!asset.original) {
     const mainWeapon = createWeapon(this.id);
+    mainWeapon.traverse(o => { if (o instanceof THREE.Mesh) this.equipment.push(o); });
     mainWeapon.scale.setScalar(1 / scale);
     mainWeapon.rotation.x = Math.PI / 2;
     add('handslot.r', 'HandR', mainWeapon);
     if (this.id === 'neris' || this.id === 'taren' || this.id === 'vesper') {
       const second = createWeapon(this.id, true); second.scale.setScalar(1 / scale);
+      second.traverse(o => { if (o instanceof THREE.Mesh) this.equipment.push(o); });
       if (this.id === 'neris') second.rotation.x = Math.PI / 2;
       add('handslot.l', 'HandL', second);
     }
@@ -204,18 +227,33 @@ export class ChampionRig {
   }
   animate(f: FighterFrame, dt: number, time: number, preview = false): void {
     if (!this.mixer || !this.model) return;
+    this.hitAge += dt;
+    const flash = Math.max(0, 1 - this.hitAge / .18) * this.hitPower;
+    for (const item of this.hitMaterials) {
+      item.material.emissive.copy(item.color).lerp(new THREE.Color(0xff6948), Math.min(.65, flash));
+      item.material.emissiveIntensity = item.intensity + flash * .8;
+    }
+    if (f.state !== 'dead' && this.equipmentReleased) { for (const mesh of this.equipment) mesh.visible = true; this.equipmentReleased = false; }
     if (!preview) {
       const smoothing = 1 - Math.exp(-55 * dt);
       this.root.position.x += (f.x - this.root.position.x) * smoothing;
       this.root.position.z += (f.z - this.root.position.z) * smoothing;
       this.root.position.y = f.y;
-      this.root.rotation.y += angleDelta(this.root.rotation.y, f.yaw) * (1 - Math.exp(-26 * dt));
+      if (!['stagger','knockdown','getup','dead'].includes(f.state)) this.root.rotation.y += angleDelta(this.root.rotation.y, f.yaw) * (1 - Math.exp(-26 * dt));
     }
-    let terms: string[] = preview ? ['Lobby_Idle','Idle','2H_Melee_Idle'] : ['Idle','2H_Melee_Idle'];
+    let terms: string[] = preview ? ['Combat_Lobby','Lobby_Idle','Idle','2H_Melee_Idle'] : ['Combat_Ready','Idle','2H_Melee_Idle'];
     let once = false, duration: number | undefined, key: string = f.state;
     if (f.attack) {
       const move = CHAMPIONS[this.id].moves[f.attack.id];
       terms = [move.clip[f.attack.combo % move.clip.length]!, ...move.clip];
+      if (this.id === 'nomet' && f.attack.id === 'special') terms = ['Combat_Slam', ...terms];
+      if (this.id === 'karen' && f.attack.id === 'special') terms = ['Combat_SwordCombo', ...terms];
+      if (this.id === 'taren' && f.attack.id === 'special') terms = ['Combat_Shield', ...terms];
+      if (this.id === 'taren' && f.attack.id === 'heavy') terms = ['Combat_Bash', ...terms];
+      if(this.id==='veyra'&&f.attack.id==='special')terms=['Combat_Chain',...terms];
+      if(this.id==='veyra'&&f.attack.id==='ultimate')terms=['Combat_Reel',...terms];
+      if(this.id==='mawren'&&f.attack.id==='special')terms=['Combat_Cast',...terms];
+      if(this.id==='mawren'&&(f.attack.id==='heavy'||f.attack.id==='ultimate'))terms=['Combat_Bolt',...terms];
       once = true; duration = moveDuration(move);
       key = f.attack.id + '-' + f.attack.combo + '-' + f.attack.startedAt;
     } else if (f.state === 'dodge') {
@@ -223,20 +261,20 @@ export class ChampionRig {
       const lateral = f.dodgeX * Math.cos(f.yaw) - f.dodgeZ * Math.sin(f.yaw);
       terms = [Math.abs(lateral) > Math.abs(forward) ? lateral > 0 ? 'Dodge_Right' : 'Dodge_Left' : forward > 0 ? 'Dodge_Forward' : 'Dodge_Back','Dodge_Forward']; once = true; duration = DODGE_DURATION;
     }
-    else if (f.state === 'guard') terms = ['Guard','Blocking','Block'];
+    else if (f.state === 'guard') terms = ['Combat_Guard','Guard','Blocking','Block'];
     else if (f.state === 'jump') { terms = ['Jump','Jump_Full','Jump_Idle']; once = true; duration = .72; }
     else if (f.state === 'grapple') { terms = ['Grapple','Punch_C']; once = true; duration = .80; }
     else if (f.state === 'grabbed') { terms = ['Grabbed','Hit']; once = true; duration = .56; }
     else if (f.state === 'thrown') { terms = ['Thrown','Fall','Death']; once = true; duration = .5; }
-    else if (f.state === 'knockdown') { terms = ['Fall','Death']; once = true; duration = .62; }
-    else if (f.state === 'getup') { terms = ['GetUp','Idle']; once = true; duration = .48; }
-    else if (f.state === 'stagger') { terms = ['Hit','Hit_B','Hit_A']; once = true; duration = f.stunDuration; }
-    else if (f.state === 'dead') { terms = ['Death','Death_A','Death_B']; once = true; duration = 1.3; }
+    else if (f.state === 'knockdown') { terms = ['Combat_Fall','Fall','Death']; once = true; duration = .72; }
+    else if (f.state === 'getup') { terms = ['Combat_Rise','GetUp','Idle']; once = true; duration = 1.15; }
+    else if (f.state === 'stagger') { terms = ['Combat_Hit','Hit','Hit_B','Hit_A']; once = true; duration = f.stunDuration; }
+    else if (f.state === 'dead') { terms = ['Combat_Defeat','Death','Death_A','Death_B']; once = true; duration = 1.75; }
     else if (f.state === 'move' || f.state === 'sprint') {
       const forward = f.vx * Math.sin(f.yaw) + f.vz * Math.cos(f.yaw);
       const lateral = f.vx * Math.cos(f.yaw) - f.vz * Math.sin(f.yaw);
       const speed = Math.hypot(f.vx, f.vz);
-      terms = Math.abs(lateral) > Math.abs(forward) * 1.2 ? [lateral > 0 ? 'Strafe_Right' : 'Strafe_Left','Walking_A'] : forward < -.6 ? ['Walk_Back','Walking_Backwards','Walking_A'] : f.state === 'sprint' || speed > 2.7 ? ['Run','Running_B','Running_A'] : ['Walk','Walking_A','Running_A'];
+      terms = Math.abs(lateral) > Math.abs(forward) * 1.2 ? [lateral > 0 ? 'Combat_Right' : 'Combat_Left',lateral > 0 ? 'Strafe_Right' : 'Strafe_Left','Walking_A'] : forward < -.6 ? ['Combat_Back','Walk_Back','Walking_Backwards','Walking_A'] : f.state === 'sprint' || speed > 2.7 ? ['Combat_Run','Run','Running_B','Running_A'] : ['Combat_Walk','Walk','Walking_A','Running_A'];
       key = 'locomotion-' + terms[0];
     }
     if (this.lastState !== f.state && once) this.currentKey = '';
@@ -244,7 +282,7 @@ export class ChampionRig {
     const name = resolveClip(index, terms);
     if (name) this.play(name, once, key, duration);
     if (!once && this.current && key.startsWith('locomotion')) {
-      const strideSpeed = this.current.getClip().name === 'Run' ? 4.45 : this.current.getClip().name.startsWith('Strafe') ? 1.75 : 1.95;
+      const strideSpeed = /Run/.test(this.current.getClip().name) ? 4.45 : /Strafe|Combat_Left|Combat_Right/.test(this.current.getClip().name) ? 1.75 : 1.95;
       this.current.setEffectiveTimeScale(Math.max(.35, Math.min(2.4, Math.hypot(f.vx, f.vz) / strideSpeed)));
     }
     this.mixer.update(dt);
@@ -265,6 +303,34 @@ export class ChampionRig {
     for (const mesh of this.blinkMeshes) if (mesh.morphTargetInfluences && mesh.morphTargetDictionary) mesh.morphTargetInfluences[mesh.morphTargetDictionary.Blink!] = f.state === 'dead' ? 1 : blink;
     for (const [i, piece] of this.animatedCloth.entries()) { piece.rotation.x = -.18 + Math.sin(time * 2.5 + i) * .035 + Math.min(.17, Math.hypot(f.vx, f.vz) * .024); }
     this.lastState = f.state;
+  }
+  get stanceName(): string { return FIGHTING_STANCES[this.id].name; }
+  handPosition(side:'L'|'R'):THREE.Vector3 {
+    const hand=this.bones.get(side==='L'?'HandL':'HandR');
+    return hand?hand.getWorldPosition(new THREE.Vector3()):this.root.position.clone().add(new THREE.Vector3(0,1.6,0));
+  }
+  impact(power: number): void { this.hitAge = 0; this.hitPower = power; }
+  showHeldDagger(visible:boolean):void {
+    if(this.equipmentReleased)return;
+    for(const mesh of this.equipment) if(/dagger/i.test(mesh.name)) mesh.visible=visible;
+  }
+  releaseEquipment(): THREE.Mesh[] {
+    if (this.equipmentReleased) return [];
+    this.equipmentReleased = true;
+    this.root.updateMatrixWorld(true);
+    return this.equipment.filter(mesh => mesh.visible).map(mesh => {
+      const geometry = mesh.geometry.clone();
+      if (mesh instanceof THREE.SkinnedMesh) {
+        mesh.skeleton.update();
+        const positions = geometry.getAttribute('position'), vertex = new THREE.Vector3();
+        for (let i=0;i<positions.count;i++) { mesh.getVertexPosition(i,vertex); positions.setXYZ(i,vertex.x,vertex.y,vertex.z); }
+        geometry.computeVertexNormals();geometry.computeBoundingBox();geometry.computeBoundingSphere();
+      }
+      const dropped = new THREE.Mesh(geometry, Array.isArray(mesh.material) ? mesh.material.map(m=>m.clone()) : mesh.material.clone());
+      mesh.matrixWorld.decompose(dropped.position,dropped.quaternion,dropped.scale);
+      dropped.castShadow = true; mesh.visible = false;
+      return dropped;
+    });
   }
   dispose(): void {
     this.dead = true;

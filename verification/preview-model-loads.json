@@ -1,0 +1,26 @@
+{
+  "models": [
+    {
+      "id": "karen",
+      "source": "blender",
+      "loaded": true,
+      "meshes": 1,
+      "milliseconds": 681
+    },
+    {
+      "id": "taren",
+      "source": "blender",
+      "loaded": true,
+      "meshes": 1,
+      "milliseconds": 573
+    },
+    {
+      "id": "nomet",
+      "source": "blender",
+      "loaded": true,
+      "meshes": 1,
+      "milliseconds": 11062
+    }
+  ],
+  "errors": []
+}

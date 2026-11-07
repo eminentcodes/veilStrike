@@ -16,12 +16,16 @@ declare class FightAudio {
     private voices;
     private music;
     private ambience;
+    private musicTracks;
+    private ambienceTracks;
     private mode;
+    private arenaMusicEnded;
     private arena;
     private manifestReady;
     private voiceJob;
     private voiceHowl;
     private voiceId;
+    private roundGate;
     private voiceQueue;
     private lastVoices;
     private lastVoiceAt;
@@ -43,13 +47,14 @@ declare class FightAudio {
     private context;
     unlock(): Promise<void>;
     private musicVolume;
+    private voiceVolume;
     private applyVolumes;
     startMusic(mode?: MusicMode): void;
     stopMusic(): void;
     setArena(arena: string): void;
     suspend(value: boolean): void;
     private pick;
-    sound(name: string, gain?: number, pan?: number): void;
+    sound(name: string, gain?: number, pan?: number): () => void;
     private fallback;
     announce(cue: string, priority?: number, force?: boolean): void;
     private finishVoice;
@@ -72,6 +77,7 @@ declare class FightAudio {
             at: number;
         }[];
     };
+    roundReleased(round: number): boolean;
     hover(): void;
     press(): void;
     ui(): void;
@@ -82,6 +88,7 @@ declare class FightAudio {
     defeat(): void;
     swing(heavy?: boolean, ..._rest: unknown[]): void;
     hit(strength: HitStrength, bladed?: boolean, ..._rest: unknown[]): void;
+    combatImpact(heavy: boolean, fists: boolean, pan: number, knockdown?: boolean): void;
     block(bladed?: boolean, ..._rest: unknown[]): void;
     parry(..._rest: unknown[]): void;
     guardBreak(..._rest: unknown[]): void;

@@ -161,19 +161,32 @@ async def build_voices():
     await asyncio.gather(*(one(key, text) for key, text in VOICES.items()))
 
 def manifest():
+    previous = json.loads((OUT / 'manifest.json').read_text(encoding='utf-8')) if (OUT / 'manifest.json').exists() else {}
+    lobby_track = previous.get('music', {}).get('menu', 'music-lobby.wav')
+    if not (OUT / lobby_track).is_file(): lobby_track = 'music-lobby.wav'
     samples = [p.name for p in sorted(OUT.glob('*.wav')) if not p.name.startswith(('music-', 'ambience-'))]
-    voices = {k: 'voice/' + k + '.mp3' for k in VOICES if (OUT / 'voice' / (k + '.mp3')).exists() and (OUT / 'voice' / (k + '.mp3')).stat().st_size > 500}
-    data = {'samples': samples, 'music': {'menu': 'music-lobby.wav', 'fight': 'music-battle.wav'},
+    voices = {k: file for k, file in previous.get('voices', {}).items() if (OUT / file).is_file()}
+    for k in VOICES:
+        if k not in voices and (OUT / 'voice' / (k + '.mp3')).exists() and (OUT / 'voice' / (k + '.mp3')).stat().st_size > 500: voices[k] = 'voice/' + k + '.mp3'
+    fight_track = previous.get('music', {}).get('fight', 'music-battle.wav')
+    if not (OUT / fight_track).is_file(): fight_track = 'music-battle.wav'
+    data = {**previous, 'samples': samples, 'music': {'menu': lobby_track, 'fight': fight_track},
             'ambience': {key: 'ambience-' + key + '.wav' for key in ['wind', 'forge', 'grove']}, 'voices': voices}
     (OUT / 'manifest.json').write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
-    (OUT / 'voice/cues.json').write_text(json.dumps(VOICES, indent=2) + '\n', encoding='utf-8')
+    cue_path = OUT / 'voice/cues.json'
+    selected_cues = json.loads(cue_path.read_text(encoding='utf-8')) if cue_path.exists() else {}
+    cue_path.write_text(json.dumps({**VOICES, **selected_cues}, indent=2) + '\n', encoding='utf-8')
     print('Pack ready:', len(samples), 'sound effects,', len(voices), 'voiced cues.', flush=True)
 
 if __name__ == '__main__':
     OUT.mkdir(parents=True, exist_ok=True)
     if '--voices-only' not in sys.argv:
+        processed = json.loads((OUT / 'combat-sources.json').read_text(encoding='utf-8')).get('files', {}) if (OUT / 'combat-sources.json').exists() else {}
         for kind in ['weapon-swing', 'body-hit', 'heavy-impact', 'metal-clash', 'parry', 'dodge', 'footstep-stone', 'footstep-earth', 'footstep-metal', 'fist-swing', 'chain', 'bone', 'fire', 'rune', 'spirit', 'poison', 'ui-click', 'round-start']:
-            for variant in range(1, 4): wav(kind + '-' + str(variant), effect(kind, variant))
+            for variant in range(1, 4):
+                name = kind + '-' + str(variant)
+                if (name + '.wav' in processed or kind == 'ui-click') and (OUT / (name + '.wav')).is_file(): continue
+                wav(name, effect(kind, variant))
         for key in ['lobby', 'battle']: wav('music-' + key, music(key))
         for key in ['wind', 'forge', 'grove']: wav('ambience-' + key, ambience(key))
         print('Original sounds and music ready.', flush=True)

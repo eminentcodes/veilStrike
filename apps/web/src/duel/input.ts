@@ -1,9 +1,12 @@
 import { emptyInput } from './simulation';
 import type { InputFrame } from './simulation';
+import { AttackGesture } from './attackGesture';
 
 export class DuelInput {
+  private enabled = true;
   private held = new Set<string>();
   private edges = new Set<string>();
+  private attack = new AttackGesture();
   private host: HTMLElement;
   private alternate: boolean;
   private onMenu: () => void;
@@ -19,23 +22,29 @@ export class DuelInput {
     host.addEventListener('contextmenu', this.contextMenu);
   }
   private keyDown = (event: KeyboardEvent) => {
-    if ((event.target as HTMLElement)?.closest('input,textarea,select,[contenteditable=true]')) return;
+    if ((event.target as HTMLElement)?.closest('input,textarea,select,[contenteditable=true],dialog[open]')) return;
     if (event.code === 'Escape' && !this.alternate) { this.reset(); this.onMenu(); return; }
+    if (!this.enabled || (['Space','Enter','Tab'].includes(event.code) && (event.target as HTMLElement)?.closest('button,a[href]'))) return;
     if (event.code === 'Tab' && !this.alternate) { event.preventDefault(); if (!event.repeat) this.onLock(); return; }
     if (['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(event.code)) event.preventDefault();
-    if (!this.held.has(event.code) && !event.repeat) this.edges.add(event.code);
+    if (!this.held.has(event.code) && !event.repeat) this.press(event.code);
     this.held.add(event.code);
   };
   private keyUp = (event: KeyboardEvent) => { this.held.delete(event.code); };
   private pointerDown = (event: PointerEvent) => {
-    if (this.alternate || event.pointerType !== 'mouse' || (event.target as HTMLElement)?.closest('button,input,.duel-overlay')) return;
-    if (event.button === 0) this.edges.add('KeyJ');
+    if (!this.enabled || this.alternate || event.pointerType !== 'mouse' || (event.target as HTMLElement)?.closest('button,input,.duel-overlay')) return;
+    if (event.button === 0) this.press('KeyJ');
     if (event.button === 2) this.held.add('KeyL');
   };
   private pointerUp = (event: PointerEvent) => { if (event.button === 2) this.held.delete('KeyL'); };
   private contextMenu = (event: Event) => event.preventDefault();
   private blur = () => { this.reset(); this.onBlur(); };
-  inject(code: string, down: boolean): void { if (down) { if (!this.held.has(code)) this.edges.add(code); this.held.add(code); } else this.held.delete(code); }
+  private press(code: string): void {
+    if (code === (this.alternate ? 'Numpad1' : 'KeyJ')) this.attack.press(performance.now());
+    else this.edges.add(code);
+  }
+  setEnabled(value: boolean): void { this.enabled = value; if (!value) this.reset(); }
+  inject(code: string, down: boolean): void { if (!this.enabled) return; if (down) { if (!this.held.has(code)) this.press(code); this.held.add(code); } else this.held.delete(code); }
   sample(basis: { forwardX: number; forwardZ: number; rightX: number; rightZ: number }, lockOn = true): InputFrame {
     const input = emptyInput();
     const left = this.alternate ? 'ArrowLeft' : 'KeyA', right = this.alternate ? 'ArrowRight' : 'KeyD';
@@ -45,16 +54,17 @@ export class DuelInput {
     input.x = basis.rightX * x + basis.forwardX * z; input.z = basis.rightZ * x + basis.forwardZ * z;
     input.sprint = this.held.has(this.alternate ? 'ControlRight' : 'ShiftLeft') || (!this.alternate && this.held.has('ShiftRight'));
     input.guard = this.held.has(this.alternate ? 'Numpad3' : 'KeyL');
-    input.light = this.edges.has(this.alternate ? 'Numpad1' : 'KeyJ');
-    input.heavy = this.edges.has(this.alternate ? 'Numpad2' : 'KeyK');
+    const attack = this.attack.sample(performance.now());
+    input.light = attack === 'light';
+    input.heavy = attack === 'heavy';
     input.dodge = this.edges.has(this.alternate ? 'Numpad0' : 'Space');
     input.special = this.edges.has(this.alternate ? 'Numpad4' : 'KeyU');
     input.ultimate = this.edges.has(this.alternate ? 'Numpad5' : 'KeyI');
     input.jump = this.edges.has('KeyC'); input.grapple = this.edges.has('KeyE'); input.lockOn = lockOn;
     this.edges.clear(); return input;
   }
-  pulse(code: string): void { this.edges.add(code); }
-  reset(): void { this.held.clear(); this.edges.clear(); }
+  pulse(code: string): void { if (this.enabled) this.press(code); }
+  reset(): void { this.held.clear(); this.edges.clear(); this.attack.reset(); }
   destroy(): void {
     this.reset();
     window.removeEventListener('keydown', this.keyDown); window.removeEventListener('keyup', this.keyUp); window.removeEventListener('blur', this.blur);

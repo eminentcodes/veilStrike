@@ -1,0 +1,32 @@
+[
+  {
+    "blockAudio": true,
+    "ms": 40859,
+    "failure": "page.waitForFunction: Timeout 40000ms exceeded.",
+    "state": {
+      "loading": false,
+      "canvas": false,
+      "model": false
+    },
+    "errors": [],
+    "pending": [],
+    "pendingAudio": 0
+  },
+  {
+    "blockAudio": false,
+    "ms": 53111,
+    "failure": "page.waitForFunction: Timeout 40000ms exceeded.",
+    "state": {
+      "ready": {
+        "lobbyReady": "true",
+        "lobbyPrepared": "true"
+      },
+      "loading": false,
+      "canvas": true,
+      "model": true
+    },
+    "errors": [],
+    "pending": [],
+    "pendingAudio": 0
+  }
+]

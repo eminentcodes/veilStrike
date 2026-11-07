@@ -27,6 +27,7 @@ export interface AttackState {
     released: boolean;
     aimX: number;
     aimZ: number;
+    strike?: number;
 }
 export interface FighterFrame {
     id: ChampionId;
@@ -54,6 +55,12 @@ export interface FighterFrame {
     stunDuration: number;
     specialCooldown: number;
     momentum: number;
+    impactLoad: number;
+    impactRecovery: number;
+    runeTime: number;
+    runeX: number;
+    runeZ: number;
+    wardTime: number;
 }
 export interface DuelEvent {
     id: number;
@@ -63,6 +70,9 @@ export interface DuelEvent {
     z: number;
     damage?: number;
     move?: MoveId;
+    target?: Slot;
+    power?: number;
+    knockdown?: boolean;
 }
 export declare const INPUT_BUFFER_TIME = 0.24;
 export declare const DODGE_DURATION = 0.34;
@@ -79,7 +89,12 @@ export interface DuelSnapshot {
     winner: Slot | null;
 }
 export declare const ARENA_RADIUS = 9;
-export declare const ROUND_LENGTH = 90;
+export declare const ROUND_LENGTH = 150;
+export declare const ROUND_INTRO_SECONDS = 1;
+export declare const NORMAL_DAMAGE_SCALE = 0.468;
+export declare const ULTIMATE_DAMAGE_SCALE = 0.612;
+export declare const MAX_ROUNDS = 3;
+export declare const KNOCKDOWN_IMPACT = 3.2;
 export declare function clamp(value: number, min: number, max: number): number;
 export declare function angleDelta(a: number, b: number): number;
 export declare function moveDuration(move: Move): number;
@@ -103,12 +118,13 @@ export declare class DuelSimulation {
     private habit;
     private buffered;
     private freeze;
+    private announcedRound;
     constructor(config: DuelConfig, seed?: number);
     private random;
     private emit;
     drainEvents(): DuelEvent[];
     snapshot(events?: DuelEvent[]): DuelSnapshot;
-    advance(delta: number, input0: InputFrame, input1?: InputFrame): void;
+    advance(delta: number, input0: InputFrame, input1?: InputFrame, introReleased?: boolean): void;
     private integrate;
     private captureInput;
     private startDodge;

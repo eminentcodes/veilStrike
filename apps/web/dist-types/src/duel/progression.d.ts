@@ -1,4 +1,4 @@
-import type { ChampionId, CharacterLevel } from './catalog';
+import type { ChampionId, CharacterLevel, StarterFighterId } from './catalog';
 import type { MatchResult } from '../fight/types';
 export interface PlayerProfile {
     version: 1;
@@ -7,6 +7,12 @@ export interface PlayerProfile {
     embers: number;
     matches: number;
     wins: number;
+    selectedFighter: ChampionId;
+    onboarding: {
+        setup: boolean;
+        lobby: boolean;
+        combat: boolean;
+    };
     levels: Partial<Record<ChampionId, CharacterLevel>>;
     claimed: string[];
     daily: {
@@ -20,6 +26,7 @@ export interface PlayerProfile {
         reward: number;
     };
 }
+export declare const ONBOARDING_EMBERS = 1500;
 export declare const UPGRADE_COST: {
     1: number;
     2: number;
@@ -35,6 +42,9 @@ export declare function spinEmbers(profile: PlayerProfile, random?: number): {
 export declare function newProfile(): PlayerProfile;
 export declare function loadProfile(): PlayerProfile;
 export declare function saveProfile(profile: PlayerProfile): void;
+export declare function playerNameError(name: string): string;
+export declare function completeSetup(profile: PlayerProfile, name: string, fighter: StarterFighterId): PlayerProfile;
+export declare function completeOnboarding(profile: PlayerProfile, part: 'lobby' | 'combat'): PlayerProfile;
 export declare function unlockCharacter(profile: PlayerProfile, id: ChampionId): PlayerProfile;
 export declare function upgradeCharacter(profile: PlayerProfile, id: ChampionId): PlayerProfile;
 export declare function rewardMatch(profile: PlayerProfile, token: string, result: MatchResult): {

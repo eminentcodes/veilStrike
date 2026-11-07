@@ -1,0 +1,18 @@
+{
+  "errors": [
+    "page.waitForSelector: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.lobby-scene[data-ready=true]') to be visible\u001b[22m\n"
+  ],
+  "state": {
+    "text": "Wayfarer\nWAYFARER · 0 WINS\nVEILSTRIKE\nTHE OATHBOUND ARENA\n0\nEMBERS\nCHARACTERS\n3 / 10\nARENAS\n6 WORLDS\nCONTROLS\n\nTHE BLADE FIGHTER\n\nKAREN\n\nHuman woman · Swordfighter\n\nBASIC\nLEVEL 1\n\nArming sword & throwing blades\n\nSIGNATURE MOVE\nBLADE TOSS\nDAILY EMBER SPIN\nFREE SPIN\nWin up to 500 Embers\nHUMAN\nYOUR ARENA AWAITS\nBest of three · ASHEN SANCTUM\nGAME MODE\nAI DUEL\nWARRIOR · RANDOM OPPONENT\nENTER THE VEIL\nPLAY",
+    "style": "relative",
+    "ready": "false",
+    "model": "legacy",
+    "info": {
+      "frame": 41,
+      "calls": 41,
+      "triangles": 8260,
+      "points": 600,
+      "lines": 0
+    }
+  }
+}

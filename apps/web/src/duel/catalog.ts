@@ -1,6 +1,6 @@
 import type { Difficulty } from '../fight/types.js';
 
-export type ArenaId = 'sanctum' | 'forge' | 'grove' | 'citadel' | 'rift' | 'coliseum';
+export type ArenaId = 'sanctum' | 'forge' | 'grove' | 'citadel' | 'rift';
 export type ChampionId = 'karen' | 'taren' | 'nomet' | 'veyra' | 'mawren' | 'neris' | 'vesper' | 'rhoven' | 'seyra' | 'varkesh';
 export type SkillStyle = 'blade' | 'oath' | 'grave' | 'chain' | 'rune' | 'snare' | 'poison' | 'scatter' | 'divided' | 'furnace';
 export type CharacterTier = 'Basic' | 'Premium' | 'Legendary';
@@ -18,13 +18,12 @@ export const ARENAS: Record<ArenaId, ArenaDefinition> = {
   grove: { id: 'grove', name: 'DROWNED GROVE', subtitle: 'The forest remembers', color: '#99c9ac', sky: 0x101c19, fog: 0x172b23, stone: 0x39483e, accent: 0x75e7b5, light: 0xc9e3d2 },
   citadel: { id: 'citadel', name: 'FROSTFALL CITADEL', subtitle: 'Steel beneath the northern lights', color: '#a5dbea', sky: 0x10212c, fog: 0x263747, stone: 0x5a6c7a, accent: 0x90d9ed, light: 0xd5edff },
   rift: { id: 'rift', name: 'THE HOLLOW RIFT', subtitle: 'At the edge of existence', color: '#b9a2da', sky: 0x141120, fog: 0x20182b, stone: 0x41354d, accent: 0xa68ad8, light: 0xd9c5ee },
-  coliseum: { id: 'coliseum', name: 'SUNDERED COLISEUM', subtitle: 'The crowd has turned to dust', color: '#e1bd80', sky: 0x45382c, fog: 0x5b4634, stone: 0x74634e, accent: 0xe6b665, light: 0xffe4b5 },
 };
 
 export interface Move {
   id: MoveId; startup: number; active: number; recovery: number; damage: number;
   range: number; arc: number; stamina: number; lunge: number; knockback: number;
-  clip: string[]; breakGuard?: boolean;
+  clip: string[]; breakGuard?: boolean; strikes?: number;
 }
 export interface Champion {
   id: ChampionId; name: string; title: string; weapon: string; description: string;
@@ -39,7 +38,9 @@ import { CHAMPIONS } from './roster.js';
 export { CHAMPIONS } from './roster.js';
 
 export const FIGHTER_IDS = Object.keys(CHAMPIONS) as ChampionId[];
-export const PLAYABLE_FIGHTER_IDS: ChampionId[] = ['karen', 'taren', 'nomet'];
+export const STARTER_FIGHTER_IDS = ['karen', 'taren', 'nomet'] as const;
+export type StarterFighterId = (typeof STARTER_FIGHTER_IDS)[number];
+export const PLAYABLE_FIGHTER_IDS: ChampionId[] = ['karen', 'taren', 'nomet', 'veyra', 'mawren'];
 export function playableFighter(value: unknown): value is ChampionId { return typeof value === 'string' && PLAYABLE_FIGHTER_IDS.includes(value as ChampionId); }
 export const ARENA_IDS = Object.keys(ARENAS) as ArenaId[];
 export interface DuelConfig { player: ChampionId; opponent: ChampionId; arena: ArenaId; difficulty: Difficulty; mode: DuelMode; playerLevel?: CharacterLevel; opponentLevel?: CharacterLevel; }

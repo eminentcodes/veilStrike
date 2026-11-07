@@ -41,6 +41,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     void fightAudio.unlock();
+    const unsubscribe = fightAudio.subscribe(() => setMuted(fightAudio.isMuted()));
 
     /* First gesture only: resume the context, then step aside. */
     let unlocked = false;
@@ -54,30 +55,37 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     window.addEventListener('pointerdown', unlock);
     window.addEventListener('keydown', unlock);
 
+    let lastHover = -Infinity;
     const onOver = (event: PointerEvent) => {
+      if (event.pointerType !== 'mouse') return;
       const target = (event.target as Element | null)?.closest?.(CONTROL);
-      if (!target || target.hasAttribute('disabled')) return;
+      if (!target || target.hasAttribute('disabled') || target.getAttribute('aria-disabled') === 'true' || target.getAttribute('data-ui-sound') === 'off') return;
       /* pointerover also fires when moving between a control's own children;
        * only sound when the pointer actually enters a different control. */
       const from = (event.relatedTarget as Element | null)?.closest?.(CONTROL);
       if (from === target) return;
+      const now = performance.now();
+      if (now - lastHover < 80) return;
+      lastHover = now;
       fightAudio.hover();
     };
 
-    const onDown = (event: PointerEvent) => {
+    const onClick = (event: MouseEvent) => {
       const target = (event.target as Element | null)?.closest?.(CONTROL);
-      if (!target || target.hasAttribute('disabled')) return;
+      if (!target || target.hasAttribute('disabled') || target.getAttribute('aria-disabled') === 'true' || target.getAttribute('data-ui-sound') === 'off') return;
+      void fightAudio.unlock();
       fightAudio.press();
     };
 
     document.addEventListener('pointerover', onOver);
-    document.addEventListener('pointerdown', onDown);
+    document.addEventListener('click', onClick);
 
     return () => {
+      unsubscribe();
       window.removeEventListener('pointerdown', unlock);
       window.removeEventListener('keydown', unlock);
       document.removeEventListener('pointerover', onOver);
-      document.removeEventListener('pointerdown', onDown);
+      document.removeEventListener('click', onClick);
     };
   }, []);
 

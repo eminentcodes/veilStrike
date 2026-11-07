@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Veilstrike</title>
+  <rect width="64" height="64" fill="#0d1721"/>
+  <path d="M32 4 56 16v23L32 60 8 39V16Z" fill="#122331" stroke="#ddbd79" stroke-width="1.5"/>
+  <path d="M16 19h8l8 21 8-21h8L32 53Z" fill="#ddbd79"/>
+  <path d="m32 10 4 8-4 13-4-13Z" fill="#f0dfb7"/>
+  <path d="M12 18v19l9 8M52 18v19l-9 8" fill="none" stroke="#ddbd79" stroke-width="1" opacity=".4"/>
+</svg>

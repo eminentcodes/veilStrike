@@ -6,6 +6,10 @@ interface Props {
     room?: RoomConnection | null;
     onExit: () => void;
     onComplete: (result: MatchResult) => void;
+    active?: boolean;
+    playerName?: string;
+    showControlsTutorial?: boolean;
+    onControlsTutorialComplete?: () => void;
 }
-export declare function DuelGame({ config, room, onExit, onComplete }: Props): import("react").JSX.Element;
+export declare function DuelGame({ config, room, onExit, onComplete, active: screenActive, playerName, showControlsTutorial, onControlsTutorialComplete }: Props): import("react").JSX.Element;
 export {};

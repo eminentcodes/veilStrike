@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "name": "supplied MP3 loops quietly after first click",
+      "source": "/audio/music-lobby-storm.mp3",
+      "loop": true,
+      "duration": 98.77402083333334,
+      "mode": "menu",
+      "playing": true,
+      "volume": 0.09350000000000001,
+      "effectiveVolume": 0.07667,
+      "context": "running"
+    },
+    {
+      "name": "music slider controls supplied track",
+      "passed": true
+    },
+    {
+      "name": "track wraps at end of loop",
+      "position": 0.6506666666666661
+    }
+  ],
+  "errors": []
+}

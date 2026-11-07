@@ -1,5 +1,5 @@
 import type { Difficulty } from '../fight/types.js';
-export type ArenaId = 'sanctum' | 'forge' | 'grove' | 'citadel' | 'rift' | 'coliseum';
+export type ArenaId = 'sanctum' | 'forge' | 'grove' | 'citadel' | 'rift';
 export type ChampionId = 'karen' | 'taren' | 'nomet' | 'veyra' | 'mawren' | 'neris' | 'vesper' | 'rhoven' | 'seyra' | 'varkesh';
 export type SkillStyle = 'blade' | 'oath' | 'grave' | 'chain' | 'rune' | 'snare' | 'poison' | 'scatter' | 'divided' | 'furnace';
 export type CharacterTier = 'Basic' | 'Premium' | 'Legendary';
@@ -31,6 +31,7 @@ export interface Move {
     knockback: number;
     clip: string[];
     breakGuard?: boolean;
+    strikes?: number;
 }
 export interface Champion {
     id: ChampionId;
@@ -65,6 +66,8 @@ export interface Champion {
 }
 export { CHAMPIONS } from './roster.js';
 export declare const FIGHTER_IDS: ChampionId[];
+export declare const STARTER_FIGHTER_IDS: readonly ["karen", "taren", "nomet"];
+export type StarterFighterId = (typeof STARTER_FIGHTER_IDS)[number];
 export declare const PLAYABLE_FIGHTER_IDS: ChampionId[];
 export declare function playableFighter(value: unknown): value is ChampionId;
 export declare const ARENA_IDS: ArenaId[];

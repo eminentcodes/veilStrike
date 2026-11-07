@@ -1,0 +1,167 @@
+{
+  "voices": [
+    {
+      "cue": "fight",
+      "file": "voice/fight.wav",
+      "seconds": 1.488,
+      "peak": 0.88
+    },
+    {
+      "cue": "victory",
+      "file": "voice/victory.wav",
+      "seconds": 1.73,
+      "peak": 0.88
+    },
+    {
+      "cue": "defeat",
+      "file": "voice/defeat.wav",
+      "seconds": 1.633,
+      "peak": 0.88
+    },
+    {
+      "cue": "draw",
+      "file": "voice/draw.wav",
+      "seconds": 1.659,
+      "peak": 0.88
+    },
+    {
+      "cue": "parry",
+      "file": "voice/parry.wav",
+      "seconds": 1.943,
+      "peak": 0.88
+    },
+    {
+      "cue": "guard-break",
+      "file": "voice/guard-break.wav",
+      "seconds": 1.889,
+      "peak": 0.88
+    },
+    {
+      "cue": "heavy-impact",
+      "file": "voice/heavy-impact.wav",
+      "seconds": 2.005,
+      "peak": 0.88
+    },
+    {
+      "cue": "crushing-blow",
+      "file": "voice/crushing-blow.wav",
+      "seconds": 1.962,
+      "peak": 0.88
+    },
+    {
+      "cue": "ten-seconds",
+      "file": "voice/ten-seconds.wav",
+      "seconds": 2.48,
+      "peak": 0.88
+    },
+    {
+      "cue": "signature-karen",
+      "file": "voice/signature-karen.wav",
+      "seconds": 1.996,
+      "peak": 0.88
+    },
+    {
+      "cue": "signature-taren",
+      "file": "voice/signature-taren.wav",
+      "seconds": 2.072,
+      "peak": 0.88
+    },
+    {
+      "cue": "signature-nomet",
+      "file": "voice/signature-nomet.wav",
+      "seconds": 1.833,
+      "peak": 0.88
+    },
+    {
+      "cue": "signature-veyra",
+      "file": "voice/signature-veyra.wav",
+      "seconds": 1.936,
+      "peak": 0.88
+    },
+    {
+      "cue": "signature-mawren",
+      "file": "voice/signature-mawren.wav",
+      "seconds": 1.923,
+      "peak": 0.88
+    },
+    {
+      "cue": "ultimate-karen",
+      "file": "voice/ultimate-karen.wav",
+      "seconds": 2.084,
+      "peak": 0.88
+    },
+    {
+      "cue": "ultimate-taren",
+      "file": "voice/ultimate-taren.wav",
+      "seconds": 1.93,
+      "peak": 0.88
+    },
+    {
+      "cue": "ultimate-nomet",
+      "file": "voice/ultimate-nomet.wav",
+      "seconds": 1.937,
+      "peak": 0.88
+    },
+    {
+      "cue": "ultimate-veyra",
+      "file": "voice/ultimate-veyra.wav",
+      "seconds": 2.01,
+      "peak": 0.88
+    },
+    {
+      "cue": "ultimate-mawren",
+      "file": "voice/ultimate-mawren.wav",
+      "seconds": 2.016,
+      "peak": 0.88
+    },
+    {
+      "cue": "round-fight-1",
+      "file": "voice/round-fight-1.wav",
+      "seconds": 2.488,
+      "peak": 0.88
+    },
+    {
+      "cue": "round-fight-2",
+      "file": "voice/round-fight-2.wav",
+      "seconds": 2.488,
+      "peak": 0.88
+    },
+    {
+      "cue": "round-fight-3",
+      "file": "voice/round-fight-3.wav",
+      "seconds": 2.488,
+      "peak": 0.88
+    },
+    {
+      "cue": "round-fight-4",
+      "file": "voice/round-fight-4.wav",
+      "seconds": 2.488,
+      "peak": 0.88
+    },
+    {
+      "cue": "round-fight-5",
+      "file": "voice/round-fight-5.wav",
+      "seconds": 2.488,
+      "peak": 0.88
+    }
+  ],
+  "roundCues": {
+    "round-fight-1": {
+      "fightAt": 1.025
+    },
+    "round-fight-2": {
+      "fightAt": 1.025
+    },
+    "round-fight-3": {
+      "fightAt": 1.025
+    },
+    "round-fight-4": {
+      "fightAt": 1.025
+    },
+    "round-fight-5": {
+      "fightAt": 1.025
+    }
+  },
+  "arenaMusicSeconds": 25.0,
+  "suppliedLobbyTrackUnchanged": true
+}

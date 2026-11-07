@@ -1,10 +1,10 @@
 {
-  "version": 5,
+  "version": 12,
   "characters": {
     "karen": {
-      "file": "karen-fantasy-v2.glb",
+      "file": "karen-swordcoat-v6.glb",
       "height": 1.74,
-      "source": "karen-human-v3.blend",
+      "source": "karen-swordswoman-v4.blend",
       "rigged": true,
       "clips": [
         "Death",
@@ -36,7 +36,8 @@
       ],
       "portrait": "karen-human-v3.png",
       "baseLicense": "CC0 MakeHuman anatomical mesh and weights",
-      "revision": "fantasy-v2"
+      "revision": "swordcoat-v6",
+      "refinementScript": "scripts/style-karen.mjs"
     },
     "taren": {
       "file": "taren-fantasy-v2.glb",
@@ -76,7 +77,7 @@
       "revision": "fantasy-v2"
     },
     "nomet": {
-      "file": "nomet-fantasy-v2.glb",
+      "file": "nomet-gravebreaker-v5.glb",
       "height": 1.92,
       "source": "nomet-human-v1.blend",
       "rigged": true,
@@ -110,13 +111,34 @@
       ],
       "portrait": "nomet-human-v1.png",
       "baseLicense": "CC0 MakeHuman anatomical mesh and weights",
-      "revision": "fantasy-v2"
+      "revision": "gravebreaker-v5",
+      "refinementScript": "scripts/refine-nomet.mjs"
+    },
+    "veyra": {
+      "file": "veyra-premium-v1.glb",
+      "height": 1.74,
+      "source": "veyra-premium-v1.blend",
+      "rigged": true,
+      "revision": "premium-v1",
+      "refinementScript": "scripts/build-premium.mjs",
+      "baseLicense": "CC0 MakeHuman anatomical mesh and weights; original Veilstrike costume and equipment"
+    },
+    "mawren": {
+      "file": "mawren-premium-v1.glb",
+      "height": 1.91,
+      "source": "mawren-premium-v1.blend",
+      "rigged": true,
+      "revision": "premium-v1",
+      "refinementScript": "scripts/build-premium.mjs",
+      "baseLicense": "CC0 MakeHuman anatomical mesh and weights; original Veilstrike costume and equipment"
     }
   },
   "generator": "Blender 4.5 · Original Veilstrike assets",
   "playable": [
     "karen",
     "taren",
-    "nomet"
+    "nomet",
+    "veyra",
+    "mawren"
   ]
 }

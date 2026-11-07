@@ -1,6 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#17161b"/>
-  <path d="M17 12h8l7 17 7-17h8L36 43h-8z" fill="#ef7954"/>
-  <path d="M14 48 32 28 50 48l-6 4-12-13-12 13z" fill="#f4eee4"/>
-  <path d="M32 8 36 22 32 28 28 22z" fill="#d9c4a8"/>
+  <title>Veilstrike</title>
+  <rect width="64" height="64" fill="#0d1721"/>
+  <path d="M32 4 56 16v23L32 60 8 39V16Z" fill="#122331" stroke="#ddbd79" stroke-width="1.5"/>
+  <path d="M16 19h8l8 21 8-21h8L32 53Z" fill="#ddbd79"/>
+  <path d="m32 10 4 8-4 13-4-13Z" fill="#f0dfb7"/>
+  <path d="M12 18v19l9 8M52 18v19l-9 8" fill="none" stroke="#ddbd79" stroke-width="1" opacity=".4"/>
 </svg>

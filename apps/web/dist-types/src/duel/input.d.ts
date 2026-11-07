@@ -1,7 +1,9 @@
 import type { InputFrame } from './simulation';
 export declare class DuelInput {
+    private enabled;
     private held;
     private edges;
+    private attack;
     private host;
     private alternate;
     private onMenu;
@@ -14,6 +16,8 @@ export declare class DuelInput {
     private pointerUp;
     private contextMenu;
     private blur;
+    private press;
+    setEnabled(value: boolean): void;
     inject(code: string, down: boolean): void;
     sample(basis: {
         forwardX: number;

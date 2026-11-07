@@ -1,0 +1,91 @@
+import { chromium } from 'playwright';
+import { readdir, mkdir, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import assert from 'node:assert/strict';
+const executablePath=(await readdir(join(process.env.LOCALAPPDATA,'ms-playwright'))).filter(n=>/^chromium-[0-9]+$/.test(n)).sort().reverse().map(n=>join(process.env.LOCALAPPDATA,'ms-playwright',n,'chrome-win64','chrome.exe')).find(existsSync);
+const browser=await chromium.launch({executablePath,headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader','--enable-webgl','--ignore-gpu-blocklist']});
+const page=await browser.newPage({viewport:{width:960,height:640}}),errors=[],checks=[];
+page.setDefaultTimeout(90000);
+page.on('pageerror',e=>errors.push(e.stack||e.message));
+page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+await mkdir('verification/screenshots/combat',{recursive:true});
+const base=process.env.REVIEW_URL||'http://127.0.0.1:5173/';
+try {
+  await page.goto(base,{waitUntil:'domcontentloaded'});
+  await page.waitForSelector('.game-lobby > .lobby-scene[data-ready="true"]');
+  const loadedKaren=await page.evaluate(()=>performance.getEntriesByType('resource').filter(r=>r.name.includes('karen-swordcoat-v6.glb')).map(r=>r.name));
+  assert.equal(loadedKaren.length,1,'The lobby must load the upgraded Karen asset');
+  checks.push({name:'Karen new outfit loaded',resources:loadedKaren});
+  await page.screenshot({path:'verification/screenshots/combat/lobby.png'});
+  console.log('Lobby loaded.');
+  await page.locator('.lobby-play').click();
+  await page.waitForFunction(()=>!!window.__veilstrike?.renderer.fighters.every(f=>!!f.model));
+  await page.locator('.duel-loading').waitFor({state:'detached'});
+  await page.waitForFunction(()=>window.__veilstrike.getSnapshot().phase==='fight');
+  console.log('Arena loaded.');
+  await page.keyboard.press('Escape');
+  await page.evaluate(()=>{const r=window.__veilstrike.renderer;r.composer?.dispose();r.composer=null;r.renderer.shadowMap.enabled=false;r.renderer.setPixelRatio(.8);r.resize();});
+  const rig=await page.evaluate(()=>window.__veilstrike.renderer.fighters.map(f=>({id:f.id,stance:f.stanceName,clips:[...f.actions.keys()].filter(n=>n.startsWith('Combat_')),equipment:f.equipment.length,bones:[...f.bones.entries()].map(([role,b])=>[role,b.name])})));
+  checks.push({name:'rigs',rig});console.log(JSON.stringify(rig));
+  assert.ok(rig.every(f=>f.clips.includes('Combat_Ready')&&f.clips.includes('Combat_Defeat')));
+  // Inspect actual articulated poses from the loaded game, with the simulation paused.
+  await page.evaluate(()=>{document.querySelector('.duel-overlay').style.visibility='hidden';});
+  await page.evaluate(()=>{
+    const {renderer,simulation}=window.__veilstrike,frame=simulation.snapshot();frame.events=[];
+    frame.fighters[0]={...frame.fighters[0],x:0,z:0,yaw:0,state:'idle',stateTime:0,attack:null};
+    renderer.fighters[1].root.visible=false;
+    for(let i=0;i<5;i++)renderer.render(frame,.05);
+    renderer.camera.position.set(.7,1.7,4.6);renderer.camera.lookAt(0,1.2,0);renderer.renderer.render(renderer.scene,renderer.camera);
+  });
+  await page.screenshot({path:'verification/screenshots/combat/karen-outfit.png'});
+  for(const pose of ['idle','guard','stagger','knockdown','getup','dead']) {
+    const anatomy=await page.evaluate(pose=>{
+      const {renderer,simulation}=window.__veilstrike;
+      const frame=simulation.snapshot();frame.events=[];
+      frame.fighters[0]={...frame.fighters[0],x:0,z:0,yaw:0,state:pose,stateTime:pose==='dead'?1.75:pose==='knockdown'?.72:pose==='getup'?.56:pose==='stagger'?.18:0,stunDuration:.52,attack:null};
+      renderer.camera.position.set(4.4,2.6,6.4);renderer.look.set(0,1.25,0);
+      for(let i=0;i<5;i++)renderer.render(frame,.05);
+      renderer.camera.position.set(3.2,2.0,4.8);renderer.camera.lookAt(0,1.05,0);renderer.renderer.render(renderer.scene,renderer.camera);
+      const rig=renderer.fighters[0],model=rig.model;
+      const p=role=>{const bone=rig.bones.get(role);return bone?model.worldToLocal(bone.getWorldPosition(bone.position.clone())).toArray():null;};
+      return {pose,clip:rig.current?.getClip().name,hips:p('Hips'),head:p('Head'),leftKnee:p('LegL'),rightKnee:p('LegR'),leftFoot:p('FootL'),rightFoot:p('FootR'),leftHand:p('HandL'),rightHand:p('HandR'),yaw:rig.root.rotation.y};
+    },pose);
+    checks.push(anatomy);console.log(JSON.stringify(anatomy));
+    assert.ok(anatomy.leftFoot[1]>-.01&&anatomy.rightFoot[1]>-.01,'Feet penetrated the floor in '+pose);
+    if(pose==='dead') assert.ok(anatomy.leftKnee[1]>.015&&anatomy.rightKnee[1]>.015,'Surrender knees penetrated the floor');
+    if(pose==='stagger')assert.ok(anatomy.leftKnee[1]>.25&&anatomy.rightKnee[1]>.25,'A standing stagger must not kneel');
+    if(pose==='knockdown')assert.ok(anatomy.head[1]<.45,'Pressure knockdown must reach the ground');
+    await page.screenshot({path:`verification/screenshots/combat/${pose}.png`});
+  }
+  await page.evaluate(()=>{document.querySelector('.duel-overlay').style.visibility='';});
+  await page.evaluate(()=>{window.__veilstrike.renderer.fighters[1].root.visible=true;});
+  await page.getByRole('button',{name:'RETURN TO FIGHT',exact:true}).click();
+  await page.evaluate(()=>{const sim=window.__veilstrike.simulation;sim.config.mode='pvp';sim.fighters[0].state='idle';sim.fighters[0].attack=null;sim.fighters[1].x=6;sim.fighters[1].z=-6;sim.fighters[1].state='idle';});
+  await page.keyboard.press('KeyJ');
+  await page.waitForFunction(()=>window.__veilstrike.getSnapshot().fighters[0].attack?.id==='light');
+  checks.push({name:'single keyboard press',attack:'light'});
+  await page.waitForFunction(()=>!window.__veilstrike.getSnapshot().fighters[0].attack);
+  await page.keyboard.press('KeyJ');await page.keyboard.press('KeyJ',{delay:40});
+  await page.waitForFunction(()=>window.__veilstrike.getSnapshot().fighters[0].attack?.id==='heavy');
+  checks.push({name:'double keyboard press',attack:'heavy'});
+  await page.keyboard.press('Escape');
+  await page.getByRole('button',{name:'LEAVE ARENA',exact:true}).click();
+  await page.waitForSelector('.game-lobby > .lobby-scene[data-ready="true"]');
+  await page.getByRole('button',{name:'Characters',exact:true}).click();
+  await page.getByRole('button',{name:'NOMET Select',exact:true}).click();
+  await page.waitForSelector('.collection-model .lobby-scene[data-ready="true"]');
+  await page.screenshot({path:'verification/screenshots/combat/nomet-portrait.png'});
+  await page.getByRole('button',{name:'Close panel',exact:true}).click();
+  await page.waitForSelector('.game-lobby > .lobby-scene[data-ready="true"]');
+  await page.locator('.lobby-play').click();
+  await page.locator('.duel-loading').waitFor({state:'detached'});
+  await page.waitForFunction(()=>window.__veilstrike.getSnapshot().phase==='fight');
+  await page.keyboard.press('Escape');
+  await page.evaluate(()=>{document.querySelector('.duel-overlay').style.visibility='hidden';const {renderer,simulation}=window.__veilstrike;const frame=simulation.snapshot();frame.fighters[0]={...frame.fighters[0],x:0,z:0,yaw:0,state:'attack',attack:{id:'special',elapsed:.5,combo:0,connected:false,startedAt:3,power:1,released:true,aimX:0,aimZ:2.5}};frame.events=[{id:999999,kind:'release',slot:0,x:0,z:2.5,move:'special'}];for(let i=0;i<8;i++)renderer.render(frame,.025);renderer.camera.position.set(5,3.3,7);renderer.camera.lookAt(0,1.3,1);renderer.renderer.render(renderer.scene,renderer.camera);});
+  await page.screenshot({path:'verification/screenshots/combat/nomet-slam.png'});
+  checks.push(await page.evaluate(()=>({name:'Nomet slam',effects:window.__veilstrike.renderer.effects.length,debris:window.__veilstrike.renderer.debris.length,source:window.__veilstrike.renderer.fighters[0].modelSource})));
+  assert.equal(errors.length,0,JSON.stringify(errors));
+  console.log('PASS: stance clips, articulated poses, one/double attack, and Nomet ground slam.');
+}catch(error){await page.screenshot({path:'verification/screenshots/combat/failure.png'}).catch(()=>{});checks.push({failure:String(error)});throw error;}
+finally{await writeFile('verification/combat-review.json',JSON.stringify({base,checks,errors},null,2));await browser.close();}

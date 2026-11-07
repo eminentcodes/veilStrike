@@ -1,14 +1,17 @@
-import { CHAMPIONS, validFighter, playableFighter } from './catalog';
-import type { ChampionId, CharacterLevel } from './catalog';
+import { CHAMPIONS, STARTER_FIGHTER_IDS, validFighter, playableFighter } from './catalog';
+import type { ChampionId, CharacterLevel, StarterFighterId } from './catalog';
 import type { MatchResult } from '../fight/types';
 
 export interface PlayerProfile {
   version: 1; name: string; id: string; embers: number; matches: number; wins: number;
+  selectedFighter: ChampionId;
+  onboarding: { setup: boolean; lobby: boolean; combat: boolean };
   levels: Partial<Record<ChampionId, CharacterLevel>>; claimed: string[];
   daily: { day: string; matches: number; firstWin: boolean; threeMatches: boolean };
   spin?: { day: string; reward: number };
 }
 const KEY = 'veilstrike:profile:v1';
+export const ONBOARDING_EMBERS = 1500;
 export const UPGRADE_COST = { 1: 300, 2: 900, 3: 0 };
 export const SPIN_REWARDS = [25, 50, 75, 100, 150, 200, 300, 500];
 export const spinDay = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Lagos', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
@@ -22,6 +25,7 @@ export function spinEmbers(profile: PlayerProfile, random = crypto.getRandomValu
 const today = () => new Date().toISOString().slice(0, 10);
 export function newProfile(): PlayerProfile {
   return { version: 1, name: 'Wayfarer', id: crypto.randomUUID().slice(0, 8).toUpperCase(), embers: 0, matches: 0, wins: 0,
+    selectedFighter: 'karen', onboarding: { setup: false, lobby: false, combat: false },
     levels: { karen: 1, taren: 1, nomet: 1 }, claimed: [], daily: { day: today(), matches: 0, firstWin: false, threeMatches: false } };
 }
 export function loadProfile(): PlayerProfile {
@@ -36,10 +40,34 @@ export function loadProfile(): PlayerProfile {
     if (Array.isArray(raw.claimed)) fresh.claimed = raw.claimed.filter((id: unknown) => typeof id === 'string').slice(-80);
     if (raw.daily?.day === today()) fresh.daily = { day: today(), matches: Math.max(0, Number(raw.daily.matches) || 0), firstWin: raw.daily.firstWin === true, threeMatches: raw.daily.threeMatches === true };
     if (raw.spin?.day === spinDay() && SPIN_REWARDS.includes(raw.spin.reward)) fresh.spin = { day: raw.spin.day, reward: raw.spin.reward };
+    const selected: unknown = raw.selectedFighter;
+    if (validFighter(selected) && playableFighter(selected) && fresh.levels[selected]) fresh.selectedFighter = selected;
+    if (raw.onboarding && typeof raw.onboarding === 'object') {
+      fresh.onboarding = { setup: raw.onboarding.setup === true, lobby: raw.onboarding.lobby === true, combat: raw.onboarding.combat === true };
+    } else {
+      // Older builds saved an empty Wayfarer profile as soon as the app opened.
+      // Migrate returning players without treating that empty save as setup.
+      const returning = fresh.matches > 0 || fresh.embers > 0 || fresh.name !== 'Wayfarer' || Object.values(fresh.levels).some(level => level! > 1);
+      fresh.onboarding = { setup: returning, lobby: returning, combat: returning };
+    }
   } catch { /* A private browser profile can still play with the starter roster. */ }
   return fresh;
 }
 export function saveProfile(profile: PlayerProfile): void { try { localStorage.setItem(KEY, JSON.stringify(profile)); } catch { /* Persistence is optional. */ } }
+export function playerNameError(name: string): string {
+  const cleaned = name.trim();
+  if (cleaned.length < 2 || cleaned.length > 18) return 'Choose a name with 2 to 18 characters.';
+  if (/[\u0000-\u001f\u007f]/u.test(cleaned)) return 'Use a name without control characters.';
+  return '';
+}
+export function completeSetup(profile: PlayerProfile, name: string, fighter: StarterFighterId): PlayerProfile {
+  if (playerNameError(name) || !STARTER_FIGHTER_IDS.includes(fighter)) return profile;
+  const welcomeGift = profile.onboarding.setup ? 0 : ONBOARDING_EMBERS;
+  return { ...profile, name: name.trim(), selectedFighter: fighter, embers: profile.embers + welcomeGift, onboarding: { ...profile.onboarding, setup: true } };
+}
+export function completeOnboarding(profile: PlayerProfile, part: 'lobby' | 'combat'): PlayerProfile {
+  return { ...profile, onboarding: { ...profile.onboarding, [part]: true } };
+}
 export function unlockCharacter(profile: PlayerProfile, id: ChampionId): PlayerProfile {
   const cost = CHAMPIONS[id].cost;
   if (!playableFighter(id) || profile.levels[id] || profile.embers < cost) return profile;
@@ -52,9 +80,9 @@ export function upgradeCharacter(profile: PlayerProfile, id: ChampionId): Player
 export function rewardMatch(profile: PlayerProfile, token: string, result: MatchResult): { profile: PlayerProfile; reward: number } {
   if (profile.claimed.includes(token)) return { profile, reward: 0 };
   const daily = profile.daily.day === today() ? { ...profile.daily } : { day: today(), matches: 0, firstWin: false, threeMatches: false };
-  let reward = result.won ? 60 : 25;
+  const reward = result.tied ? 30 : result.won ? 75 : result.playerRounds > 0 ? 25 : 0;
   daily.matches++;
-  if (result.won && !daily.firstWin) { reward += 75; daily.firstWin = true; }
-  if (daily.matches >= 3 && !daily.threeMatches) { reward += 75; daily.threeMatches = true; }
+  if (result.won) daily.firstWin = true;
+  if (daily.matches >= 3) daily.threeMatches = true;
   return { reward, profile: { ...profile, daily, embers: profile.embers + reward, matches: profile.matches + 1, wins: profile.wins + Number(result.won), claimed: [...profile.claimed, token].slice(-80) } };
 }

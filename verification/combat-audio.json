@@ -1,0 +1,33 @@
+{
+  "checks": [
+    {
+      "name": "live attack releases, connects and plays blade impact without a fall",
+      "events": [
+        "weapon-swing",
+        "blade-hit",
+        "armor-hit"
+      ]
+    },
+    {
+      "name": "live jump uses movement and grounded landing cues",
+      "passed": true
+    },
+    {
+      "name": "live grounded movement produces surface footsteps",
+      "passed": true
+    },
+    {
+      "name": "live throw reaches ground after its release sound",
+      "events": [
+        "grapple-grab",
+        "throw-swing",
+        "body-fall"
+      ]
+    },
+    {
+      "name": "completed win returns to quiet lobby music even if its initial load finishes after the match",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

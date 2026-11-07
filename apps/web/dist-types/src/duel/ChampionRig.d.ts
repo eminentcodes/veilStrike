@@ -16,12 +16,22 @@ export declare class ChampionRig {
     private dead;
     private animatedCloth;
     private blinkMeshes;
+    private hitMaterials;
+    private hitAge;
+    private hitPower;
+    private equipment;
+    private equipmentReleased;
     private resolveReady;
-    constructor(id: ChampionId);
+    constructor(id: ChampionId, autoload?: boolean);
     ready(): Promise<void>;
     private install;
     private addArmor;
     private play;
     animate(f: FighterFrame, dt: number, time: number, preview?: boolean): void;
+    get stanceName(): string;
+    handPosition(side: 'L' | 'R'): THREE.Vector3;
+    impact(power: number): void;
+    showHeldDagger(visible: boolean): void;
+    releaseEquipment(): THREE.Mesh[];
     dispose(): void;
 }

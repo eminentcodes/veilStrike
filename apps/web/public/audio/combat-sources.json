@@ -1,0 +1,526 @@
+{
+  "author": "Kenney",
+  "pack": "RPG Audio",
+  "license": "CC0-1.0",
+  "source": "https://github.com/Boyquotes/kenney-rpg-audio-for-godot/tree/22eb79b",
+  "homepage": "https://kenney.nl/assets/rpg-audio",
+  "processing": "Spotify Pedalboard 0.9.26 plus original synthesis",
+  "files": {
+    "weapon-swing-1.wav": [
+      "cloth_1.ogg",
+      "knife_slice.ogg"
+    ],
+    "weapon-swing-2.wav": [
+      "cloth_2.ogg",
+      "knife_slice_2.ogg"
+    ],
+    "weapon-swing-3.wav": [
+      "cloth_3.ogg",
+      "knife_slice_2.ogg"
+    ],
+    "fist-swing-1.wav": [
+      "cloth_1.ogg"
+    ],
+    "fist-swing-2.wav": [
+      "cloth_2.ogg"
+    ],
+    "fist-swing-3.wav": [
+      "cloth_3.ogg"
+    ],
+    "punch-impact-1.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "punch-impact-2.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "punch-impact-3.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "punch-heavy-1.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "punch-heavy-2.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "punch-heavy-3.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "blade-hit-1.wav": [
+      "chop.ogg",
+      "knife_slice_2.ogg",
+      "metal_pot_1.ogg"
+    ],
+    "blade-hit-2.wav": [
+      "chop.ogg",
+      "knife_slice_2.ogg",
+      "metal_pot_2.ogg"
+    ],
+    "blade-hit-3.wav": [
+      "chop.ogg",
+      "knife_slice_2.ogg",
+      "metal_pot_3.ogg"
+    ],
+    "body-hit-1.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "body-hit-2.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "body-hit-3.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "heavy-impact-1.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "heavy-impact-2.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "heavy-impact-3.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "body-block-1.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "body-block-2.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "body-block-3.wav": [
+      "chop.ogg",
+      "drop_leather.ogg"
+    ],
+    "shield-block-1.wav": [
+      "door_close_1.ogg",
+      "metal_latch.ogg",
+      "metal_pot_1.ogg"
+    ],
+    "shield-block-2.wav": [
+      "door_close_2.ogg",
+      "metal_latch.ogg",
+      "metal_pot_2.ogg"
+    ],
+    "shield-block-3.wav": [
+      "door_close_3.ogg",
+      "metal_latch.ogg",
+      "metal_pot_3.ogg"
+    ],
+    "metal-clash-1.wav": [
+      "metal_latch.ogg",
+      "metal_pot_1.ogg"
+    ],
+    "metal-clash-2.wav": [
+      "metal_latch.ogg",
+      "metal_pot_2.ogg"
+    ],
+    "metal-clash-3.wav": [
+      "metal_latch.ogg",
+      "metal_pot_3.ogg"
+    ],
+    "armor-hit-1.wav": [
+      "metal_latch.ogg",
+      "metal_pot_1.ogg"
+    ],
+    "armor-hit-2.wav": [
+      "metal_latch.ogg",
+      "metal_pot_2.ogg"
+    ],
+    "armor-hit-3.wav": [
+      "metal_latch.ogg",
+      "metal_pot_3.ogg"
+    ],
+    "parry-1.wav": [
+      "metal_latch.ogg",
+      "metal_pot_1.ogg"
+    ],
+    "parry-2.wav": [
+      "metal_latch.ogg",
+      "metal_pot_2.ogg"
+    ],
+    "parry-3.wav": [
+      "metal_latch.ogg",
+      "metal_pot_3.ogg"
+    ],
+    "guard-break-1.wav": [
+      "door_close_1.ogg",
+      "metal_latch.ogg",
+      "metal_pot_1.ogg"
+    ],
+    "guard-break-2.wav": [
+      "door_close_2.ogg",
+      "metal_latch.ogg",
+      "metal_pot_2.ogg"
+    ],
+    "guard-break-3.wav": [
+      "door_close_3.ogg",
+      "metal_latch.ogg",
+      "metal_pot_3.ogg"
+    ],
+    "body-fall-1.wav": [
+      "chop.ogg",
+      "cloth_1.ogg",
+      "drop_leather.ogg",
+      "footstep_0.ogg"
+    ],
+    "body-fall-2.wav": [
+      "chop.ogg",
+      "cloth_2.ogg",
+      "drop_leather.ogg",
+      "footstep_1.ogg"
+    ],
+    "body-fall-3.wav": [
+      "chop.ogg",
+      "cloth_3.ogg",
+      "drop_leather.ogg",
+      "footstep_2.ogg"
+    ],
+    "body-collapse-1.wav": [
+      "chop.ogg",
+      "cloth_1.ogg",
+      "drop_leather.ogg",
+      "footstep_0.ogg"
+    ],
+    "body-collapse-2.wav": [
+      "chop.ogg",
+      "cloth_2.ogg",
+      "drop_leather.ogg",
+      "footstep_1.ogg"
+    ],
+    "body-collapse-3.wav": [
+      "chop.ogg",
+      "cloth_3.ogg",
+      "drop_leather.ogg",
+      "footstep_2.ogg"
+    ],
+    "equipment-drop-1.wav": [
+      "metal_click.ogg",
+      "metal_latch.ogg",
+      "metal_pot_1.ogg"
+    ],
+    "equipment-drop-2.wav": [
+      "metal_click.ogg",
+      "metal_latch.ogg",
+      "metal_pot_2.ogg"
+    ],
+    "equipment-drop-3.wav": [
+      "metal_click.ogg",
+      "metal_latch.ogg",
+      "metal_pot_3.ogg"
+    ],
+    "ground-slam-1.wav": [
+      "chop.ogg",
+      "cloth_1.ogg",
+      "drop_leather.ogg",
+      "footstep_0.ogg"
+    ],
+    "ground-slam-2.wav": [
+      "chop.ogg",
+      "cloth_2.ogg",
+      "drop_leather.ogg",
+      "footstep_1.ogg"
+    ],
+    "ground-slam-3.wav": [
+      "chop.ogg",
+      "cloth_3.ogg",
+      "drop_leather.ogg",
+      "footstep_2.ogg"
+    ],
+    "bone-1.wav": [
+      "chop.ogg",
+      "cloth_1.ogg",
+      "drop_leather.ogg",
+      "footstep_0.ogg"
+    ],
+    "bone-2.wav": [
+      "chop.ogg",
+      "cloth_2.ogg",
+      "drop_leather.ogg",
+      "footstep_1.ogg"
+    ],
+    "bone-3.wav": [
+      "chop.ogg",
+      "cloth_3.ogg",
+      "drop_leather.ogg",
+      "footstep_2.ogg"
+    ],
+    "dodge-1.wav": [
+      "cloth_1.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "dodge-2.wav": [
+      "cloth_2.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "dodge-3.wav": [
+      "cloth_3.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "jump-1.wav": [
+      "cloth_1.ogg",
+      "footstep_0.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "jump-2.wav": [
+      "cloth_2.ogg",
+      "footstep_1.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "jump-3.wav": [
+      "cloth_3.ogg",
+      "footstep_2.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "getup-1.wav": [
+      "cloth_1.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "getup-2.wav": [
+      "cloth_2.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "getup-3.wav": [
+      "cloth_3.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "grapple-grab-1.wav": [
+      "cloth_1.ogg",
+      "footstep_0.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "grapple-grab-2.wav": [
+      "cloth_2.ogg",
+      "footstep_1.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "grapple-grab-3.wav": [
+      "cloth_3.ogg",
+      "footstep_2.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "throw-swing-1.wav": [
+      "cloth_1.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "throw-swing-2.wav": [
+      "cloth_2.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "throw-swing-3.wav": [
+      "cloth_3.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "blade-toss-1.wav": [
+      "draw_knife_1.ogg",
+      "knife_slice.ogg"
+    ],
+    "blade-toss-2.wav": [
+      "draw_knife_2.ogg",
+      "knife_slice.ogg"
+    ],
+    "blade-toss-3.wav": [
+      "draw_knife_3.ogg",
+      "knife_slice.ogg"
+    ],
+    "shield-charge-1.wav": [
+      "door_close_1.ogg",
+      "metal_latch.ogg",
+      "metal_pot_1.ogg"
+    ],
+    "shield-charge-2.wav": [
+      "door_close_2.ogg",
+      "metal_latch.ogg",
+      "metal_pot_2.ogg"
+    ],
+    "shield-charge-3.wav": [
+      "door_close_3.ogg",
+      "metal_latch.ogg",
+      "metal_pot_3.ogg"
+    ],
+    "ability-charge-1.wav": [
+      "cloth_belt.ogg"
+    ],
+    "ability-charge-2.wav": [
+      "cloth_belt.ogg"
+    ],
+    "ability-charge-3.wav": [
+      "cloth_belt.ogg"
+    ],
+    "smoke-1.wav": [
+      "cloth_1.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "smoke-2.wav": [
+      "cloth_2.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "smoke-3.wav": [
+      "cloth_3.ogg",
+      "handle_small_leather.ogg"
+    ],
+    "defeat-impact-1.wav": [
+      "chop.ogg",
+      "cloth_1.ogg",
+      "drop_leather.ogg",
+      "footstep_0.ogg"
+    ],
+    "defeat-impact-2.wav": [
+      "chop.ogg",
+      "cloth_2.ogg",
+      "drop_leather.ogg",
+      "footstep_1.ogg"
+    ],
+    "defeat-impact-3.wav": [
+      "chop.ogg",
+      "cloth_3.ogg",
+      "drop_leather.ogg",
+      "footstep_2.ogg"
+    ],
+    "footstep-stone-1.wav": [
+      "footstep_0.ogg"
+    ],
+    "footstep-stone-2.wav": [
+      "footstep_1.ogg"
+    ],
+    "footstep-stone-3.wav": [
+      "footstep_2.ogg"
+    ],
+    "footstep-earth-1.wav": [
+      "footstep_0.ogg"
+    ],
+    "footstep-earth-2.wav": [
+      "footstep_1.ogg"
+    ],
+    "footstep-earth-3.wav": [
+      "footstep_2.ogg"
+    ],
+    "footstep-metal-1.wav": [
+      "footstep_0.ogg",
+      "metal_click.ogg"
+    ],
+    "footstep-metal-2.wav": [
+      "footstep_1.ogg",
+      "metal_click.ogg"
+    ],
+    "footstep-metal-3.wav": [
+      "footstep_2.ogg",
+      "metal_click.ogg"
+    ],
+    "footstep-snow-1.wav": [
+      "cloth_1.ogg",
+      "footstep_0.ogg"
+    ],
+    "footstep-snow-2.wav": [
+      "cloth_2.ogg",
+      "footstep_1.ogg"
+    ],
+    "footstep-snow-3.wav": [
+      "cloth_3.ogg",
+      "footstep_2.ogg"
+    ],
+    "footstep-gravel-1.wav": [
+      "cloth_1.ogg",
+      "footstep_0.ogg"
+    ],
+    "footstep-gravel-2.wav": [
+      "cloth_2.ogg",
+      "footstep_1.ogg"
+    ],
+    "footstep-gravel-3.wav": [
+      "cloth_3.ogg",
+      "footstep_2.ogg"
+    ],
+    "land-stone-1.wav": [
+      "footstep_0.ogg"
+    ],
+    "land-stone-2.wav": [
+      "footstep_1.ogg"
+    ],
+    "land-stone-3.wav": [
+      "footstep_2.ogg"
+    ],
+    "land-earth-1.wav": [
+      "footstep_0.ogg"
+    ],
+    "land-earth-2.wav": [
+      "footstep_1.ogg"
+    ],
+    "land-earth-3.wav": [
+      "footstep_2.ogg"
+    ],
+    "land-metal-1.wav": [
+      "footstep_0.ogg",
+      "metal_click.ogg"
+    ],
+    "land-metal-2.wav": [
+      "footstep_1.ogg",
+      "metal_click.ogg"
+    ],
+    "land-metal-3.wav": [
+      "footstep_2.ogg",
+      "metal_click.ogg"
+    ],
+    "land-snow-1.wav": [
+      "cloth_1.ogg",
+      "footstep_0.ogg"
+    ],
+    "land-snow-2.wav": [
+      "cloth_2.ogg",
+      "footstep_1.ogg"
+    ],
+    "land-snow-3.wav": [
+      "cloth_3.ogg",
+      "footstep_2.ogg"
+    ],
+    "land-gravel-1.wav": [
+      "cloth_1.ogg",
+      "footstep_0.ogg"
+    ],
+    "land-gravel-2.wav": [
+      "cloth_2.ogg",
+      "footstep_1.ogg"
+    ],
+    "land-gravel-3.wav": [
+      "cloth_3.ogg",
+      "footstep_2.ogg"
+    ],
+    "round-start-1.wav": [
+      "metal_latch.ogg"
+    ],
+    "round-start-2.wav": [
+      "metal_latch.ogg"
+    ],
+    "round-start-3.wav": [
+      "metal_latch.ogg"
+    ],
+    "round-win-1.wav": [],
+    "round-win-2.wav": [],
+    "round-win-3.wav": [],
+    "round-loss-1.wav": [],
+    "round-loss-2.wav": [],
+    "round-loss-3.wav": [],
+    "round-draw-1.wav": [],
+    "round-draw-2.wav": [],
+    "round-draw-3.wav": [],
+    "victory-1.wav": [],
+    "victory-2.wav": [],
+    "victory-3.wav": [],
+    "defeat-1.wav": [],
+    "defeat-2.wav": [],
+    "defeat-3.wav": [],
+    "draw-1.wav": [],
+    "draw-2.wav": [],
+    "draw-3.wav": []
+  }
+}

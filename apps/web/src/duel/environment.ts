@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { buildDistinctArena } from './arenaWorlds';
 import { ARENAS } from './catalog';
 import type { ArenaId } from './catalog';
 
@@ -31,9 +32,10 @@ function floorTexture(arena: ArenaId): THREE.CanvasTexture {
   const texture = new THREE.CanvasTexture(canvas); texture.wrapS = texture.wrapT = THREE.RepeatWrapping; texture.repeat.set(7, 7); texture.colorSpace = THREE.SRGBColorSpace;
   return texture;
 }
-export interface ArenaScene { flames: THREE.Object3D[]; ambient: THREE.Points; }
+export interface ArenaScene { flames: THREE.Object3D[]; ambient: THREE.Points; update?: (dt: number, time: number) => void; }
 export function buildArena(scene: THREE.Scene, id: ArenaId): ArenaScene {
   const theme = ARENAS[id];
+  if(theme.id !== 'sanctum') return buildDistinctArena(scene,theme.id);
   scene.background = new THREE.Color(theme.sky); scene.fog = new THREE.FogExp2(theme.fog, .029);
   scene.add(new THREE.HemisphereLight(theme.light, 0x111820, 1.6));
   const key = new THREE.DirectionalLight(theme.light, 3);

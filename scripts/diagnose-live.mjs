@@ -1,0 +1,16 @@
+import { chromium } from 'playwright';
+import { readdir, mkdir, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+const cache=join(process.env.LOCALAPPDATA,'ms-playwright');
+const candidates=(await readdir(cache)).filter(n=>/^chromium-[0-9]+$/.test(n)).sort().reverse();
+const executablePath=candidates.map(n=>join(cache,n,'chrome-win64','chrome.exe')).find(existsSync);
+const browser=await chromium.launch({executablePath,headless:true,args:['--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist']});
+const page=await browser.newPage({viewport:{width:1440,height:900}});const errors=[];
+page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`);});
+await mkdir('verification/screenshots',{recursive:true});
+await page.goto(process.env.REVIEW_URL||'http://127.0.0.1:5174/',{waitUntil:'domcontentloaded'});
+await page.waitForSelector('.lobby-scene[data-ready=true]',{timeout:45000}).catch(e=>errors.push(e.message));await page.waitForTimeout(700);await page.screenshot({path:'verification/screenshots/diagnosis.png'});
+const state=await page.evaluate(()=>({text:document.body.innerText.slice(0,1500),style:document.querySelector('main')&&getComputedStyle(document.querySelector('main')).position,ready:document.querySelector('.lobby-scene')?.getAttribute('data-ready'),model:window.__veilstrikeLobby?.fighters[0].modelSource,box:window.__veilstrikeLobby?.fighters[0].model?.children.length,info:window.__veilstrikeLobby?.renderer.info.render}));
+console.log(JSON.stringify({errors,state},null,2));await writeFile('verification/diagnosis.json',JSON.stringify({errors,state},null,2));await browser.close();

@@ -1,0 +1,21 @@
+{
+  "checks": [
+    {
+      "name": "only Sound and Effects adjustment controls",
+      "passed": true
+    },
+    {
+      "name": "both sliders control their audio levels",
+      "passed": true
+    },
+    {
+      "name": "both settings persist after reload",
+      "passed": true
+    },
+    {
+      "name": "zero Effects silences interface cues",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

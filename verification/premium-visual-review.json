@@ -1,0 +1,2078 @@
+{
+  "checks": [
+    {
+      "input": "single",
+      "sample": {
+        "x": 0,
+        "z": 0,
+        "sprint": false,
+        "guard": false,
+        "light": true,
+        "heavy": false,
+        "dodge": false,
+        "special": false,
+        "ultimate": false,
+        "jump": false,
+        "grapple": false,
+        "lockOn": true
+      }
+    },
+    {
+      "input": "double",
+      "sample": {
+        "x": 0,
+        "z": 0,
+        "sprint": false,
+        "guard": false,
+        "light": false,
+        "heavy": true,
+        "dodge": false,
+        "special": false,
+        "ultimate": false,
+        "jump": false,
+        "grapple": false,
+        "lockOn": true
+      }
+    },
+    {
+      "name": "Premium selectable in collection and combat",
+      "id": "veyra"
+    },
+    {
+      "id": "karen",
+      "state": "idle",
+      "move": null,
+      "clip": "Combat_Ready",
+      "yaw": 0,
+      "footL": [
+        0.1948949088317485,
+        0.09234858420085679,
+        0.2517068961914449
+      ],
+      "footR": [
+        -0.19489483736927196,
+        0.09234842478195693,
+        -0.16101186104283288
+      ],
+      "kneeL": [
+        0.17613814541933243,
+        0.6706693088305684,
+        0.32822324313832846
+      ],
+      "kneeR": [
+        -0.17552043278064838,
+        0.595279428360857,
+        0.13453253592121422
+      ],
+      "hand": [
+        -0.29807462945918295,
+        1.6556815016942814,
+        0.41271862836608153
+      ],
+      "head": [
+        -0.0021852331306916784,
+        2.1431692889185014,
+        0.09303192828555562
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "karen",
+      "state": "attack",
+      "move": "special",
+      "clip": "Combat_SwordCombo",
+      "yaw": 0,
+      "footL": [
+        0.19482654567523144,
+        0.09234846957296228,
+        0.2516343650967868
+      ],
+      "footR": [
+        -0.19482614423679445,
+        0.09234845062072639,
+        -0.16093944552727524
+      ],
+      "kneeL": [
+        0.17512981800042948,
+        0.6705009583745791,
+        0.3291789768134016
+      ],
+      "kneeR": [
+        -0.1764242725634515,
+        0.5945973347104346,
+        0.13582457209014137
+      ],
+      "hand": [
+        -0.3713903703458371,
+        1.9210338826173536,
+        0.48457584583100244
+      ],
+      "head": [
+        -0.005048747832443829,
+        2.142395064689962,
+        0.09248185611527178
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "karen",
+      "state": "stagger",
+      "move": null,
+      "clip": "Combat_Hit",
+      "yaw": 0,
+      "footL": [
+        0.19480133269197447,
+        0.09234040471770444,
+        0.22788965157280616
+      ],
+      "footR": [
+        -0.1948382971316826,
+        0.16980855017791352,
+        -0.37425058478298
+      ],
+      "kneeL": [
+        0.1772711300956797,
+        0.6628619453443831,
+        0.34978839282684054
+      ],
+      "kneeR": [
+        -0.1819565985430243,
+        0.5168558097871337,
+        0.09484825023186905
+      ],
+      "hand": [
+        -0.2979301454528567,
+        1.3982005511983626,
+        0.3093890023875512
+      ],
+      "head": [
+        0.006784086457790073,
+        2.0572104028180527,
+        -0.13818191697750343
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "karen",
+      "state": "knockdown",
+      "move": null,
+      "clip": "Combat_Fall",
+      "yaw": 0,
+      "footL": [
+        0.19480040792923717,
+        0.11984979707542026,
+        0.6187777788149067
+      ],
+      "footR": [
+        -0.19480040956892222,
+        0.11984980746132601,
+        0.43543622037024315
+      ],
+      "kneeL": [
+        0.16691349876894102,
+        0.5410591321006518,
+        0.215706587085443
+      ],
+      "kneeR": [
+        -0.15749664216075948,
+        0.6363787396273715,
+        0.16623799130150413
+      ],
+      "hand": [
+        -0.497466528123514,
+        0.1507781225468175,
+        -0.4309592855436062
+      ],
+      "head": [
+        0.0025424007722747322,
+        0.48528937204132205,
+        -1.2906190586772712
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "karen",
+      "state": "getup",
+      "move": null,
+      "clip": "Combat_Rise",
+      "yaw": 0,
+      "footL": [
+        0.19480243776451323,
+        0.11031994302438397,
+        0.49725648247218773
+      ],
+      "footR": [
+        -0.19481218392060165,
+        0.109990833670361,
+        0.2380169990073459
+      ],
+      "kneeL": [
+        0.17122619765874572,
+        0.6835582984914025,
+        0.3900029545808777
+      ],
+      "kneeR": [
+        -0.16869385644729046,
+        0.6725829683026321,
+        0.3912139465695249
+      ],
+      "hand": [
+        -0.3929016413184824,
+        0.5268651330200078,
+        -0.3117861057350908
+      ],
+      "head": [
+        0.020103128652911893,
+        1.219221141369157,
+        -0.9636597397515434
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "karen",
+      "state": "dead",
+      "move": null,
+      "clip": "Combat_Defeat",
+      "yaw": 0,
+      "footL": [
+        0.1456872789382059,
+        0.13360043065078617,
+        -0.1809856144371268
+      ],
+      "footR": [
+        -0.1456872556618418,
+        0.1336004085750323,
+        -0.180985636204347
+      ],
+      "kneeL": [
+        0.14568727967344594,
+        0.06753949940666631,
+        0.3989259023545876
+      ],
+      "kneeR": [
+        -0.1456872662600094,
+        0.06753952120794632,
+        0.3989259317305706
+      ],
+      "hand": [
+        -0.34376544336621206,
+        0.5277846408737044,
+        0.29792998599198656
+      ],
+      "head": [
+        0.002542403303853054,
+        1.4374781470187874,
+        0.2785938713142988
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "taren",
+      "state": "idle",
+      "move": null,
+      "clip": "Combat_Ready",
+      "yaw": 0,
+      "footL": [
+        0.2610737423111628,
+        0.10403717015630831,
+        0.2223056912766271
+      ],
+      "footR": [
+        -0.26107360871328983,
+        0.10403922857501657,
+        -0.22524911316436402
+      ],
+      "kneeL": [
+        0.24026446203826876,
+        0.6933777508881626,
+        0.41122278679336566
+      ],
+      "kneeR": [
+        -0.24121670175181176,
+        0.5855785703921796,
+        0.1635550385811797
+      ],
+      "hand": [
+        -0.3978263684991177,
+        1.7087152259595548,
+        0.5470114373498318
+      ],
+      "head": [
+        -0.0005152898504935358,
+        2.2972573686910187,
+        0.0877365175747055
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "taren",
+      "state": "attack",
+      "move": "special",
+      "clip": "Combat_Shield",
+      "yaw": 0,
+      "footL": [
+        0.2609396471200285,
+        0.104036641893406,
+        0.22219140550347033
+      ],
+      "footR": [
+        -0.2609395211788496,
+        0.1040391656651049,
+        -0.22513359272982575
+      ],
+      "kneeL": [
+        0.24210545255386495,
+        0.6647524784336599,
+        0.4842741192146986
+      ],
+      "kneeR": [
+        -0.24718046660327755,
+        0.5173666154987318,
+        0.23574958836598886
+      ],
+      "hand": [
+        -0.43760720156300886,
+        1.6521654600705626,
+        0.7694755686544432
+      ],
+      "head": [
+        -0.016262034294724618,
+        2.1928746963394525,
+        0.18451628057216657
+      ],
+      "equipment": [],
+      "effects": [
+        "shield-force-field",
+        "shield-shockwave"
+      ]
+    },
+    {
+      "id": "taren",
+      "state": "stagger",
+      "move": null,
+      "clip": "Combat_Hit",
+      "yaw": 0,
+      "footL": [
+        0.26094072945024616,
+        0.10402841605048696,
+        0.19647319925648235
+      ],
+      "footR": [
+        -0.2609905584733496,
+        0.1880475927590739,
+        -0.45648931578687857
+      ],
+      "kneeL": [
+        0.24098935364249569,
+        0.6805921940437114,
+        0.42146393904141854
+      ],
+      "kneeR": [
+        -0.25029548572877836,
+        0.4920167792670027,
+        0.08288953774409283
+      ],
+      "hand": [
+        -0.397622379188904,
+        1.4287083241609082,
+        0.43489934937374836
+      ],
+      "head": [
+        0.004399567267650093,
+        2.198692630057005,
+        -0.16255556561196224
+      ],
+      "equipment": [],
+      "effects": [
+        "shield-force-field",
+        "shield-shockwave"
+      ]
+    },
+    {
+      "id": "taren",
+      "state": "knockdown",
+      "move": null,
+      "clip": "Combat_Fall",
+      "yaw": 0,
+      "footL": [
+        0.260939165360931,
+        0.13386188509896374,
+        0.6709880187592832
+      ],
+      "footR": [
+        -0.260939250294865,
+        0.1338617917682664,
+        0.4721772684724395
+      ],
+      "kneeL": [
+        0.2269354620423233,
+        0.6047097401516351,
+        0.27025301603265045
+      ],
+      "kneeR": [
+        -0.21588893084190575,
+        0.7002139537593495,
+        0.22589097515308215
+      ],
+      "hand": [
+        -0.5418782117956304,
+        0.17072067050737685,
+        -0.4769386823366296
+      ],
+      "head": [
+        0.0009498869223694079,
+        0.5029874227058205,
+        -1.4075882706268434
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "taren",
+      "state": "getup",
+      "move": null,
+      "clip": "Combat_Rise",
+      "yaw": 0,
+      "footL": [
+        0.26094398851445844,
+        0.12345487538722588,
+        0.5223584092382138
+      ],
+      "footR": [
+        -0.2609583597579257,
+        0.1230750639409095,
+        0.24123362740243404
+      ],
+      "kneeL": [
+        0.23277839143480233,
+        0.7393155099116824,
+        0.46435704530417343
+      ],
+      "kneeR": [
+        -0.23211430227297128,
+        0.6990814282024556,
+        0.4666782240149344
+      ],
+      "hand": [
+        -0.44196583112102955,
+        0.5827955696324687,
+        -0.3474520034074626
+      ],
+      "head": [
+        0.017482628067628153,
+        1.2999365120384136,
+        -1.0604835168000433
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "taren",
+      "state": "dead",
+      "move": null,
+      "clip": "Combat_Defeat",
+      "yaw": 0,
+      "footL": [
+        0.1963986284709559,
+        0.1487704756896655,
+        -0.15134493675938315
+      ],
+      "footR": [
+        -0.196398421481569,
+        0.14877100920408293,
+        -0.15134074234739675
+      ],
+      "kneeL": [
+        0.19639668802171178,
+        0.07458565286338203,
+        0.4634213236106914
+      ],
+      "kneeR": [
+        -0.19639890989192668,
+        0.0745896012520415,
+        0.4634260536998566
+      ],
+      "hand": [
+        -0.37071241197878496,
+        0.5970590261234386,
+        0.3187800248737499
+      ],
+      "head": [
+        0.0009498863348060809,
+        1.600265885203374,
+        0.26314808911007687
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "nomet",
+      "state": "idle",
+      "move": null,
+      "clip": "Combat_Ready",
+      "yaw": 0,
+      "footL": [
+        0.34922922447919663,
+        0.137615670576396,
+        0.245604532465388
+      ],
+      "footR": [
+        -0.34922901380727334,
+        0.13761764418063682,
+        -0.2491369617568875
+      ],
+      "kneeL": [
+        0.3228073272475964,
+        0.8060384668557784,
+        0.5731312470061247
+      ],
+      "kneeR": [
+        -0.3268856786075918,
+        0.6426735207395547,
+        0.2978349840261352
+      ],
+      "hand": [
+        -0.3783316305757313,
+        2.3524519854737473,
+        0.5820495170306763
+      ],
+      "head": [
+        -0.015154392686999788,
+        2.6437741895561886,
+        0.23783431740559363
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "nomet",
+      "state": "attack",
+      "move": "special",
+      "clip": "Combat_Slam",
+      "yaw": 0,
+      "footL": [
+        0.34905326962873107,
+        0.13761286220383195,
+        0.24548202304473132
+      ],
+      "footR": [
+        -0.34905279330729433,
+        0.13761580572284146,
+        -0.24901601157528483
+      ],
+      "kneeL": [
+        0.2585995576299722,
+        0.7331749643224813,
+        0.6835275080427472
+      ],
+      "kneeR": [
+        -1.0559074062287772,
+        0.3299840961015225,
+        -0.11444812994890272
+      ],
+      "hand": [
+        -0.290879332545,
+        0.1142467084154235,
+        0.8144618496194348
+      ],
+      "head": [
+        0.0035515141248745586,
+        1.0736371359154606,
+        0.7726868410391267
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "nomet",
+      "state": "stagger",
+      "move": null,
+      "clip": "Combat_Hit",
+      "yaw": 0,
+      "footL": [
+        0.3490568876893171,
+        0.1376056513237689,
+        0.21537851802028973
+      ],
+      "footR": [
+        -0.3491435945132406,
+        0.23596538547001977,
+        -0.5197800458844604
+      ],
+      "kneeL": [
+        0.32376734927941814,
+        0.7946325901792448,
+        0.565288155464863
+      ],
+      "kneeR": [
+        -0.3412854481085673,
+        0.5231287520996364,
+        0.16741213225074078
+      ],
+      "hand": [
+        -0.3781425966236776,
+        2.028295958316202,
+        0.450863098793962
+      ],
+      "head": [
+        0.012274445521609946,
+        2.5575171213928587,
+        -0.056632432505147476
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "nomet",
+      "state": "knockdown",
+      "move": null,
+      "clip": "Combat_Fall",
+      "yaw": 0,
+      "footL": [
+        0.34905411624870897,
+        0.172523094367794,
+        0.7853727549536196
+      ],
+      "footR": [
+        -0.34905420122318703,
+        0.17252329723315685,
+        0.5526696238871001
+      ],
+      "kneeL": [
+        0.2979665445895021,
+        0.7548792260198901,
+        0.32384216326819937
+      ],
+      "kneeR": [
+        -0.2808867956803484,
+        0.8592747234700018,
+        0.2725203849951741
+      ],
+      "hand": [
+        -0.645358961810057,
+        0.20975488111326884,
+        -0.5372511435672437
+      ],
+      "head": [
+        0.0028530063948360735,
+        0.6908024585942585,
+        -1.6644168199860119
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "nomet",
+      "state": "getup",
+      "move": null,
+      "clip": "Combat_Rise",
+      "yaw": 0,
+      "footL": [
+        0.3490700484087502,
+        0.16030051689276337,
+        0.6064873380398164
+      ],
+      "footR": [
+        -0.3490806942309501,
+        0.15987661099652906,
+        0.2870494510707549
+      ],
+      "kneeL": [
+        0.30662211342022727,
+        0.9023589606447271,
+        0.5584672835826046
+      ],
+      "kneeR": [
+        -0.3045351597724194,
+        0.849844139727685,
+        0.5640293944388335
+      ],
+      "hand": [
+        -0.5298565235799247,
+        0.6892968795925083,
+        -0.3675266439548236
+      ],
+      "head": [
+        0.032349434118094975,
+        1.6101012914658934,
+        -1.2009137086494253
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "nomet",
+      "state": "dead",
+      "move": null,
+      "clip": "Combat_Defeat",
+      "yaw": 0,
+      "footL": [
+        0.2528180965852264,
+        0.18997452389900538,
+        -0.18260129131104919
+      ],
+      "footR": [
+        -0.25281798877583855,
+        0.18997466878176678,
+        -0.18259817049881366
+      ],
+      "kneeL": [
+        0.25281645381601925,
+        0.09970245250418208,
+        0.556728676988088
+      ],
+      "kneeR": [
+        -0.25281865083361027,
+        0.09970569479189717,
+        0.5567322151565969
+      ],
+      "hand": [
+        -0.4363189432926286,
+        0.6902820890707206,
+        0.37814338739942777
+      ],
+      "head": [
+        0.0028530038034058065,
+        1.9009155156756499,
+        0.3927097911998956
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "veyra",
+      "state": "idle",
+      "move": null,
+      "clip": "Combat_Ready",
+      "yaw": 0,
+      "footL": [
+        0.22871490528644978,
+        0.09696607378734245,
+        0.33651796720995203
+      ],
+      "footR": [
+        -0.22871482850336075,
+        0.09696590037350339,
+        -0.24128823527554313
+      ],
+      "kneeL": [
+        0.1994222264173218,
+        0.7073199503314853,
+        0.3833080322849465
+      ],
+      "kneeR": [
+        -0.20099092273294875,
+        0.5972402431663462,
+        0.11160865687440649
+      ],
+      "hand": [
+        -0.40927935376861546,
+        1.6578134553122117,
+        0.5296554951562409
+      ],
+      "head": [
+        -0.014464223543877133,
+        2.222253535797238,
+        0.1233308915046699
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "veyra",
+      "state": "attack",
+      "move": "special",
+      "clip": "Combat_Chain",
+      "yaw": 0,
+      "footL": [
+        0.2286039956293976,
+        0.09696603875534282,
+        0.33637779604545726
+      ],
+      "footR": [
+        -0.2286039985180028,
+        0.09696594844299455,
+        -0.24114811766042316
+      ],
+      "kneeL": [
+        0.19813671174514752,
+        0.7071583362253478,
+        0.3845060700485085
+      ],
+      "kneeR": [
+        -0.20212958020573585,
+        0.5961184308070764,
+        0.11342931278239181
+      ],
+      "hand": [
+        -0.22638129601717966,
+        1.8029070056756973,
+        0.7194019960238893
+      ],
+      "head": [
+        -0.017631291067854337,
+        2.221169960524912,
+        0.12256514293449554
+      ],
+      "equipment": [],
+      "effects": [
+        "veyra-chain-skill"
+      ]
+    },
+    {
+      "id": "veyra",
+      "state": "attack",
+      "move": "ultimate",
+      "clip": "Combat_Reel",
+      "yaw": 0,
+      "footL": [
+        0.22862677016305102,
+        0.09696553155442955,
+        0.3364066730389785
+      ],
+      "footR": [
+        -0.22862622961938317,
+        0.09696517627987183,
+        -0.2411767443833072
+      ],
+      "kneeL": [
+        0.19828805032731134,
+        0.7071875620090757,
+        0.3842382694909168
+      ],
+      "kneeR": [
+        -0.20199420041140767,
+        0.596334984242133,
+        0.11308273614084921
+      ],
+      "hand": [
+        -0.22629700582749637,
+        1.8032501155656135,
+        0.7183102699225941
+      ],
+      "head": [
+        -0.017625830222456357,
+        2.221391755565246,
+        0.12266250113379613
+      ],
+      "equipment": [],
+      "effects": [
+        "veyra-chain-skill"
+      ]
+    },
+    {
+      "id": "veyra",
+      "state": "stagger",
+      "move": null,
+      "clip": "Combat_Hit",
+      "yaw": 0,
+      "footL": [
+        0.22860522202048938,
+        0.09695651048255316,
+        0.31147503841190505
+      ],
+      "footR": [
+        -0.22865880658134116,
+        0.17824747655387296,
+        -0.4651769432537428
+      ],
+      "kneeL": [
+        0.20056921382111675,
+        0.7033587056412527,
+        0.39555593860357585
+      ],
+      "kneeR": [
+        -0.21150382817239327,
+        0.5093797626507915,
+        0.05022229206384224
+      ],
+      "hand": [
+        -0.40908101160049265,
+        1.387497514756159,
+        0.42111279858185335
+      ],
+      "head": [
+        0.007123290501542319,
+        2.1381476397255095,
+        -0.11777036765889651
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "veyra",
+      "state": "knockdown",
+      "move": null,
+      "clip": "Combat_Fall",
+      "yaw": 0,
+      "footL": [
+        0.22860401362978328,
+        0.12584225139515243,
+        0.6497166306618758
+      ],
+      "footR": [
+        -0.22860401345256692,
+        0.12584224772810904,
+        0.4572080126618331
+      ],
+      "kneeL": [
+        0.18569012728563306,
+        0.566955345694432,
+        0.2264474539914747
+      ],
+      "kneeR": [
+        -0.17129151980384194,
+        0.6669189736514245,
+        0.17519658850999914
+      ],
+      "hand": [
+        -0.5223398545296898,
+        0.15831702867415842,
+        -0.4525072498207866
+      ],
+      "head": [
+        0.00266952081088847,
+        0.5095538406433884,
+        -1.3551500116111352
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "veyra",
+      "state": "getup",
+      "move": null,
+      "clip": "Combat_Rise",
+      "yaw": 0,
+      "footL": [
+        0.2286054925363752,
+        0.11591461168277095,
+        0.5460801462744755
+      ],
+      "footR": [
+        -0.22862791570202637,
+        0.11535346709337213,
+        0.22591817293275826
+      ],
+      "kneeL": [
+        0.19252164982474118,
+        0.7120351729445915,
+        0.4085396239866078
+      ],
+      "kneeR": [
+        -0.18854164790426337,
+        0.6984695553336471,
+        0.41016770476962583
+      ],
+      "hand": [
+        -0.4140837803825657,
+        0.5552978535577033,
+        -0.3303961090545775
+      ],
+      "head": [
+        0.03859904699154813,
+        1.2790563122458132,
+        -1.004886065057294
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "veyra",
+      "state": "dead",
+      "move": null,
+      "clip": "Combat_Defeat",
+      "yaw": 0,
+      "footL": [
+        0.15297164281778614,
+        0.14028042165221022,
+        -0.19003489501113513
+      ],
+      "footR": [
+        -0.15297162108754903,
+        0.14028043659098632,
+        -0.190034881051229
+      ],
+      "kneeL": [
+        0.15297164238014932,
+        0.07091648264444966,
+        0.4188722055234724
+      ],
+      "kneeR": [
+        -0.15297163659535562,
+        0.0709165138495349,
+        0.4188722357575414
+      ],
+      "hand": [
+        -0.3609537297296742,
+        0.5541738709686024,
+        0.3128264801352022
+      ],
+      "head": [
+        0.002669523469045707,
+        1.5093520543697267,
+        0.29252356488001374
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "mawren",
+      "state": "idle",
+      "move": null,
+      "clip": "Combat_Ready",
+      "yaw": 0,
+      "footL": [
+        0.1952964900279521,
+        0.1021460687216521,
+        0.12061458035718578
+      ],
+      "footR": [
+        -0.19529642028764177,
+        0.10214700299439772,
+        -0.12350606883195697
+      ],
+      "kneeL": [
+        0.1958268763920599,
+        0.6870033881537525,
+        0.2866571487724667
+      ],
+      "kneeR": [
+        -0.19302298955049227,
+        0.6445232041457132,
+        0.1511765827793543
+      ],
+      "hand": [
+        -0.43941699417620683,
+        1.5819158941951923,
+        0.3173581577624289
+      ],
+      "head": [
+        0.003211048040542358,
+        2.3311441121503735,
+        0.05256041594281685
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "mawren",
+      "state": "attack",
+      "move": "special",
+      "clip": "Combat_Cast",
+      "yaw": 0,
+      "footL": [
+        0.19519606481445465,
+        0.10214602938210793,
+        0.1205520236416216
+      ],
+      "footR": [
+        -0.19519606607202364,
+        0.1021470218711974,
+        -0.12344318102509727
+      ],
+      "kneeL": [
+        0.1944717906676589,
+        0.6864892311159091,
+        0.28839416229039916
+      ],
+      "kneeR": [
+        -0.19420337555293588,
+        0.6436149342235381,
+        0.1530331605342795
+      ],
+      "hand": [
+        -0.3659924948224881,
+        1.6881162813170847,
+        0.3415939984913985
+      ],
+      "head": [
+        -0.0002974714666429387,
+        2.3299147475225626,
+        0.051789085417491845
+      ],
+      "equipment": [],
+      "effects": [
+        "mawren-inscribed-rune",
+        "mawren-forward-arcane-ward"
+      ]
+    },
+    {
+      "id": "mawren",
+      "state": "attack",
+      "move": "heavy",
+      "clip": "Combat_Bolt",
+      "yaw": 0,
+      "footL": [
+        0.1951960677881162,
+        0.10214610511816657,
+        0.12055198022057353
+      ],
+      "footR": [
+        -0.19519606517909013,
+        0.10214711033048052,
+        -0.12344325267887168
+      ],
+      "kneeL": [
+        0.19400155841685435,
+        0.6864896350769134,
+        0.28839028827903423
+      ],
+      "kneeR": [
+        -0.19465417344232966,
+        0.6436139005711395,
+        0.15303653750092577
+      ],
+      "hand": [
+        -0.36599251505053254,
+        1.6881164868966574,
+        0.3415939204346244
+      ],
+      "head": [
+        -0.0015619558706397964,
+        2.3299147475225626,
+        0.05178908541749185
+      ],
+      "equipment": [],
+      "effects": [
+        "mawren-arcane-bolt",
+        "arcane-bolt-trail"
+      ]
+    },
+    {
+      "id": "mawren",
+      "state": "stagger",
+      "move": null,
+      "clip": "Combat_Hit",
+      "yaw": 0,
+      "footL": [
+        0.19519697715864176,
+        0.10213839778003486,
+        0.09530283791674085
+      ],
+      "footR": [
+        -0.1952232041420847,
+        0.18467992358294572,
+        -0.3505864548606151
+      ],
+      "kneeL": [
+        0.19631014047806447,
+        0.6644088696674009,
+        0.32655723394051334
+      ],
+      "kneeR": [
+        -0.1933601926329376,
+        0.5648988101647955,
+        0.12381364127527053
+      ],
+      "hand": [
+        -0.4388703879050538,
+        1.3099869884069544,
+        0.20669571166988676
+      ],
+      "head": [
+        0.0065775487053221,
+        2.2266998106477076,
+        -0.1931157281459273
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "mawren",
+      "state": "knockdown",
+      "move": null,
+      "clip": "Combat_Fall",
+      "yaw": 0,
+      "footL": [
+        0.1951960624073089,
+        0.1314280141040785,
+        0.6587882075837139
+      ],
+      "footR": [
+        -0.19519612164764777,
+        0.1314280153484647,
+        0.4635922210703507
+      ],
+      "kneeL": [
+        0.1939481097872483,
+        0.5950848924090381,
+        0.26553685066578747
+      ],
+      "kneeR": [
+        -0.19353913952894702,
+        0.6889988187955294,
+        0.22123558788131226
+      ],
+      "hand": [
+        -0.5320258807911808,
+        0.16761665824812752,
+        -0.46826706978328164
+      ],
+      "head": [
+        0.0009326156541634041,
+        0.4938421968384422,
+        -1.3819957566154464
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "mawren",
+      "state": "getup",
+      "move": null,
+      "clip": "Combat_Rise",
+      "yaw": 0,
+      "footL": [
+        0.1951983954787729,
+        0.12110234403669817,
+        0.48051932303289535
+      ],
+      "footR": [
+        -0.19520226099759372,
+        0.12103232440130751,
+        0.2693639553957169
+      ],
+      "kneeL": [
+        0.19453003260170298,
+        0.7286667870737992,
+        0.458384882142534
+      ],
+      "kneeR": [
+        -0.19377988553446715,
+        0.6985435315548576,
+        0.4593715051851279
+      ],
+      "hand": [
+        -0.4375547401451131,
+        0.5745076883226349,
+        -0.36135768760506254
+      ],
+      "head": [
+        0.011279465290121027,
+        1.2916344231694903,
+        -1.048094523365354
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "id": "mawren",
+      "state": "dead",
+      "move": null,
+      "clip": "Combat_Defeat",
+      "yaw": 0,
+      "footL": [
+        0.19282777882201582,
+        0.14606596890604978,
+        -0.14859172207686777
+      ],
+      "footR": [
+        -0.19282763195880018,
+        0.14606626272041426,
+        -0.14858935410427537
+      ],
+      "kneeL": [
+        0.1928262396837575,
+        0.07323113508128698,
+        0.4549971734891789
+      ],
+      "kneeR": [
+        -0.19282708605629947,
+        0.07323333970024481,
+        0.45499988908579153
+      ],
+      "hand": [
+        -0.3639721823172812,
+        0.5862034959499058,
+        0.3129840193662893
+      ],
+      "head": [
+        0.0009326156741732428,
+        1.5711702324762102,
+        0.2583635783989844
+      ],
+      "equipment": [],
+      "effects": []
+    },
+    {
+      "arena": "sanctum",
+      "scenery": [
+        "champion-taren",
+        "champion-taren"
+      ]
+    },
+    {
+      "arena": "forge",
+      "scenery": [
+        "octagonal-foundry-plinth",
+        "basalt-foundry-floor",
+        "flowing-lava-basin",
+        "industrial-furnace-support",
+        "industrial-furnace-support",
+        "industrial-furnace-support",
+        "industrial-furnace-support",
+        "overhead-foundry-gantry",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "molten-smelting-vat",
+        "smelting-vat-glow",
+        "industrial-furnace-support",
+        "industrial-furnace-support",
+        "industrial-furnace-support",
+        "industrial-furnace-support",
+        "overhead-foundry-gantry",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "hanging-forge-chain",
+        "molten-smelting-vat",
+        "smelting-vat-glow",
+        "great-foundry-furnace",
+        "furnace-mouth",
+        "furnace-iron-grille",
+        "furnace-iron-grille",
+        "furnace-iron-grille",
+        "furnace-iron-grille",
+        "furnace-iron-grille",
+        "furnace-iron-grille",
+        "furnace-iron-grille",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "volcanic-cliff",
+        "forge-weather",
+        "champion-taren",
+        "champion-taren"
+      ]
+    },
+    {
+      "arena": "grove",
+      "scenery": [
+        "moss-and-earth-clearing",
+        "flooded-forest-water",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "ancient-forest-trunk",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "twisted-living-branch",
+        "layered-forest-canopy",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "exposed-buttress-root",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "marsh-reed",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "shallow-organic-puddle",
+        "fallen-moss-covered-tree",
+        "grove-weather",
+        "champion-taren",
+        "champion-taren"
+      ]
+    },
+    {
+      "arena": "citadel",
+      "scenery": [
+        "rectangular-frozen-courtyard",
+        "frost-cracked-courtyard-floor",
+        "northern-fortress-wall",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "northern-fortress-wall",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "snow-covered-battlement",
+        "hanging-citadel-icicle",
+        "northern-citadel-tower",
+        "snow-covered-tower-roof",
+        "northern-citadel-tower",
+        "snow-covered-tower-roof",
+        "citadel-gatehouse",
+        "deep-frozen-gateway",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "sculpted-snow-drift",
+        "northern-aurora-ribbon",
+        "northern-aurora-ribbon",
+        "northern-aurora-ribbon",
+        "citadel-weather",
+        "champion-taren",
+        "champion-taren"
+      ]
+    },
+    {
+      "arena": "rift",
+      "scenery": [
+        "fractured-floating-obsidian-island",
+        "fractured-void-stone-floor",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "suspended-rift-shard",
+        "rift-shard-core",
+        "broken-floating-monolith",
+        "monolith-amethyst-fracture",
+        "broken-floating-monolith",
+        "monolith-amethyst-fracture",
+        "broken-floating-monolith",
+        "monolith-amethyst-fracture",
+        "broken-floating-monolith",
+        "monolith-amethyst-fracture",
+        "broken-floating-monolith",
+        "monolith-amethyst-fracture",
+        "broken-floating-monolith",
+        "monolith-amethyst-fracture",
+        "broken-floating-monolith",
+        "monolith-amethyst-fracture",
+        "distant-broken-void-halo",
+        "void-floor-fracture",
+        "void-floor-fracture",
+        "void-floor-fracture",
+        "void-floor-fracture",
+        "void-floor-fracture",
+        "void-floor-fracture",
+        "void-floor-fracture",
+        "void-floor-fracture",
+        "void-floor-fracture",
+        "rift-weather",
+        "champion-taren",
+        "champion-taren"
+      ]
+    }
+  ],
+  "errors": []
+}

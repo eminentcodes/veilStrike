@@ -3,5 +3,6 @@ import type { ArenaId } from './catalog';
 export interface ArenaScene {
     flames: THREE.Object3D[];
     ambient: THREE.Points;
+    update?: (dt: number, time: number) => void;
 }
 export declare function buildArena(scene: THREE.Scene, id: ArenaId): ArenaScene;

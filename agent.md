@@ -305,6 +305,17 @@ Next log update due by 13:55 WAT during active work.
 
 Next log update due by 15:15 WAT during active work.
 
+## 2026-11-07 — Combat correction and premium release steering
+
+- Impact reactions must remain standing and stagger backward. Kneeling is exclusive to fatal defeat. Sustained pressure and high-impact signatures/ultimates collapse onto the ground, with grounded recovery.
+- Karen now references a new original anatomical export and midnight-blue tailored coat. Corrected the added panels from Blender Z-up to the skin's glTF Y-up; the earlier mismatched coordinates visibly placed a garment on the floor. Free hand supports the sword wrist; a dedicated relaxed lobby pose is generated. Actual latest screenshots and interface verification remain in progress.
+- User clarified that Nomet, not Taren, should have the King Kong-like heavyweight torso and broad arms. Remove the rising skeletal fist. His own fist performs the ground slam; cracks, dust, rubble and camera shake remain. Signature renamed Gravequake.
+- Taren retains shield and spear. Improve shield brace, add coordinated shield bash, and a large forward shield force field with nearby-only damage, strong displacement and knockdown. Signature renamed Oath Repulse.
+- Rounds increased from 90 to 120 seconds; ordinary damage scale reduced from .70 to .65. Special cooldowns multiply the roster cooldown by .8; charge gain increased slightly. Animated HIGH IMPACT text is being integrated for knockdowns.
+- User authorized developing up to two Premium fighters now, with at least 70% similarity in build to the provided SAMPLECHARA.jpg. Reference inspected: three ornate dark-fantasy fighters with layered armor, sculpted shoulder silhouettes, distinctive weapons and limited colored magic. Develop Veyra and Mawren from the approved Premium roster using this silhouette/material direction, with complete actions and actual signature mechanics. Similarity is an art target; no measured percentage is claimed.
+- After character work, reduce arenas to five, preserve Ashen Sanctum, and redesign the remaining four with distinct geometry, patterns and atmosphere. The shared circular floor/columns and recolored grove fallback are rejected.
+- Last completed checks before the latest ability edits: eight gesture/pose tests, thirteen simulation/WebSocket tests, and typecheck passed. Browser pose inspection loaded the upgraded Karen and validated bone positions but its input check timed out; screenshot camera/pause control requires correction. Do not claim the browser review passed.
+
 ## 2026-11-05 17:25 WAT — Karen quality correction
 
 - Blender 4.5.9 is downloaded and extracted (100%). Executable is `.cache/blender/blender-4.5.9-windows-x64/blender.exe`.
@@ -315,3 +326,93 @@ Next log update due by 15:15 WAT during active work.
 - Signature simulation, full jump/grapple/throw mechanics, and a valid CosyVoice voice pack remain unfinished. The earlier procedural audio remains in place and is not presented as approved quality.
 
 Next log update due by 17:40 WAT during active work.
+
+## 2026-11-06 — Combat experience improvements in progress
+
+- Current user direction: improve overall fighting, beginning with distinct character fighting stances and changing postures.
+- One Attack control replaces separate light/heavy controls: one press is light, two quick presses are heavy, across keyboard, mouse, and touch.
+- Hits must visibly recoil/stagger the opponent, have effects on the body, and noticeable differentiated sounds. AI fighters use the same mechanics and animations.
+- Ordinary hits should not immediately topple fighters. Sustained impacts build toward a knockdown, with articulated falling, bracing, and getting up.
+- Fatal impact should transition into kneeling surrender; held weapons/shields drop or shatter. Final animations must continue during the round result.
+- Nomet should be larger with a more distinctive face, brutal punches, and a visibly powerful ground slam with cracks, ground shake, dust, and special effects. Retain his established Grave Fist identity.
+- The user supplied anime.js, Three.js, cannon-es, and Effekseer repositories as supporting resources. The existing Three.js renderer is the current integration point.
+- Fighting feels too fast: reduce ordinary health damage. Starting implementation reduces regular attack damage by 30%; ultimate damage is reduced by 15%.
+- Implementation and visual/combat verification are underway. No completed validation is claimed in this entry.
+
+## 2026-11-07 — Lobby soundtrack
+
+- Latest audio request: begin with background lobby music, using the user's local `Aylex - Storm (freetouse.com).mp3`, played quietly.
+- Copied the supplied recording unchanged into `apps/web/public/audio/music-lobby-storm.mp3` and selected it as the menu track in the audio manifest.
+- Retained the existing low lobby gain, looping, fades, music slider, mute, and battle soundtrack transition. Recorded artist/source attribution in the audio README.
+- Browser confirmed that the supplied 98.77-second MP3 plays after a click, loops at its end, and responds to the Music slider. Default combined master/music gain is 7.67%.
+- Latest steering also requests rich interface sounds for clicks, hover, and the daily spin.
+- Generated an original stereo interface pack: soft glass hover cues, padded brass clicks, eight wheel recordings with ratchet ticks timed to the existing easing/rotation, and distinct reward/jackpot chimes.
+- Removed duplicate UI listeners from App; AudioProvider now owns mouse-hover and pointer/keyboard activation sounds. Cached effect URLs follow the manifest revision.
+- Spin audio stops when the panel closes; its reward sound uses a dedicated cue rather than combat victory audio. Browser interaction and soundtrack transition checks are in progress.
+
+## 2026-11-07 13:32 WAT — Home, first-time onboarding, guide, and AI matchup
+
+- Current request: one-viewport home with Veilstrike, Play Game, FAQs, full game guide, and the exact EMINENT STUDIOUS credit. Prepare the actual lobby asynchronously behind the home before entry.
+- First-time players enter a name and choose Karen, Taren, or Nomet from illustrated cards; all three remain free. Add separate first-time lobby and in-match controls tours, remembered on this browser.
+- AI duels need a player card, large VS, and an animated random opponent reveal synchronized to the actual match. Render the arena during that screen, then briefly retain Entering the Veil. PvP excludes this reveal and tutorial interruption.
+- Audited existing game and local changes. Moved the existing app into a dynamically imported GameLobby without discarding the existing gameplay, progression, audio, or room flow. The new lightweight App coordinates home, guide, setup, and pre-rendered lobby.
+- Added profile onboarding flags and selected-fighter persistence with migration of returning profiles. Added home, card setup, FAQs, comprehensive guide, and contextual tour components. Runtime match integration, optimized art, and validation are still in progress; no completed browser or performance validation is claimed.
+- Existing style is preserved: navy surfaces, gold actions, Nunito interface text, Georgia wordmark, and square panels. Implementation rationale is in docs/entry-experience.md.
+
+Next log update due by 13:47 WAT during active work.
+
+## 2026-11-07 13:30 WAT — Interface and combat audio integration
+
+- User approved the hover and requested a better click. Kept the hover; replaced the click with a shorter mechanical snap with less ringing.
+- User requested richer blows, punches, movement, damage, impacts, falls, game over and win sounds; supplied Spotify Pedalboard and authorized sourcing free packs.
+- Downloaded 51 Kenney RPG Audio recordings from the public Boyquotes mirror. Verified and retained its CC0 license. OGGs are in `assets/audio/sources/kenney-rpg`; provenance and license are bundled with the runtime audio.
+- Installed Pedalboard 0.9.26 as a cached build tool. Rendered 135 stereo combat files with Foley layers, original low impact/music layers, EQ, compression, reverb, and limiting. No paid service was used.
+- Added `DuelSoundscape`: release/contact sounds, grounded-distance footsteps on five surfaces, distinct jump/throw landings, delayed floor/equipment/surrender cues, and one cue per round result. Seven behavior tests passed.
+- Cached music/ambience tracks so rapid screen changes preserve their load/fade lifecycle. UI feedback works in visible pause/tutorial menus; combat audio suspends with the game.
+- The app/lobby were reorganized concurrently. Integrated audio into `GameLobby`, activated/suspended match audio with its active flag, and preserved the existing tutorial flow. Fixed type errors preventing verification of that flow; typecheck passes.
+- Added repeatable audio previews to Audio settings. Asset integrity, browser interaction, gameplay/server and production-build checks are being completed.
+
+- Latest steering supersedes the preview panel: lobby audio settings must contain only **Sound** and **Effects** adjustment. Sound controls the music level; Effects controls interface/combat cues. Removed the master/announcer sliders, previews, credits, and reset action from that panel.
+- Production build, asset integrity, seven audio behavior tests, thirteen gameplay/PvP tests, and eight browser interface/music checks passed before this final settings simplification. Final combat/browser verification is being completed.
+
+- Final production build passed with the two-slider settings. Browser verified exactly Sound/Effects, working independent levels, persistence after reload, and silent interface cues at zero Effects; all four checks passed without application errors. Evidence is in `verification/audio-settings.json`.
+
+## 2026-11-07 14:23 WAT — Live home and reveal corrections
+
+- Latest steering: use the live default Ashen Sanctum world behind home, quiet existing theme audio, and one generic loading transition instead of Preparing your lobby.
+- The shared fighter card references missing image assets. Fixing portraits for all five currently playable fighters using their actual current models.
+- Replace changing opponent names with a fast image-only shuffle and one final synchronized opponent card. Reuse existing spin/reward audio and saved Effects settings.
+- Latest brand correction: use Eminent™ for the studio credit, and replace the logo/favicon with a navy and gold emblem. FAQs must state that five fighters are available now and more are coming soon.
+- Shared character manifest loading and skipped invisible preview-opponent loading are implemented. Live home integration, portrait captures, and complete browser validation remain in progress.
+
+Next log update due by 14:38 WAT during active work.
+
+## 2026-11-07 14:45 WAT — Spinner visibility and current assets
+
+- User reports the shuffle is not visibly playing in real time. Added a clear rotating indicator and continuous image-only reel, timed after its first paint. Deferring arena construction by two animation frames lets the matchup appear before scene preparation begins.
+- Home now shares its live arena renderer with the prepared lobby; docs and obscuring dialogs pause preview work. The generic entry loading curtain waits for a prepared fighter frame.
+- New navy/gold emblem, SVG favicon, Eminent™ credits, five-available-fighter FAQ, and current Sound/Effects guide copy are implemented.
+- Typecheck passed before the final spinner visibility adjustment. Building real-model WebP portraits and PNG favicon fallbacks with a headless browser; Windows sandbox blocked browser startup, requiring the approved browser workflow outside the sandbox.
+
+Next log update due by 15:00 WAT during active work.
+
+## 2026-11-07 — Neural arena announcer and final 25-second beat
+
+- Rendered 24 deep male en-US-GuyNeural recordings with lowered pitch, EQ, compression, stereo reflections and restrained arena reverb. Bountiq's Desktop/Gentank README identifies the same Edge Neural engine; that checkout does not contain its female preset. Runtime uses local WAVs rather than browser speech.
+- Combined round calls reach Fight at 1.025 seconds. Round events now occur at intro start; both simulated fighters and local/PvP gameplay inputs stay held until the spoken marker. Muted or failed voice loads permit the fast intro to finish. The browser measured release at 1.051 seconds and verified movement afterward, plus round two and conditional round three.
+- Victory and Defeat use neural speech. Signature/ultimate, guard-break, parry and substantial-impact reactions are spaced apart; final results interrupt lower-priority calls. Effects controls and silences the announcer along with combat/interface audio.
+- Latest steering replaces the 40-second opening: Into the Veil is now an original 25-second, 120 BPM composition with syncopated kick/snare, pulsing bass, stereo hats/tom fills, brighter harmonic-minor arpeggios and high string tension. Its final three seconds fade out. It plays once per match, ducks under speech and leaves arena ambience afterward; pausing an expired track does not restart it.
+- Preserved the supplied quiet looping Storm lobby track, approved hover, improved click/spin and Kenney/Pedalboard combat pack. Lobby Audio settings contains only Sound and Effects.
+- Fixed the cached loading-track pause/fade race and Mawren's AI approach: he now enters rune range before committing to long-range bolts, allowing his signature and its voice cue to occur.
+- Final checks passed: 21 gameplay/WebSocket tests, 9 combat-audio tests, 24-clip asset integrity audit, 7 live announcer/music browser checks, 2 failed-download/muted-intro browser checks, forced typecheck and production build. Verified the production output contains the rebuilt 25-second track, all 24 voices, revision combat-rich-v12 and the load-failure fallback. Earlier four checks for the two-slider settings remain valid.
+- Evidence: verification/announcer-assets.json, verification/announcer-audio.json, verification/announcer-fallback.json and verification/audio-settings.json. Rebuild instructions and attribution are in docs/arena-audio.md and apps/web/public/audio/README.md.
+
+## 2026-11-07 15:38 WAT — Quick Match and loading correction
+
+- Renamed AI Duel to Quick Match throughout the lobby, matchup screen, HUD, both tutorials, FAQs, handbook, and page metadata. Internal practice-mode identifiers are retained. Updated guide reward and difficulty copy to reflect the current game.
+- Completed real-model WebP portraits for all five available fighters, the Ashen Sanctum image fallback, and PNG favicon/touch-icon fallbacks. Inspected the updated Taren capture.
+- First-time setup awards 1,500 Embers once, with saved setup/lobby/combat flags and a welcome-gift tour stop. Updated docs/entry-experience.md for the live home arena, Eminent™ credit, loading flow, and current match presentation.
+- User reported being stuck on Loading until returning home. Browser reproduced completed setup with no mounted lobby. Removed the low-priority transition from the completed lobby import and added immediate preparation for direct lobby routes. Verification of the correction and combined flow is underway.
+- Fresh typecheck, production build, and complete browser checks remain pending.
+
+Next log update due by 15:53 WAT during active work.

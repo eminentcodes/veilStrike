@@ -1,0 +1,94 @@
+{
+  "base": "http://127.0.0.1:5173",
+  "checks": [
+    {
+      "id": "karen",
+      "preview": {
+        "id": "karen",
+        "loaded": true,
+        "source": "blender",
+        "animationTime": 0.15000000000000002,
+        "width": 244,
+        "height": 328,
+        "triangles": 143385
+      },
+      "match": {
+        "fighters": [
+          {
+            "id": "karen",
+            "loaded": true,
+            "source": "blender"
+          },
+          {
+            "id": "nomet",
+            "loaded": true,
+            "source": "blender"
+          }
+        ],
+        "phase": "intro",
+        "timer": 90
+      }
+    },
+    {
+      "id": "taren",
+      "preview": {
+        "id": "taren",
+        "loaded": true,
+        "source": "blender",
+        "animationTime": 0.05,
+        "width": 244,
+        "height": 328,
+        "triangles": 133736
+      },
+      "match": {
+        "fighters": [
+          {
+            "id": "taren",
+            "loaded": true,
+            "source": "blender"
+          },
+          {
+            "id": "nomet",
+            "loaded": true,
+            "source": "blender"
+          }
+        ],
+        "phase": "intro",
+        "timer": 90
+      }
+    },
+    {
+      "id": "nomet",
+      "preview": {
+        "id": "nomet",
+        "loaded": true,
+        "source": "blender",
+        "animationTime": 0.05,
+        "width": 244,
+        "height": 328,
+        "triangles": 132616
+      },
+      "match": {
+        "fighters": [
+          {
+            "id": "nomet",
+            "loaded": true,
+            "source": "blender"
+          },
+          {
+            "id": "taren",
+            "loaded": true,
+            "source": "blender"
+          }
+        ],
+        "phase": "intro",
+        "timer": 90
+      }
+    }
+  ],
+  "errors": [
+    "WebSocket connection to 'ws://127.0.0.1:5173/' failed: Error in connection establishment: net::ERR_NETWORK_IO_SUSPENDED",
+    "WebSocket connection to 'ws://127.0.0.1:5173/' failed: Error in connection establishment: net::ERR_NETWORK_IO_SUSPENDED"
+  ],
+  "failure": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'LEAVE ARENA', exact: true })\u001b[22m\n"
+}

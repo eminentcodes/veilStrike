@@ -1,0 +1,684 @@
+{
+  "manifestRevision": "combat-rich-v8",
+  "effects": 166,
+  "processedCombatFiles": 135,
+  "sourceFiles": 51,
+  "suppliedTrackUnchanged": true,
+  "checks": [
+    {
+      "name": "weapon-swing-1.wav",
+      "seconds": 0.35,
+      "peak": 0.66
+    },
+    {
+      "name": "weapon-swing-2.wav",
+      "seconds": 0.35,
+      "peak": 0.66
+    },
+    {
+      "name": "weapon-swing-3.wav",
+      "seconds": 0.35,
+      "peak": 0.66
+    },
+    {
+      "name": "fist-swing-1.wav",
+      "seconds": 0.25,
+      "peak": 0.66
+    },
+    {
+      "name": "fist-swing-2.wav",
+      "seconds": 0.25,
+      "peak": 0.66
+    },
+    {
+      "name": "fist-swing-3.wav",
+      "seconds": 0.25,
+      "peak": 0.66
+    },
+    {
+      "name": "punch-impact-1.wav",
+      "seconds": 0.42,
+      "peak": 0.84
+    },
+    {
+      "name": "punch-impact-2.wav",
+      "seconds": 0.42,
+      "peak": 0.84
+    },
+    {
+      "name": "punch-impact-3.wav",
+      "seconds": 0.42,
+      "peak": 0.84
+    },
+    {
+      "name": "punch-heavy-1.wav",
+      "seconds": 0.58,
+      "peak": 0.8171
+    },
+    {
+      "name": "punch-heavy-2.wav",
+      "seconds": 0.58,
+      "peak": 0.8171
+    },
+    {
+      "name": "punch-heavy-3.wav",
+      "seconds": 0.58,
+      "peak": 0.8171
+    },
+    {
+      "name": "blade-hit-1.wav",
+      "seconds": 0.48,
+      "peak": 0.84
+    },
+    {
+      "name": "blade-hit-2.wav",
+      "seconds": 0.48,
+      "peak": 0.84
+    },
+    {
+      "name": "blade-hit-3.wav",
+      "seconds": 0.48,
+      "peak": 0.84
+    },
+    {
+      "name": "body-hit-1.wav",
+      "seconds": 0.38,
+      "peak": 0.84
+    },
+    {
+      "name": "body-hit-2.wav",
+      "seconds": 0.38,
+      "peak": 0.84
+    },
+    {
+      "name": "body-hit-3.wav",
+      "seconds": 0.38,
+      "peak": 0.84
+    },
+    {
+      "name": "heavy-impact-1.wav",
+      "seconds": 0.7,
+      "peak": 0.8171
+    },
+    {
+      "name": "heavy-impact-2.wav",
+      "seconds": 0.7,
+      "peak": 0.8171
+    },
+    {
+      "name": "heavy-impact-3.wav",
+      "seconds": 0.7,
+      "peak": 0.8171
+    },
+    {
+      "name": "body-block-1.wav",
+      "seconds": 0.35,
+      "peak": 0.84
+    },
+    {
+      "name": "body-block-2.wav",
+      "seconds": 0.35,
+      "peak": 0.84
+    },
+    {
+      "name": "body-block-3.wav",
+      "seconds": 0.35,
+      "peak": 0.84
+    },
+    {
+      "name": "shield-block-1.wav",
+      "seconds": 0.52,
+      "peak": 0.84
+    },
+    {
+      "name": "shield-block-2.wav",
+      "seconds": 0.52,
+      "peak": 0.84
+    },
+    {
+      "name": "shield-block-3.wav",
+      "seconds": 0.52,
+      "peak": 0.84
+    },
+    {
+      "name": "metal-clash-1.wav",
+      "seconds": 0.55,
+      "peak": 0.84
+    },
+    {
+      "name": "metal-clash-2.wav",
+      "seconds": 0.55,
+      "peak": 0.84
+    },
+    {
+      "name": "metal-clash-3.wav",
+      "seconds": 0.55,
+      "peak": 0.84
+    },
+    {
+      "name": "armor-hit-1.wav",
+      "seconds": 0.4,
+      "peak": 0.84
+    },
+    {
+      "name": "armor-hit-2.wav",
+      "seconds": 0.4,
+      "peak": 0.84
+    },
+    {
+      "name": "armor-hit-3.wav",
+      "seconds": 0.4,
+      "peak": 0.84
+    },
+    {
+      "name": "parry-1.wav",
+      "seconds": 0.7,
+      "peak": 0.84
+    },
+    {
+      "name": "parry-2.wav",
+      "seconds": 0.7,
+      "peak": 0.84
+    },
+    {
+      "name": "parry-3.wav",
+      "seconds": 0.7,
+      "peak": 0.84
+    },
+    {
+      "name": "guard-break-1.wav",
+      "seconds": 0.82,
+      "peak": 0.84
+    },
+    {
+      "name": "guard-break-2.wav",
+      "seconds": 0.82,
+      "peak": 0.84
+    },
+    {
+      "name": "guard-break-3.wav",
+      "seconds": 0.82,
+      "peak": 0.84
+    },
+    {
+      "name": "body-fall-1.wav",
+      "seconds": 0.9,
+      "peak": 0.84
+    },
+    {
+      "name": "body-fall-2.wav",
+      "seconds": 0.9,
+      "peak": 0.84
+    },
+    {
+      "name": "body-fall-3.wav",
+      "seconds": 0.9,
+      "peak": 0.84
+    },
+    {
+      "name": "body-collapse-1.wav",
+      "seconds": 0.6,
+      "peak": 0.84
+    },
+    {
+      "name": "body-collapse-2.wav",
+      "seconds": 0.6,
+      "peak": 0.84
+    },
+    {
+      "name": "body-collapse-3.wav",
+      "seconds": 0.6,
+      "peak": 0.84
+    },
+    {
+      "name": "equipment-drop-1.wav",
+      "seconds": 0.85,
+      "peak": 0.84
+    },
+    {
+      "name": "equipment-drop-2.wav",
+      "seconds": 0.85,
+      "peak": 0.84
+    },
+    {
+      "name": "equipment-drop-3.wav",
+      "seconds": 0.85,
+      "peak": 0.84
+    },
+    {
+      "name": "ground-slam-1.wav",
+      "seconds": 1.5,
+      "peak": 0.84
+    },
+    {
+      "name": "ground-slam-2.wav",
+      "seconds": 1.5,
+      "peak": 0.84
+    },
+    {
+      "name": "ground-slam-3.wav",
+      "seconds": 1.5,
+      "peak": 0.8338
+    },
+    {
+      "name": "bone-1.wav",
+      "seconds": 0.8,
+      "peak": 0.84
+    },
+    {
+      "name": "bone-2.wav",
+      "seconds": 0.8,
+      "peak": 0.84
+    },
+    {
+      "name": "bone-3.wav",
+      "seconds": 0.8,
+      "peak": 0.84
+    },
+    {
+      "name": "dodge-1.wav",
+      "seconds": 0.36,
+      "peak": 0.66
+    },
+    {
+      "name": "dodge-2.wav",
+      "seconds": 0.36,
+      "peak": 0.66
+    },
+    {
+      "name": "dodge-3.wav",
+      "seconds": 0.36,
+      "peak": 0.66
+    },
+    {
+      "name": "jump-1.wav",
+      "seconds": 0.3,
+      "peak": 0.66
+    },
+    {
+      "name": "jump-2.wav",
+      "seconds": 0.3,
+      "peak": 0.66
+    },
+    {
+      "name": "jump-3.wav",
+      "seconds": 0.3,
+      "peak": 0.66
+    },
+    {
+      "name": "getup-1.wav",
+      "seconds": 0.5,
+      "peak": 0.66
+    },
+    {
+      "name": "getup-2.wav",
+      "seconds": 0.5,
+      "peak": 0.66
+    },
+    {
+      "name": "getup-3.wav",
+      "seconds": 0.5,
+      "peak": 0.66
+    },
+    {
+      "name": "grapple-grab-1.wav",
+      "seconds": 0.4,
+      "peak": 0.66
+    },
+    {
+      "name": "grapple-grab-2.wav",
+      "seconds": 0.4,
+      "peak": 0.66
+    },
+    {
+      "name": "grapple-grab-3.wav",
+      "seconds": 0.4,
+      "peak": 0.66
+    },
+    {
+      "name": "throw-swing-1.wav",
+      "seconds": 0.52,
+      "peak": 0.66
+    },
+    {
+      "name": "throw-swing-2.wav",
+      "seconds": 0.52,
+      "peak": 0.66
+    },
+    {
+      "name": "throw-swing-3.wav",
+      "seconds": 0.52,
+      "peak": 0.66
+    },
+    {
+      "name": "blade-toss-1.wav",
+      "seconds": 0.4,
+      "peak": 0.84
+    },
+    {
+      "name": "blade-toss-2.wav",
+      "seconds": 0.4,
+      "peak": 0.84
+    },
+    {
+      "name": "blade-toss-3.wav",
+      "seconds": 0.4,
+      "peak": 0.84
+    },
+    {
+      "name": "shield-charge-1.wav",
+      "seconds": 0.62,
+      "peak": 0.84
+    },
+    {
+      "name": "shield-charge-2.wav",
+      "seconds": 0.62,
+      "peak": 0.84
+    },
+    {
+      "name": "shield-charge-3.wav",
+      "seconds": 0.62,
+      "peak": 0.84
+    },
+    {
+      "name": "ability-charge-1.wav",
+      "seconds": 0.65,
+      "peak": 0.84
+    },
+    {
+      "name": "ability-charge-2.wav",
+      "seconds": 0.65,
+      "peak": 0.84
+    },
+    {
+      "name": "ability-charge-3.wav",
+      "seconds": 0.65,
+      "peak": 0.84
+    },
+    {
+      "name": "smoke-1.wav",
+      "seconds": 0.65,
+      "peak": 0.84
+    },
+    {
+      "name": "smoke-2.wav",
+      "seconds": 0.65,
+      "peak": 0.84
+    },
+    {
+      "name": "smoke-3.wav",
+      "seconds": 0.65,
+      "peak": 0.84
+    },
+    {
+      "name": "defeat-impact-1.wav",
+      "seconds": 0.7,
+      "peak": 0.84
+    },
+    {
+      "name": "defeat-impact-2.wav",
+      "seconds": 0.7,
+      "peak": 0.84
+    },
+    {
+      "name": "defeat-impact-3.wav",
+      "seconds": 0.7,
+      "peak": 0.84
+    },
+    {
+      "name": "footstep-stone-1.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-stone-2.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-stone-3.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-earth-1.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-earth-2.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-earth-3.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-metal-1.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-metal-2.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-metal-3.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-snow-1.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-snow-2.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-snow-3.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-gravel-1.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-gravel-2.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "footstep-gravel-3.wav",
+      "seconds": 0.32,
+      "peak": 0.66
+    },
+    {
+      "name": "land-stone-1.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-stone-2.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-stone-3.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-earth-1.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-earth-2.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-earth-3.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-metal-1.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-metal-2.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-metal-3.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-snow-1.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-snow-2.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-snow-3.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-gravel-1.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-gravel-2.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "land-gravel-3.wav",
+      "seconds": 0.47,
+      "peak": 0.84
+    },
+    {
+      "name": "round-start-1.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-start-2.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-start-3.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-win-1.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-win-2.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-win-3.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-loss-1.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-loss-2.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-loss-3.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-draw-1.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-draw-2.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "round-draw-3.wav",
+      "seconds": 0.95,
+      "peak": 0.78
+    },
+    {
+      "name": "victory-1.wav",
+      "seconds": 1.9,
+      "peak": 0.78
+    },
+    {
+      "name": "victory-2.wav",
+      "seconds": 1.9,
+      "peak": 0.78
+    },
+    {
+      "name": "victory-3.wav",
+      "seconds": 1.9,
+      "peak": 0.78
+    },
+    {
+      "name": "defeat-1.wav",
+      "seconds": 1.9,
+      "peak": 0.78
+    },
+    {
+      "name": "defeat-2.wav",
+      "seconds": 1.9,
+      "peak": 0.78
+    },
+    {
+      "name": "defeat-3.wav",
+      "seconds": 1.9,
+      "peak": 0.78
+    },
+    {
+      "name": "draw-1.wav",
+      "seconds": 1.9,
+      "peak": 0.78
+    },
+    {
+      "name": "draw-2.wav",
+      "seconds": 1.9,
+      "peak": 0.78
+    },
+    {
+      "name": "draw-3.wav",
+      "seconds": 1.9,
+      "peak": 0.78
+    }
+  ]
+}

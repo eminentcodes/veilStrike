@@ -1,0 +1,13 @@
+{
+  "checks": [
+    {
+      "name": "failed Round one voice download releases the silent intro",
+      "passed": true
+    },
+    {
+      "name": "zero Effects permits the fast intro without waiting for speech",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

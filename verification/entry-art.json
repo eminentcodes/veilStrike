@@ -1,0 +1,37 @@
+{
+  "origin": "http://localhost:5173",
+  "assets": [
+    {
+      "id": "karen",
+      "source": "blender",
+      "height": 2.45,
+      "portrait": "images/fighters/karen.webp"
+    },
+    {
+      "id": "taren",
+      "source": "blender",
+      "height": 2.6950000000000003,
+      "portrait": "images/fighters/taren.webp"
+    },
+    {
+      "id": "nomet",
+      "source": "blender",
+      "height": 3.2340000000000004,
+      "portrait": "images/fighters/nomet.webp"
+    },
+    {
+      "id": "veyra",
+      "source": "blender",
+      "height": 2.5725000000000002,
+      "portrait": "images/fighters/veyra.webp"
+    },
+    {
+      "id": "mawren",
+      "source": "blender",
+      "height": 2.6460000000000004,
+      "portrait": "images/fighters/mawren.webp"
+    }
+  ],
+  "rendererErrors": [],
+  "note": "Portraits and fallback world captured from current live game models; no placeholder art."
+}

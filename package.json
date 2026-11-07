@@ -20,7 +20,8 @@
                     "typecheck":  "tsc --build --force",
                     "build:server":  "tsc -p server/tsconfig.json",
                     "start:server":  "node server/index.mjs",
-                    "test:duel":  "npm run build:server \u0026\u0026 node --test server/duel.test.mjs"
+                    "test:duel":  "npm run build:server \u0026\u0026 node --test server/duel.test.mjs",
+                    "test:audio": "node --test scripts/combat-audio.test.mjs"
                 },
     "devDependencies":  {
                             "@eslint/js":  "^9.18.0",

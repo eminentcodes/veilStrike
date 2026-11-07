@@ -47,20 +47,20 @@ const BONE_ALIASES: Record<BoneRole, string[]> = {
   Spine: ['spine', 'spine_01', 'spine.01', 'mixamorigspine'],
   Spine1: ['spine1', 'spine_02', 'spine.02', 'chest', 'mixamorigspine1'],
   Spine2: ['spine2', 'spine_03', 'spine.03', 'upperchest', 'upper_chest', 'mixamorigspine2'],
-  Neck: ['neck', 'mixamorigneck'],
+  Neck: ['neck', 'neck01', 'mixamorigneck'],
   Head: ['head', 'mixamorighead'],
   ShoulderL: ['shoulder.l', 'shoulderl', 'shoulder_l', 'clavicle.l', 'leftshoulder', 'mixamorigleftshoulder'],
   ShoulderR: ['shoulder.r', 'shoulderr', 'shoulder_r', 'clavicle.r', 'rightshoulder', 'mixamorigrightshoulder'],
-  ArmL: ['upperarm.l', 'upperarml', 'upper_arm.l', 'arm.l', 'upperarm_l', 'leftarm', 'mixamorigleftarm'],
-  ArmR: ['upperarm.r', 'upperarmr', 'upper_arm.r', 'arm.r', 'upperarm_r', 'rightarm', 'mixamorigrightarm'],
-  ForeArmL: ['lowerarm.l', 'lowerarml', 'lower_arm.l', 'forearm.l', 'leftforearm', 'mixamorigleftforearm'],
-  ForeArmR: ['lowerarm.r', 'lowerarmr', 'lower_arm.r', 'forearm.r', 'rightforearm', 'mixamorigrightforearm'],
-  HandL: ['hand.l', 'handl', 'hand_l', 'lefthand', 'mixamoriglefthand'],
-  HandR: ['hand.r', 'handr', 'hand_r', 'righthand', 'mixamorigrighthand'],
-  UpLegL: ['upperleg.l', 'upperlegl', 'upper_leg.l', 'thigh.l', 'leftupleg', 'mixamorigleftupleg'],
-  UpLegR: ['upperleg.r', 'upperlegr', 'upper_leg.r', 'thigh.r', 'rightupleg', 'mixamorigrightupleg'],
-  LegL: ['lowerleg.l', 'lowerlegl', 'lower_leg.l', 'shin.l', 'calf.l', 'leftleg', 'mixamorigleftleg'],
-  LegR: ['lowerleg.r', 'lowerlegr', 'lower_leg.r', 'shin.r', 'calf.r', 'rightleg', 'mixamorigrightleg'],
+  ArmL: ['upperarm.l', 'upperarm01.l', 'upperarml', 'upper_arm.l', 'arm.l', 'upperarm_l', 'leftarm', 'mixamorigleftarm'],
+  ArmR: ['upperarm.r', 'upperarm01.r', 'upperarmr', 'upper_arm.r', 'arm.r', 'upperarm_r', 'rightarm', 'mixamorigrightarm'],
+  ForeArmL: ['lowerarm.l', 'lowerarm01.l', 'lowerarml', 'lower_arm.l', 'forearm.l', 'leftforearm', 'mixamorigleftforearm'],
+  ForeArmR: ['lowerarm.r', 'lowerarm01.r', 'lowerarmr', 'lower_arm.r', 'forearm.r', 'rightforearm', 'mixamorigrightforearm'],
+  HandL: ['hand.l', 'wrist.l', 'handl', 'hand_l', 'lefthand', 'mixamoriglefthand'],
+  HandR: ['hand.r', 'wrist.r', 'handr', 'hand_r', 'righthand', 'mixamorigrighthand'],
+  UpLegL: ['upperleg.l', 'upperleg01.l', 'upperlegl', 'upper_leg.l', 'thigh.l', 'leftupleg', 'mixamorigleftupleg'],
+  UpLegR: ['upperleg.r', 'upperleg01.r', 'upperlegr', 'upper_leg.r', 'thigh.r', 'rightupleg', 'mixamorigrightupleg'],
+  LegL: ['lowerleg.l', 'lowerleg01.l', 'lowerlegl', 'lower_leg.l', 'shin.l', 'calf.l', 'leftleg', 'mixamorigleftleg'],
+  LegR: ['lowerleg.r', 'lowerleg01.r', 'lowerlegr', 'lower_leg.r', 'shin.r', 'calf.r', 'rightleg', 'mixamorigrightleg'],
   FootL: ['foot.l', 'footl', 'foot_l', 'leftfoot', 'mixamorigleftfoot'],
   FootR: ['foot.r', 'footr', 'foot_r', 'rightfoot', 'mixamorigrightfoot'],
 };
@@ -86,7 +86,7 @@ export function resolveBones(model: THREE.Object3D): Map<BoneRole, THREE.Object3
     if (!out.has(role)) {
       const stem = norm(BONE_ALIASES[role][0] ?? role);
       for (const [n, o] of byNorm) {
-        if (n.includes(stem)) {
+        if (n.includes(stem) && (role === 'Root' || (o as THREE.Bone).isBone)) {
           out.set(role, o);
           break;
         }
