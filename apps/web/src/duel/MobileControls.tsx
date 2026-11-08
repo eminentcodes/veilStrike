@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef } from 'react';
 import type { CSSProperties, PointerEvent as ReactPointerEvent, ReactNode } from 'react';
-import { ArrowUp, HandFist, Lightning, PersonSimpleRun, Sparkle, Sword, Wind } from '@phosphor-icons/react';
+import { HandFist, Lightning, PersonSimpleRun, Sparkle, Sword, Wind } from '@phosphor-icons/react';
 import './mobile-controls.css';
 
 interface Props {
@@ -24,7 +24,6 @@ export function MobileControls({ enabled, move, inject, special, ultimate }: Pro
           status={special.cooldown > 0 ? special.cooldown.toFixed(1) + 's' : special.lowStamina ? 'LOW' : 'READY'}/>
       </div>
       <TouchAction code="KeyE" label="GRAB" className="touch-grab" icon={<HandFist/>} disabled={!enabled} inject={inject}/>
-      <TouchAction code="KeyC" label="JUMP" className="touch-jump" icon={<ArrowUp/>} disabled={!enabled} inject={inject}/>
       <TouchAction code="KeyJ" label="ATTACK" className="touch-attack" icon={<Sword/>} disabled={!enabled} inject={inject}/>
       <TouchAction code="ShiftLeft" label="SPRINT" className="touch-sprint" icon={<PersonSimpleRun/>} disabled={!enabled} inject={inject}/>
       <TouchAction code="Space" label="DODGE" className="touch-dodge" icon={<Wind/>} disabled={!enabled} inject={inject}/>

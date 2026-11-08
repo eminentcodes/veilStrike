@@ -5,7 +5,7 @@ import { once } from 'node:events';
 import { WebSocket } from 'ws';
 import { DuelSimulation, emptyInput } from './dist/duel/simulation.js';
 import { CHAMPIONS } from './dist/duel/catalog.js';
-import { NORMAL_DAMAGE_SCALE, ROUND_LENGTH } from './dist/duel/simulation.js';
+import { NORMAL_DAMAGE_SCALE, ULTIMATE_DAMAGE_SCALE, ROUND_LENGTH } from './dist/duel/simulation.js';
 
 const config = { player: 'karen', opponent: 'nomet', arena: 'sanctum', difficulty: 'warrior', mode: 'pvp' };
 function enterFight(sim) {
@@ -115,6 +115,44 @@ test('round outcomes advance best-of-three and restore fighters', () => {
   advance(sim, 3.3); assert.equal(sim.round, 2); assert.equal(sim.phase, 'intro'); assert.equal(sim.fighters[1].hp, CHAMPIONS.nomet.health);
   advance(sim, 2.7); sim.fighters[1].hp = 0; sim.advance(.01, emptyInput(), emptyInput()); advance(sim, 3.3);
   assert.equal(sim.phase, 'complete'); assert.equal(sim.winner, 0); assert.deepEqual(sim.wins, [2, 0]);
+});
+test('three timeouts remain ties despite unequal health and never start a fourth round', () => {
+  const sim = start();
+  assert.equal(ROUND_LENGTH, 150);
+  for (let round = 1; round <= 3; round++) {
+    if (sim.phase === 'intro') enterFight(sim);
+    assert.equal(sim.round, round);
+    sim.fighters[0].hp = 60; sim.fighters[1].hp = 100;
+    sim.timer = .001; sim.advance(.01, emptyInput(), emptyInput());
+    assert.equal(sim.phase, 'roundEnd'); assert.equal(sim.winner, null);
+    assert.deepEqual(sim.wins, [0, 0]);
+    advance(sim, 3.3);
+  }
+  assert.equal(sim.phase, 'complete'); assert.equal(sim.round, 3);
+  assert.equal(sim.winner, null); advance(sim, 5); assert.equal(sim.round, 3);
+});
+test('a third-round defeat decides the match after two opening ties', () => {
+  const sim = start();
+  for (let round = 1; round <= 2; round++) {
+    sim.timer = .001; sim.advance(.01, emptyInput(), emptyInput());
+    advance(sim, 3.3); enterFight(sim);
+  }
+  assert.equal(sim.round, 3); sim.fighters[1].hp = 0;
+  sim.advance(.01, emptyInput(), emptyInput()); advance(sim, 3.3);
+  assert.equal(sim.phase, 'complete'); assert.equal(sim.winner, 0);
+  assert.deepEqual(sim.wins, [1, 0]);
+});
+test('the final health reductions apply to heavy strikes and ultimates', () => {
+  assert.equal(NORMAL_DAMAGE_SCALE, .468); assert.equal(ULTIMATE_DAMAGE_SCALE, .612);
+  for (const move of ['heavy', 'ultimate']) {
+    const sim = start(); sim.fighters[0].charge = 1;
+    sim.advance(.01, { ...emptyInput(), [move]: true }, emptyInput());
+    advance(sim, .9);
+    const hit = sim.drainEvents().find(e => e.kind === 'hit' && e.move === move);
+    assert.ok(hit, move + ' must connect');
+    const scale = move === 'ultimate' ? ULTIMATE_DAMAGE_SCALE : NORMAL_DAMAGE_SCALE;
+    assert.equal(hit.damage, Math.round(CHAMPIONS.karen.moves[move].damage * scale * (1 - CHAMPIONS.nomet.armor)));
+  }
 });
 test('AI waits for observable history, closes range, and attacks without stat inflation', () => {
   const sim = new DuelSimulation({ ...config, mode: 'practice', difficulty: 'master' }, 42);

@@ -6,11 +6,25 @@ Three.js. Play against adaptive AI or a friend in a private online PvP room.
 ## Gameplay
 
 - Five playable fighters: Karen, Taren, Nomet, Veyra and Mawren, with distinct weapons, signatures and ultimates.
-- Five arenas and best-of-three matches with 180-second rounds.
+- Five arenas and best-of-three matches with 150-second rounds.
 - Directional movement, jumping, sprinting, dodging, guards, parries, grabs and throws.
 - Light and heavy attacks share one Attack control; impacts stagger fighters, while sustained pressure and powerful moves cause knockdowns and grounded recovery.
 - A character lobby, first-time setup and guided tours, an animated AI opponent reveal, a full game guide, character upgrades and daily Ember rewards.
 - Quiet Storm lobby music, rich interface/combat effects, a deep male neural announcer and a 25-second arena opening beat. Fighters stay held until the announcer says Fight. Audio settings contains Sound and Effects.
+
+## Development roadmap
+
+For judges: [what we have built and what comes next](docs/development-roadmap.md)
+covers the current playable phase, the next phase's Story Mode, arenas, fighters,
+rankings and achievements, and later consideration of a game token, mobile app,
+and events. A [Mermaid roadmap diagram](docs/development-roadmap.mmd) is included.
+
+The [AI-assisted development note](docs/ai-development-note.md) records the model,
+tools, supplied materials, and features the agent helped build.
+
+Open `#roadmap` in the web app for the animated presentation, or use **Roadmap**
+on home and **Explore the roadmap** in the lobby. Presentation details are in
+[roadmap-presentation.md](docs/roadmap-presentation.md).
 
 ## Controls
 
@@ -56,6 +70,10 @@ npm run preview
 The production web app is written to `apps/web/dist`. For online PvP in production,
 run `npm run start:server` after building and proxy `/duel` WebSocket connections
 and `/health` HTTP requests to the server. Set `PORT` to change its default port.
+
+For Vercel, use the repository root; `vercel.json` builds the web workspace and
+publishes `apps/web/dist`. See [Vercel deployment](docs/vercel-deployment.md) for
+project settings and the separate online PvP server configuration.
 
 ## Assets and audio
 

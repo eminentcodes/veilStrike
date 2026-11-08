@@ -4,6 +4,8 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
 
+const selection = process.argv[2] || '';
+const reportPath = 'verification/browser-check' + (selection ? '-' + selection.replace(/[^a-z0-9-]/gi, '').toLowerCase() : '') + '.json';
 const base = process.env.REVIEW_URL || 'http://localhost:5173/';
 const cache = join(process.env.LOCALAPPDATA, 'ms-playwright');
 const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || (await readdir(cache)).filter(n => /^chromium-[0-9]+$/.test(n)).sort().reverse().map(n => join(cache, n, 'chrome-win64', 'chrome.exe')).find(existsSync);
@@ -59,9 +61,10 @@ async function tour(page, kind) {
 async function fight(page) {
   await page.locator('.match-intro').waitFor({ state: 'detached' });
   await page.locator('.duel-loading').waitFor({ state: 'detached' });
-  await page.waitForFunction(() => window.__veilstrike?.getSnapshot().phase === 'fight' && window.__veilstrikeAudio.roundReleased(1));
+  await page.waitForFunction(() => { const snapshot = window.__veilstrike?.getSnapshot(); return snapshot?.phase === 'fight' && window.__veilstrikeAudio.roundReleased(snapshot.round); });
 }
 async function scenario(name, fn) {
+  if (selection && !name.toLowerCase().includes(selection.toLowerCase())) return;
   console.log('SCENARIO ' + name);
   try { await fn(); } catch (e) { checks.push({ name, passed: false, detail: e.stack || e.message }); console.error(e.stack || e.message); process.exitCode = 1; }
 }
@@ -88,23 +91,25 @@ try {
       check('loading percentage advances to 100', percentages.includes(100) && percentages.some(p => p > 0 && p < 100), percentages);
       evidence.firstLoad = await page.evaluate(() => window.__entryTrace.progress);
       await shot(page, 'lobby');
+      await page.evaluate(() => { window.__savedLobbyRenderer = window.__veilstrikeLobby; window.__savedLobbyCanvas = document.querySelector('.game-lobby > .lobby-scene canvas'); });
       await page.getByRole('button', { name: 'Characters', exact: true }).click();
       check('five available fighters and five coming soon', await page.locator('.roster-choice:not(:disabled)').count() === 5 && await page.locator('.roster-choice:disabled').count() === 5);
       await page.waitForFunction(() => [...document.querySelectorAll('.roster-choice:not(:disabled) img')].every(i => i.complete && i.naturalWidth > 0));
       check('available fighter cards all have portraits', true);
       await page.getByRole('button', { name: 'Close panel', exact: true }).click();
-      await page.evaluate(() => { window.__savedLobbyRenderer = window.__veilstrikeLobby; });
       await page.getByRole('link', { name: 'Veilstrike home' }).click();
       await page.locator('.game-home.has-world').waitFor();
-      check('live home reuses the prepared arena renderer', await page.evaluate(() => window.__veilstrikeLobby === window.__savedLobbyRenderer && window.__veilstrikeLobby.backdrop));
+      await page.waitForFunction(() => window.__savedLobbyRenderer.backdrop);
+      check('live home reuses the prepared arena renderer', await page.evaluate(() => document.querySelector('.game-lobby > .lobby-scene canvas') === window.__savedLobbyCanvas && window.__savedLobbyRenderer.backdrop));
       check('home hero fits one viewport', await page.evaluate(() => document.querySelector('.game-home').getBoundingClientRect().height <= innerHeight + 1));
+      check('home title and Play button are immediately readable', await page.evaluate(() => { const title = document.querySelector('.home-title'), button = document.querySelector('.home-play').getBoundingClientRect(); return getComputedStyle(title).opacity === '1' && button.top >= 0 && button.bottom <= innerHeight; }));
       check('home branding and current favicon', (await page.locator('.home-credit').innerText()).includes('Eminent') && await page.locator('link[rel=icon][type="image/svg+xml"]').getAttribute('href') === '/favicon.svg');
       await shot(page, 'home');
       await page.getByRole('link', { name: 'Game guide', exact: true }).click();
       await page.locator('.guide-content').waitFor();
-      const time = await page.evaluate(() => window.__veilstrikeLobby.time);
+      const time = await page.evaluate(() => window.__savedLobbyRenderer.time);
       await page.waitForTimeout(250);
-      check('guide pauses background arena work', await page.evaluate(t => window.__veilstrikeLobby.time === t, time));
+      check('guide pauses background arena work', await page.evaluate(t => window.__savedLobbyRenderer.time === t, time));
       const guide = await page.locator('.guide-content').innerText();
       check('guide covers fighters, controls, arenas and Quick Match', ['Characters', 'Controls', 'Arenas', 'Quick Match', 'joystick'].every(s => guide.includes(s)) && !/AI DUEL/i.test(guide));
       await page.goto(base + '#home', { waitUntil: 'domcontentloaded' });
@@ -117,22 +122,26 @@ try {
       check('returning entry skips saved setup and lobby tour', await page.locator('.first-time-setup,.lobby-tour').count() === 0);
       await page.locator('.lobby-play').click();
       await page.locator('.match-intro').waitFor();
+      await page.waitForFunction(() => document.querySelector('.rival-reel')?.classList.contains('is-running'));
+      check('matchup covers the combat HUD during the shuffle', await page.evaluate(() => [...document.querySelectorAll('.health-heading')].every(heading => { const r = heading.getBoundingClientRect(); return !!document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)?.closest('.match-intro'); })));
       await shot(page, 'shuffle');
       await page.locator('.combat-tour[open]').waitFor();
       const intro = await page.evaluate(() => window.__entryTrace.intro);
+      evidence.matchup = intro;
       const rotating = intro.filter(f => f.revealed === 'false');
       check('shuffle moves over actual rendered frames', new Set(rotating.map(f => f.reel)).size >= 3 && new Set(rotating.map(f => f.ring)).size >= 3, { frames: rotating.length, reelTransforms: new Set(rotating.map(f => f.reel)).size });
       const revealed = intro.filter(f => f.revealed === 'true');
       check('opponent reveal matches arena fighter', revealed.length > 0 && revealed.every(f => f.opponent === f.actualOpponent), revealed.at(-1));
       check('arena renders behind reveal before transition', revealed.some(f => f.ready === 'true'));
       check('combat stays frozen during opponent reveal', intro.filter(f => f.simulationTime !== undefined).every(f => f.simulationTime === 0));
-      evidence.matchup = intro;
       const frozen = await page.evaluate(() => window.__veilstrike.getSnapshot().time);
       await page.waitForTimeout(300);
       check('combat tutorial freezes the simulation', await page.evaluate(t => window.__veilstrike.getSnapshot().time === t, frozen));
       await tour(page, 'combat'); await fight(page);
       const before = await page.evaluate(() => window.__veilstrike.getSnapshot().fighters[0]);
-      await page.keyboard.down('KeyW'); await page.waitForTimeout(350); await page.keyboard.up('KeyW');
+      await page.keyboard.down('KeyW');
+      try { await page.waitForFunction(before => { const after = window.__veilstrike.getSnapshot().fighters[0]; return Math.hypot(after.x - before.x, after.z - before.z) > .1; }, before, { timeout: 8000 }); }
+      finally { await page.keyboard.up('KeyW'); }
       const after = await page.evaluate(() => window.__veilstrike.getSnapshot().fighters[0]);
       check('movement works after tutorial and voiced round intro', Math.hypot(after.x - before.x, after.z - before.z) > .1);
       await page.keyboard.press('Escape');
@@ -145,7 +154,7 @@ try {
       const returningProfile = await page.evaluate(key => JSON.parse(localStorage.getItem(key)), profileKey);
       check('reload preserves all tutorial flags without awarding again', returningProfile.embers === 1500 && Object.values(returningProfile.onboarding).every(Boolean));
       await page.getByRole('button', { name: 'Audio settings', exact: true }).click();
-      check('audio settings retain only Sound and Effects', await page.locator('.audio-settings input[type=range]').count() === 2);
+      check('audio settings retain only Sound and Effects', await page.locator('.audio-sliders input[type=range]').count() === 2);
       await page.getByRole('button', { name: 'Close panel', exact: true }).click();
       evidence.audio = await page.evaluate(() => window.__veilstrikeAudio.status());
     } finally { await ctx.close(); }
@@ -178,26 +187,28 @@ try {
       const orientation = await page.evaluate(() => window.__orientationCalls);
       check('landscape request starts from first home touch', orientation.some(c => c.type === 'fullscreen' && c.route === '#home') && orientation.some(c => c.type === 'lock' && c.value === 'landscape' && c.allowed), orientation);
       await page.locator('.lobby-play').tap(); await fight(page);
-      check('mobile has joystick and seven round actions, without Guard', await page.locator('.duel-joystick').isVisible() && await page.locator('.duel-touch-action').count() === 7 && await page.locator('.duel-touch .touch-guard').count() === 0 && await page.locator('.duel-touch-dpad').count() === 0);
-      const layout = async () => page.evaluate(() => {
-        const buttons = [...document.querySelectorAll('.duel-touch-action')].map(b => { const r = b.getBoundingClientRect(); return { name: b.className, x: r.x, y: r.y, width: r.width, height: r.height, cx: r.x + r.width / 2, cy: r.y + r.height / 2, radius: getComputedStyle(b).borderRadius }; });
-        const b = label => buttons.find(b => b.name.includes('touch-' + label));
-        return { width: innerWidth, height: innerHeight, buttons, diamond: Math.abs(b('jump').cx - b('dodge').cx) < 1 && Math.abs(b('grab').cy - b('attack').cy) < 1 && Math.abs(b('jump').cx - (b('grab').cx + b('attack').cx) / 2) < 1, bounds: buttons.every(b => b.x >= 0 && b.y >= 0 && b.x + b.width <= innerWidth + 1 && b.y + b.height <= innerHeight + 1), targets: buttons.every(b => b.width >= 44 && b.height >= 44 && b.radius === '50%'), separate: buttons.every((a, i) => buttons.slice(i + 1).every(b => Math.hypot(a.cx - b.cx, a.cy - b.cy) >= (a.width + b.width) / 2)), overflow: document.documentElement.scrollWidth > innerWidth };
-      });
-      for (const [width, height, name] of [[390, 844, 'mobile-390'], [320, 720, 'mobile-320'], [844, 390, 'mobile-landscape']]) {
-        await page.setViewportSize({ width, height }); await page.waitForTimeout(250);
-        const geometry = await layout();
-        check('aligned circular controls fit ' + width + 'x' + height, geometry.diamond && geometry.bounds && geometry.targets && geometry.separate && !geometry.overflow, geometry);
-        evidence[name] = geometry; await shot(page, name);
-      }
+      check('mobile has joystick and six round actions, without Guard or Jump', await page.locator('.duel-joystick').isVisible() && await page.locator('.duel-touch-action').count() === 6 && await page.locator('.duel-touch .touch-guard,.duel-touch .touch-jump').count() === 0 && await page.locator('.duel-touch-dpad').count() === 0);
       await page.evaluate(() => {
         const api = window.__veilstrike, sim = api.simulation;
-        sim.config.mode = 'pvp'; sim.fighters[1].x = 8; sim.fighters[1].z = -8;
-        window.__moves = []; window.__samples = [];
+        sim.config = { ...sim.config, mode: 'pvp' }; sim.fighters[1].x = 8; sim.fighters[1].z = -8;
+        window.__moves = []; window.__samples = []; window.__pointerTrace = []; window.__injections = [];
+        for (const type of ['pointerdown', 'pointerup', 'pointercancel', 'lostpointercapture']) document.addEventListener(type, e => window.__pointerTrace.push({ type, pointer: e.pointerId, button: e.button, target: e.target.closest?.('button,.duel-joystick')?.className, x: e.clientX, y: e.clientY, at: performance.now(), enabled: api.input.enabled, paused: api.isPaused() }), true);
+        const inject = api.input.inject.bind(api.input); api.input.inject = (code, down) => { window.__injections.push({ code, down, at: performance.now() }); inject(code, down); };
         const move = api.input.move.bind(api.input), sample = api.input.sample.bind(api.input);
         api.input.move = (right, forward) => { window.__moves.push({ right, forward, at: performance.now() }); move(right, forward); };
         api.input.sample = (...args) => { const result = sample(...args); window.__samples.push({ ...result, at: performance.now() }); if (window.__samples.length > 300) window.__samples.shift(); return result; };
       });
+      const layout = async () => page.evaluate(() => {
+        const buttons = [...document.querySelectorAll('.duel-touch-action')].map(b => { const r = b.getBoundingClientRect(); return { name: b.className, x: r.x, y: r.y, width: r.width, height: r.height, cx: r.x + r.width / 2, cy: r.y + r.height / 2, radius: getComputedStyle(b).borderRadius }; });
+        const b = label => buttons.find(b => b.name.includes('touch-' + label));
+        return { width: innerWidth, height: innerHeight, buttons, diamond: Math.abs(b('sprint').cx - b('dodge').cx) < 1 && Math.abs(b('grab').cy - b('attack').cy) < 1 && Math.abs(b('sprint').cx - (b('grab').cx + b('attack').cx) / 2) < 1, abilitiesRight: b('special').cx > b('attack').cx && b('ultimate').cx > b('attack').cx && Math.abs(b('special').cx - b('ultimate').cx) < 1, bounds: buttons.every(b => b.x >= 0 && b.y >= 0 && b.x + b.width <= innerWidth + 1 && b.y + b.height <= innerHeight + 1), targets: buttons.every(b => b.width >= 44 && b.height >= 44 && b.radius === '50%'), separate: buttons.every((a, i) => buttons.slice(i + 1).every(b => Math.hypot(a.cx - b.cx, a.cy - b.cy) >= (a.width + b.width) / 2)), overflow: document.documentElement.scrollWidth > innerWidth };
+      });
+      for (const [width, height, name] of [[390, 844, 'mobile-390'], [320, 720, 'mobile-320'], [844, 390, 'mobile-landscape']]) {
+        await page.setViewportSize({ width, height }); await page.waitForTimeout(250);
+        const geometry = await layout();
+        check('aligned circular controls fit ' + width + 'x' + height, geometry.diamond && geometry.abilitiesRight && geometry.bounds && geometry.targets && geometry.separate && !geometry.overflow, geometry);
+        evidence[name] = geometry; await shot(page, name);
+      }
       const cdp = await ctx.newCDPSession(page);
       const rect = await page.locator('.duel-joystick').boundingBox(), center = { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2, id: 1 };
       const send = (type, points) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: points });
@@ -212,9 +223,12 @@ try {
       const maximal = await page.evaluate(() => window.__moves.at(-1));
       check('joystick clamps diagonal movement to unit strength', Math.abs(Math.hypot(maximal.right, maximal.forward) - 1) < .001, maximal);
       const sprintRect = await page.locator('.touch-sprint').boundingBox(), sprint = { x: sprintRect.x + sprintRect.width / 2, y: sprintRect.y + sprintRect.height / 2, id: 2 };
-      await send('touchStart', [full, sprint]); await page.waitForTimeout(200);
-      check('movement and Sprint work with independent touches', await page.evaluate(() => window.__samples.some(s => s.sprint && Math.hypot(s.x, s.z) > .8)));
-      await send('touchEnd', [full]); await page.waitForTimeout(50);
+      await send('touchStart', [sprint]); await send('touchMove', [full, sprint]);
+      await page.waitForFunction(() => window.__samples.some(s => s.sprint && Math.hypot(s.x, s.z) > .8), null, { timeout: 8000 }).catch(() => {});
+      evidence.multitouch = await page.evaluate(() => ({ samples: window.__samples.slice(-20), moves: window.__moves.slice(-6), snapshot: window.__veilstrike.getSnapshot().phase, paused: window.__veilstrike.isPaused(), button: document.querySelector('.touch-sprint').dataset.pressed, held: [...window.__veilstrike.input.held], inputEnabled: window.__veilstrike.input.enabled, pointers: window.__pointerTrace, injections: window.__injections }));
+      check('movement and Sprint work with independent touches', await page.evaluate(() => window.__samples.some(s => s.sprint && Math.hypot(s.x, s.z) > .8)), evidence.multitouch);
+      await send('touchEnd', [sprint]);
+      await page.waitForFunction(() => { const s = window.__samples.at(-1); return s && !s.sprint && Math.hypot(s.x, s.z) > .8; }, null, { timeout: 8000 }).catch(() => {});
       check('releasing action touch keeps joystick movement', await page.evaluate(() => { const s = window.__samples.at(-1); return !s.sprint && Math.hypot(s.x, s.z) > .8; }));
       await send('touchEnd', []);
       check('joystick release clears movement', await page.evaluate(() => { const m = window.__moves.at(-1); return m.right === 0 && m.forward === 0 && document.querySelector('.duel-joystick').dataset.moving === 'false'; }));
@@ -225,8 +239,13 @@ try {
       check('pausing clears and disables mobile controls', await page.evaluate(() => window.__moves.at(-1).right === 0 && [...document.querySelectorAll('.duel-touch-action')].every(b => b.disabled)));
       await send('touchEnd', []);
       await page.getByRole('button', { name: 'RETURN TO FIGHT', exact: true }).click();
-      await page.locator('.touch-attack').tap(); await page.waitForTimeout(300);
-      check('round Attack button reaches combat input', await page.evaluate(() => window.__samples.some(s => s.light)));
+      await page.waitForFunction(() => window.__veilstrike.input.enabled && !window.__veilstrike.isPaused() && !document.querySelector('.touch-attack').disabled);
+      const attackStarted = await page.evaluate(() => performance.now());
+      await page.locator('.touch-attack').tap();
+      // A single tap is classified after the double-tap window and sampled on a rendered frame.
+      await page.waitForFunction(at => window.__samples.some(s => s.at >= at && s.light), attackStarted, { timeout: 8000 }).catch(() => {});
+      evidence.attack = await page.evaluate(at => ({ samples: window.__samples.filter(s => s.at >= at).slice(-20), injections: window.__injections.filter(i => i.at >= at), pointers: window.__pointerTrace.filter(p => p.at >= at), inputEnabled: window.__veilstrike.input.enabled, paused: window.__veilstrike.isPaused(), phase: window.__veilstrike.getSnapshot().phase }), attackStarted);
+      check('round Attack button reaches combat input', evidence.attack.samples.some(s => s.light), evidence.attack);
       await page.evaluate(() => document.exitFullscreen());
       check('exiting fullscreen releases landscape lock', await page.evaluate(() => window.__orientationCalls.some(c => c.type === 'unlock')));
       evidence.mobileInput = await page.evaluate(() => ({ moves: window.__moves, samples: window.__samples.slice(-30) }));
@@ -252,6 +271,14 @@ try {
   await scenario('two real PvP clients exclude reveal and onboarding', async () => {
     const hostContext = await context({}, returning('Host', 'karen', false)), guestContext = await context({}, returning('Guest', 'taren', false));
     const host = await pageIn(hostContext), guest = await pageIn(guestContext);
+    evidence.pvpWire = { host: { sent: [], received: [], states: 0 }, guest: { sent: [], received: [], states: 0 } };
+    for (const [page, trace] of [[host, evidence.pvpWire.host], [guest, evidence.pvpWire.guest]]) page.on('websocket', socket => {
+      if (new URL(socket.url()).pathname !== '/duel') return;
+      socket.on('framesent', frame => { const message = JSON.parse(String(frame.payload)); if (message.type !== 'input') trace.sent.push(message.type); });
+      socket.on('framereceived', frame => { const message = JSON.parse(String(frame.payload)); if (message.type === 'state') { trace.states++; trace.lastState = { phase: message.snapshot.phase, time: message.snapshot.time, round: message.snapshot.round }; } else trace.received.push({ type: message.type, status: message.status, message: message.message }); });
+      socket.on('close', () => { trace.closed = true; });
+      socket.on('socketerror', error => { trace.error = error; });
+    });
     try {
       for (const page of [host, guest]) {
         await page.goto(base + '#lobby', { waitUntil: 'domcontentloaded' }); await lobby(page);
@@ -263,16 +290,19 @@ try {
       await guest.getByRole('textbox', { name: 'Room code', exact: true }).fill(code); await guest.getByRole('button', { name: 'JOIN ARENA', exact: true }).click();
       await host.getByRole('button', { name: 'READY TO DUEL', exact: true }).waitFor({ state: 'visible' });
       await host.getByRole('button', { name: 'READY TO DUEL', exact: true }).click(); await guest.getByRole('button', { name: 'READY TO DUEL', exact: true }).click();
-      await fight(host); await fight(guest);
+      await Promise.all([fight(host), fight(guest)]);
       check('both PvP browsers bypass reveal and combat tutorial', await host.evaluate(() => !window.__entryTrace.sawIntro && !window.__entryTrace.sawCombatTour) && await guest.evaluate(() => !window.__entryTrace.sawIntro && !window.__entryTrace.sawCombatTour));
       const a = await host.evaluate(() => window.__veilstrike.getSnapshot()), b = await guest.evaluate(() => window.__veilstrike.getSnapshot());
       check('PvP opponents and rounds stay synchronized', a.fighters[0].id === b.fighters[0].id && a.fighters[1].id === b.fighters[1].id && a.round === b.round && a.phase === 'fight' && b.phase === 'fight');
       await shot(host, 'pvp-host'); evidence.pvp = { host: a.fighters.map(f => f.id), guest: b.fighters.map(f => f.id), round: a.round };
-    } finally { await hostContext.close(); await guestContext.close(); }
+    } finally {
+      evidence.pvpDiagnostics = await Promise.all([host, guest].map(page => page.evaluate(() => ({ snapshot: window.__veilstrike?.getSnapshot(), audio: window.__veilstrikeAudio?.status(), inputEnabled: window.__veilstrike?.input.enabled, paused: window.__veilstrike?.isPaused(), visibility: document.visibilityState, loading: document.querySelector('.duel-loading')?.textContent, error: document.querySelector('.duel-error')?.textContent, intro: window.__entryTrace.intro, sawCombatTour: window.__entryTrace.sawCombatTour })).catch(error => ({ error: error.message }))));
+      await hostContext.close(); await guestContext.close();
+    }
   });
   check('browser checks have no application errors', errors.length === 0, errors);
 } finally {
-  await writeFile('verification/browser-check.json', JSON.stringify({ checks, errors, evidence }, null, 2));
+  await writeFile(reportPath, JSON.stringify({ checks, errors, evidence }, null, 2));
   await browser.close();
 }
 console.log(JSON.stringify({ passed: checks.filter(c => c.passed).length, failed: checks.filter(c => !c.passed).length, errors }, null, 2));

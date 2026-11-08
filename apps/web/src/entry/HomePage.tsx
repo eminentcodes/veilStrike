@@ -21,6 +21,7 @@ export function HomePage({ worldReady, onPlay, onPrepare }: { worldReady: boolea
       <img src={import.meta.env.BASE_URL + 'veilstrike-mark.svg'} width="42" height="42" alt="Veilstrike"/>
       <nav aria-label="Game information">
         <a href="#guide"><BookOpen size={18}/>Game guide</a>
+        <a href="#roadmap"><ArrowRight size={18}/>Roadmap</a>
         <a href="#faq"><Question size={18}/>FAQs</a>
         <button className="home-sound" aria-label={muted ? 'Unmute sound' : 'Mute sound'} aria-pressed={muted} onClick={toggleMuted}>
           {muted ? <SpeakerSlash size={20}/> : <SpeakerHigh size={20}/>}

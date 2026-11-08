@@ -22,5 +22,6 @@ export function ComingSoon({active=true}:{active?:boolean}){
         <div className="coming-copy"><small>{preview.chapter}</small><h2>{preview.title}</h2><p>{preview.line}</p></div>
       </article>)}
     </div>
+    <a className="coming-roadmap-link" href="#roadmap">EXPLORE THE ROADMAP <span aria-hidden="true">↗</span></a>
   </section>;
 }

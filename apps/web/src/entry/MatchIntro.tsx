@@ -22,21 +22,21 @@ export function MatchIntro({ config, playerName, ready, loadProgress = 0, onComp
   }, [config.player, config.opponent]);
 
   useEffect(() => {
-    if (reducedMotion) return;
-    let active = true, stopSpin = () => {}, timer = 0, secondFrame = 0;
-    // Start the timed shuffle after its first paint, so arena preparation cannot consume the reveal.
+    if (reducedMotion || revealed) return;
+    let active = true, stopSpin = () => {}, secondFrame = 0;
+    // Let the painted CSS animation finish before revealing the opponent.
+    // A wall-clock timer can expire while the arena's first frame is preparing.
     const firstFrame = requestAnimationFrame(() => {
       secondFrame = requestAnimationFrame(() => {
         if (!active) return;
         setSpinning(true);
         void fightAudio.ready.then(() => { if (active && !document.hidden) stopSpin = fightAudio.sound('spin-wheel-0', .48); });
-        timer = window.setTimeout(() => { stopSpin(); setRevealed(true); }, SPIN_DURATION);
       });
     });
     const visibility = () => { if (document.hidden) stopSpin(); };
     document.addEventListener('visibilitychange', visibility);
-    return () => { active = false; cancelAnimationFrame(firstFrame); cancelAnimationFrame(secondFrame); window.clearTimeout(timer); stopSpin(); document.removeEventListener('visibilitychange', visibility); };
-  }, [reducedMotion]);
+    return () => { active = false; cancelAnimationFrame(firstFrame); cancelAnimationFrame(secondFrame); stopSpin(); document.removeEventListener('visibilitychange', visibility); };
+  }, [reducedMotion, revealed]);
 
   useEffect(() => {
     if (revealed) return fightAudio.sound('ui-reward', .62);
@@ -58,7 +58,8 @@ export function MatchIntro({ config, playerName, ready, loadProgress = 0, onComp
           <div className="match-fighter-card rival-draw-card">
             <div className="match-card-player"><small>RANDOM OPPONENT</small><strong>Finding your rival</strong></div>
             <div className="match-card-art rival-spinner">
-              <div className={'rival-reel' + (spinning ? ' is-running' : '')} aria-hidden="true" style={{ '--reel-distance': '-' + (reel.length - 1) * 100 + '%', '--spin-duration': SPIN_DURATION + 'ms' } as CSSProperties}>
+              <div className={'rival-reel' + (spinning ? ' is-running' : '')} aria-hidden="true" style={{ '--reel-distance': '-' + (reel.length - 1) * 100 + '%', '--spin-duration': SPIN_DURATION + 'ms' } as CSSProperties}
+                onAnimationEnd={event => { if (event.target === event.currentTarget && event.animationName === 'rival-spin') setRevealed(true); }}>
                 {reel.map((id, index) => <FighterPortrait key={index} id={id} className="rival-reel-image"/>)}
               </div>
               <div className="rival-spinner-shade" aria-hidden="true"/>

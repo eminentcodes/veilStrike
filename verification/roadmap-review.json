@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "Direct route, loaded artwork, current build, separate page title",
+    "Keyboard phase navigation, all next priorities, exploratory economy/mobile/events",
+    "Automatic phase advance and explicit pause",
+    {
+      "mobile": {
+        "viewport": 390,
+        "page": 390,
+        "controls": 228.046875,
+        "scene": 368.046875
+      },
+      "reducedMotion": "manual navigation",
+      "landscape": "no horizontal overflow"
+    }
+  ],
+  "errors": []
+}

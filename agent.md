@@ -451,3 +451,97 @@ Next log update due by 17:03 WAT during active work.
 - A fresh typecheck and live browser run are starting. No deployment or commit is requested.
 
 Next log update due by 10:27 WAT during active work.
+## 2026-11-08 10:30 WAT — Final six-button mobile layout
+
+- Latest user steering removes Jump from mobile and puts Sprint in its top position. Final diamond: Sprint top, Grab left, Attack right, Dodge bottom. Special and Ultimate move to the far-right edge. Keyboard/mouse guard and keyboard jump remain available.
+- First browser run passed automatic first-time/direct lobby loading, real percentage progress, starter/collection portraits, the once-only 1,500-Ember setup award, saved lobby tour, 390px/320px/short-landscape circular control geometry, analog dead-zone/strength/clamping, home orientation request ordering, and reduced-motion/unsupported-orientation fallback.
+- Correcting a test reference overwritten by the collection inspection renderer, and inspecting simultaneous movement/Sprint timing. Final browser flow is still incomplete; this log does not claim the entire suite passed.
+- Fresh typecheck and all nine combat-audio tests passed. Twenty gameplay tests passed, while the local WebSocket test timed out during the heavily loaded browser run. Rechecking it sequentially before the final build.
+
+Next log update due by 10:45 WAT during active work.
+## 2026-11-08 10:45 WAT — Verification progress
+
+- Final six-button mobile layout and far-right ability positions are implemented. Fixed ability-ring masking so progress rings no longer cover the icons.
+- Corrected browser verification to follow the actual live lobby canvas rather than the inspection preview's overwritten debug reference. Added pointer/input diagnostics and frame-based waits for multitouch checks.
+- All 21 gameplay/WebSocket tests passed when rerun sequentially outside the sandbox; the prior timeout did not reproduce. All nine combat-audio tests and forced typecheck also passed.
+- Running the updated mobile browser checks with native Chromium outside the sandbox, then completing entry/PvP checks and the production build. No complete final browser pass is claimed yet.
+
+Next log update due by 11:00 WAT during active work.
+## 2026-11-08 11:06 WAT — Final touch-release verification
+
+- Native pointer tracing confirmed the browser automation must pass the newly pressed/lifted finger to Chromium, rather than restarting or ending the held joystick finger. Updated the mobile check to match real staggered multitouch.
+- The game already received independent movement and Sprint correctly. Rechecking selective release, cancellation, pause, and Attack with the final six-button layout.
+- Inspected the final landscape capture: Sprint top, Grab left, Attack right, Dodge below, and Special/Ultimate at the far-right edge. Ability rings are now thin and leave their icons legible.
+- Automatic first-time/direct lobby loading, real loading milestones, portraits, welcome gift, and orientation/reduced-motion checks have passed individually. Completing the corrected entry/reveal/PvP browser scenarios and production build before final reporting.
+
+Next log update due by 11:21 WAT during active work.
+
+## 2026-11-08 11:25 WAT — Resume and Attack verification
+
+- Continued with the final six-button mobile layout preserved: Sprint top, Grab left, Attack right, Dodge below, with Special and Ultimate at the far-right edge.
+- The last mobile browser run passed joystick geometry, analog movement, staggered movement/Sprint, selective release, cancellation, pause/reset, and orientation fallbacks. Its remaining failure was the Attack assertion 300 ms after resuming.
+- Attack intentionally waits 200 ms to distinguish a single press from a double press, then commits on a combat frame. Updated the browser check to wait for enabled input and a sampled attack, retaining pointer/injection diagnostics before deciding whether the application needs a correction.
+- Completing the full corrected entry/reveal/PvP browser run, then final forced typecheck and production build. Earlier individual passes do not yet constitute a complete final browser pass.
+
+Next log update due by 11:40 WAT during active work.
+
+## 2026-11-08 11:47 WAT — Full browser run and shuffle inspection
+
+- Fresh combined browser verification passed first-time automatic entry, the once-only 1,500-Ember gift, saved fighter/name, advancing percentage loading, all five playable portraits, shared live home renderer, guide/FAQ content, and direct lobby navigation.
+- The corrected Attack check passed. The complete mobile scenario also passed analog movement, staggered multitouch, selective release, cancellation, pause/reset, the final six-button layout, landscape request/release, and unsupported/reduced-motion fallback.
+- The first-time scenario recorded only four unrevealed shuffle frames and failed its motion assertion. Inspecting arena rendering while entry is blocked and entrance animations before making a correction. PvP verification is still running; a complete suite and production build have not yet passed.
+
+Next log update due by 12:02 WAT during active work.
+
+## 2026-11-08 12:03 WAT — Visible reveal and complete first-time flow
+
+- Replaced the premature wall-clock reveal timer with completion of the actual CSS reel animation. The fresh browser run now confirms multiple visible shuffle frames, the exact arena opponent on the final card, arena readiness before transition, and frozen combat throughout the reveal/tutorial.
+- Kept home text visible from its first frame while retaining the subtle entrance movement. The live home capture now shows the Veilstrike title and Play Game action immediately.
+- The complete first-time scenario passed setup, lobby entry, welcome gift, portraits, guide/FAQs, saved tours, reveal, tutorial completion, post-intro movement, pause, reload persistence, and the two audio sliders. Mobile and unsupported/reduced-motion checks also passed again.
+- Visual inspection found the matchup overlay below the combat HUD, allowing the opponent name to appear during the shuffle. Correcting this layering after the current PvP capture finishes. The final complete suite and production build remain pending.
+
+Next log update due by 12:18 WAT during active work.
+
+## 2026-11-08 12:19 WAT — Matchup layering and PvP handoff tracing
+
+- Raised the matchup screen above the combat HUD and made its background opaque, preventing overlapping header text and an early opponent-name leak during the shuffle. Added a browser hit-test for the covered health headings.
+- The last combined run passed 45 checks, including the complete first-time/Quick Match flow and all mobile scenarios. Its sole remaining failed scenario was PvP loading: both clients reached 100% but stayed waiting with no received match snapshot.
+- Added WebSocket message diagnostics and started a focused two-client PvP run to distinguish the loaded-message handoff from an application transition problem. Preserved existing connection, combat, and audio logic pending that evidence.
+- Final forced typecheck, production build, and a fully passing combined browser report are still pending.
+
+Next log update due by 12:34 WAT during active work.
+
+## 2026-11-08 12:42 WAT — Fresh server and final TypeScript verification
+
+- WebSocket tracing confirmed both browsers sent loaded and the old server marked their room fighting, but neither received a state message. Verified that the local server process was still running from 7 November with previously imported build modules.
+- Final forced TypeScript checking passed. After sandbox approval to stop the verified local server, started it again with the current compiled simulation. Its health endpoint is responding. Restarted the web preview closed by the old development wrapper.
+- Rechecking real PvP against these fresh processes, then the complete browser suite with the opaque matchup overlay and the final production build. No gameplay/network logic was changed merely to bypass the failed verification.
+
+Next log update due by 12:57 WAT during active work.
+
+## 2026-11-08 — New-change commit and Vercel build correction
+
+- User authorized committing the newer changes and pushing them to GitHub, and supplied Vercel's `tsc: command not found` build error.
+- Added Vercel configurations for both repository-root and `apps/web` projects. Both run `npm ci --include=dev` so TypeScript and Vite are installed during production builds, and publish the current web workspace output. Added deployment instructions, including the existing separate WebSocket server requirement for online PvP.
+- Fresh production build and forced typecheck passed. All 24 gameplay/WebSocket tests and all nine combat-audio tests passed. The offline clean-install dry run with development dependencies also passed.
+- Roadmap browser verification passed direct routing, artwork, keyboard phase navigation, autoplay/pause, mobile/landscape layout, and reduced motion. Corrected its fake-clock setup to install before starting the presentation timer.
+- Preserved the earlier browser reports, including their failed PvP/mobile attempts; this entry does not claim a fresh combined entry/PvP browser pass.
+- GitHub reports a separate Vercel deployment rate limit for the `web` and `veilstrk` projects. The build configuration correction does not remove that external limit. Preparing the reviewed changes for commit and push.
+
+## 2026-11-08 14:01 WAT — User confirmation and build handoff
+
+- User confirmed the controls work. Preserved the final mobile diamond: Sprint top, Grab left, Attack right, Dodge bottom; Special and Ultimate at the far-right edge.
+- Confirmed the cancelled operation did not alter the arena render loop or append its proposed log entry. No task-owned browser-check process remains running.
+- Updated the entry documentation to describe animation-completion-based opponent reveal and the opaque matchup screen above the combat HUD.
+- Prior verification passed all 21 gameplay/WebSocket tests, nine combat-audio tests, forced TypeScript checking, and 45 combined browser checks including the complete first-time and mobile flows. Browser PvP still timed out despite successful direct and Vite-proxied two-client WebSocket probes; no complete combined browser pass is claimed.
+- Completing the production build sequentially. Final validation results will be recorded after it finishes.
+
+Next log update due by 14:16 WAT during active work.
+
+## 2026-11-08 14:03 WAT — Final production build
+
+- `npm.cmd run build` passed: server TypeScript compilation, web TypeScript project compilation, and the Vite production bundle all completed successfully.
+- The build reports the existing large-chunk warning for the asynchronously loaded GameLobby bundle (846.19 kB minified, 228.74 kB gzip). This is a warning, not a compilation failure.
+- Confirmed the combined browser report contains 45 passing checks out of 46, with no application errors recorded. The remaining check is the two-browser PvP scenario; its timeout remains a validation limitation despite the successful direct and Vite-proxied WebSocket probes.
+- Whitespace verification passed for the changed entry, matchup, mobile-control, browser-check, and documentation files. The entry guide now accurately describes the animation-completion-based reveal and final mobile controls.
+- Finished the build handoff with the user's confirmed mobile layout preserved. No further browser investigation, commit, or deployment was performed.

@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "name": "browser checks have no application errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "evidence": {
+    "touchEndRemaining": [
+      {
+        "type": "pointerdown",
+        "pointer": 2,
+        "target": "a"
+      },
+      {
+        "type": "pointerdown",
+        "pointer": 3,
+        "target": "b"
+      },
+      {
+        "type": "pointerup",
+        "pointer": 2,
+        "target": "a"
+      },
+      {
+        "type": "lostpointercapture",
+        "pointer": 2,
+        "target": "a"
+      }
+    ],
+    "touchEndLifted": [
+      {
+        "type": "pointerdown",
+        "pointer": 4,
+        "target": "a"
+      },
+      {
+        "type": "pointerdown",
+        "pointer": 5,
+        "target": "b"
+      },
+      {
+        "type": "pointerup",
+        "pointer": 5,
+        "target": "b"
+      },
+      {
+        "type": "lostpointercapture",
+        "pointer": 5,
+        "target": "b"
+      }
+    ],
+    "touchMoveRemaining": [
+      {
+        "type": "pointerdown",
+        "pointer": 6,
+        "target": "a"
+      },
+      {
+        "type": "pointerdown",
+        "pointer": 7,
+        "target": "b"
+      }
+    ]
+  }
+}

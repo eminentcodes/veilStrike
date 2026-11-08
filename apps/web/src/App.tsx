@@ -11,6 +11,7 @@ import './entry/entry.css';
 
 let lobbyRequest: Promise<typeof import('@/lobby/GameLobby')> | undefined;
 const Guide = lazy(() => import('@/entry/GameGuide'));
+const Roadmap = lazy(() => import('@/roadmap/RoadmapPage'));
 const readRoute = () => window.location.hash.slice(1) || 'home';
 
 export function App() {
@@ -24,6 +25,7 @@ export function App() {
   const [loadError, setLoadError] = useState('');
   const alive = useRef(true);
   const isGuide = route === 'guide' || route.startsWith('guide/');
+  const isRoadmap = route === 'roadmap';
   const entered = route === 'lobby' && profile.onboarding.setup;
 
   const prepareLobby = useCallback(() => {
@@ -38,6 +40,7 @@ export function App() {
 
   useEffect(() => {
     alive.current = true;
+    if (isRoadmap) return () => { alive.current = false; };
     // Paint home first, then prepare the actual world and lobby in the background.
     let idle = 0, timer = 0;
     const frame = requestAnimationFrame(() => {
@@ -50,7 +53,7 @@ export function App() {
       if (idle) window.cancelIdleCallback(idle);
       if (timer) window.clearTimeout(timer);
     };
-  }, [prepareLobby]);
+  }, [prepareLobby, isRoadmap]);
 
   useEffect(() => { if (route === 'lobby') prepareLobby(); }, [route, prepareLobby]);
   useEffect(() => { saveProfile(profile); }, [profile]);
@@ -60,9 +63,9 @@ export function App() {
     return () => window.removeEventListener('hashchange', change);
   }, []);
   useEffect(() => {
-    document.title = isGuide ? 'Game guide | Veilstrike' : 'Veilstrike | The Oathbound Arena';
+    document.title = isRoadmap ? 'Development roadmap | Veilstrike' : isGuide ? 'Game guide | Veilstrike' : 'Veilstrike | The Oathbound Arena';
     if (route === 'lobby' && !profile.onboarding.setup) setSetupOpen(true);
-  }, [route, isGuide, profile.onboarding.setup]);
+  }, [route, isGuide, isRoadmap, profile.onboarding.setup]);
 
   const play = () => {
     prepareLobby();
@@ -86,13 +89,13 @@ export function App() {
     setLoadError(''); setLobbyReady(false); setLobbyProgress(0); setLobbyAttempt(value => value + 1); prepareLobby();
   };
 
-  return <div className={'entry-shell' + (isGuide ? ' is-guide' : '')} data-lobby-ready={lobbyReady} data-lobby-prepared={!!Lobby} data-lobby-progress={lobbyProgress}>
-    <MobileOrientation location={entered ? 'game' : 'home'} hidden={isGuide || setupOpen || route === 'faq'}/>
+  return <div className={'entry-shell' + (isGuide ? ' is-guide' : '') + (isRoadmap ? ' is-roadmap' : '')} data-lobby-ready={lobbyReady} data-lobby-prepared={!!Lobby} data-lobby-progress={lobbyProgress}>
+    <MobileOrientation location={entered ? 'game' : 'home'} hidden={isGuide || isRoadmap || setupOpen || route === 'faq'}/>
     {Lobby && <div className={'prepared-lobby' + (entered ? ' is-active' : '')} inert={!entered || !lobbyReady} aria-hidden={!entered}>
       <Lobby key={lobbyAttempt} profile={profile} setProfile={setProfile} active={entered} backdrop={!entered}
-        scenePaused={isGuide || setupOpen || route === 'faq'} onReady={markLobbyReady} onProgress={reportLobbyProgress} onError={setLoadError}/>
+        scenePaused={isGuide || isRoadmap || setupOpen || route === 'faq'} onReady={markLobbyReady} onProgress={reportLobbyProgress} onError={setLoadError}/>
     </div>}
-    {!entered && !isGuide && <HomePage worldReady={lobbyReady} onPlay={play} onPrepare={prepareLobby}/>}
+    {!entered && !isGuide && !isRoadmap && <HomePage worldReady={lobbyReady} onPlay={play} onPrepare={prepareLobby}/>}
     {entered && (!Lobby || !lobbyReady) && <main className="entry-loading entry-curtain" aria-live="polite" aria-busy={!loadError}>
       <img src={import.meta.env.BASE_URL + 'veilstrike-mark.svg'} width="58" height="58" alt=""/>
       <h1>VEILSTRIKE</h1>
@@ -103,6 +106,9 @@ export function App() {
     </main>}
     {isGuide && <Suspense fallback={<main className="entry-loading"><h1>Game guide</h1><div className="entry-loading-line" aria-label="Loading the guide"/></main>}>
       <Guide section={route.split('/')[1]}/>
+    </Suspense>}
+    {isRoadmap && <Suspense fallback={<main className="entry-loading"><h1>Development roadmap</h1><div className="entry-loading-line" aria-label="Loading the roadmap"/></main>}>
+      <Roadmap onPlay={play}/>
     </Suspense>}
     {setupOpen && !isGuide && <FirstTimeSetup initialName={profile.name === 'Wayfarer' ? '' : profile.name} selectedFighter={profile.selectedFighter}
       onSelect={selectedFighter => setProfile(p => ({ ...p, selectedFighter }))} onComplete={setup}

@@ -1,25 +1,3017 @@
 {
   "checks": [
     {
-      "name": "main menu is playable",
-      "passed": true,
-      "detail": ""
+      "name": "first-time name and three fighter cards",
+      "passed": true
     },
     {
-      "name": "six selectable fighters",
-      "passed": true,
-      "detail": ""
+      "name": "all starter portraits render",
+      "passed": true
     },
     {
-      "name": "three selectable arenas",
-      "passed": true,
-      "detail": ""
+      "name": "loading enters lobby automatically",
+      "passed": true
     },
     {
-      "name": "verification failed",
+      "name": "welcome gift and selected name/fighter are saved",
+      "passed": true,
+      "detail": {
+        "version": 1,
+        "name": "First Fighter",
+        "id": "3620DF60",
+        "embers": 1500,
+        "matches": 0,
+        "wins": 0,
+        "selectedFighter": "taren",
+        "onboarding": {
+          "setup": true,
+          "lobby": false,
+          "combat": false
+        },
+        "levels": {
+          "karen": 1,
+          "taren": 1,
+          "nomet": 1
+        },
+        "claimed": [],
+        "daily": {
+          "day": "2026-11-08",
+          "matches": 0,
+          "firstWin": false,
+          "threeMatches": false
+        }
+      }
+    },
+    {
+      "name": "lobby tour includes the 1500 Ember gift",
+      "passed": true
+    },
+    {
+      "name": "loading percentage advances to 100",
+      "passed": true,
+      "detail": [
+        0,
+        20,
+        84,
+        100
+      ]
+    },
+    {
+      "name": "five available fighters and five coming soon",
+      "passed": true
+    },
+    {
+      "name": "available fighter cards all have portraits",
+      "passed": true
+    },
+    {
+      "name": "live home reuses the prepared arena renderer",
+      "passed": true
+    },
+    {
+      "name": "home hero fits one viewport",
+      "passed": true
+    },
+    {
+      "name": "home title and Play button are immediately readable",
+      "passed": true
+    },
+    {
+      "name": "home branding and current favicon",
+      "passed": true
+    },
+    {
+      "name": "guide pauses background arena work",
+      "passed": true
+    },
+    {
+      "name": "guide covers fighters, controls, arenas and Quick Match",
+      "passed": true
+    },
+    {
+      "name": "FAQ states five fighters and more coming soon",
+      "passed": true
+    },
+    {
+      "name": "returning entry skips saved setup and lobby tour",
+      "passed": true
+    },
+    {
+      "name": "shuffle moves over actual rendered frames",
+      "passed": true,
+      "detail": {
+        "frames": 10,
+        "reelTransforms": 8
+      }
+    },
+    {
+      "name": "opponent reveal matches arena fighter",
+      "passed": true,
+      "detail": {
+        "at": 142955.10000002384,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      }
+    },
+    {
+      "name": "arena renders behind reveal before transition",
+      "passed": true
+    },
+    {
+      "name": "combat stays frozen during opponent reveal",
+      "passed": true
+    },
+    {
+      "name": "combat tutorial freezes the simulation",
+      "passed": true
+    },
+    {
+      "name": "movement works after tutorial and voiced round intro",
+      "passed": true
+    },
+    {
+      "name": "match menu pauses Quick Match",
+      "passed": true
+    },
+    {
+      "name": "reload preserves all tutorial flags without awarding again",
+      "passed": true
+    },
+    {
+      "name": "audio settings retain only Sound and Effects",
+      "passed": true
+    },
+    {
+      "name": "direct returning lobby link automatically renders",
+      "passed": true
+    },
+    {
+      "name": "landscape request starts from first home touch",
+      "passed": true,
+      "detail": [
+        {
+          "type": "lock",
+          "value": "landscape",
+          "allowed": false,
+          "route": "#home"
+        },
+        {
+          "type": "fullscreen",
+          "route": "#home"
+        },
+        {
+          "type": "lock",
+          "value": "landscape",
+          "allowed": true,
+          "route": "#home"
+        }
+      ]
+    },
+    {
+      "name": "mobile has joystick and six round actions, without Guard or Jump",
+      "passed": true
+    },
+    {
+      "name": "aligned circular controls fit 390x844",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "height": 844,
+        "buttons": [
+          {
+            "name": "duel-touch-action touch-ultimate",
+            "x": 330,
+            "y": 772,
+            "width": 48,
+            "height": 48,
+            "cx": 354,
+            "cy": 796,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-special",
+            "x": 330,
+            "y": 647.203125,
+            "width": 48,
+            "height": 48,
+            "cx": 354,
+            "cy": 671.203125,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-grab",
+            "x": 166.8125,
+            "y": 709.59375,
+            "width": 48,
+            "height": 48,
+            "cx": 190.8125,
+            "cy": 733.59375,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-attack",
+            "x": 272.40625,
+            "y": 709.59375,
+            "width": 48,
+            "height": 48,
+            "cx": 296.40625,
+            "cy": 733.59375,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-sprint",
+            "x": 219.609375,
+            "y": 647.203125,
+            "width": 48,
+            "height": 48,
+            "cx": 243.609375,
+            "cy": 671.203125,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-dodge",
+            "x": 219.609375,
+            "y": 772,
+            "width": 48,
+            "height": 48,
+            "cx": 243.609375,
+            "cy": 796,
+            "radius": "50%"
+          }
+        ],
+        "diamond": true,
+        "abilitiesRight": true,
+        "bounds": true,
+        "targets": true,
+        "separate": true,
+        "overflow": false
+      }
+    },
+    {
+      "name": "aligned circular controls fit 320x720",
+      "passed": true,
+      "detail": {
+        "width": 320,
+        "height": 720,
+        "buttons": [
+          {
+            "name": "duel-touch-action touch-ultimate",
+            "x": 266,
+            "y": 652,
+            "width": 44,
+            "height": 44,
+            "cx": 288,
+            "cy": 674,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-special",
+            "x": 266,
+            "y": 537.609375,
+            "width": 44,
+            "height": 44,
+            "cx": 288,
+            "cy": 559.609375,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-grab",
+            "x": 116.40625,
+            "y": 594.796875,
+            "width": 44,
+            "height": 44,
+            "cx": 138.40625,
+            "cy": 616.796875,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-attack",
+            "x": 213.203125,
+            "y": 594.796875,
+            "width": 44,
+            "height": 44,
+            "cx": 235.203125,
+            "cy": 616.796875,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-sprint",
+            "x": 164.796875,
+            "y": 537.609375,
+            "width": 44,
+            "height": 44,
+            "cx": 186.796875,
+            "cy": 559.609375,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-dodge",
+            "x": 164.796875,
+            "y": 652,
+            "width": 44,
+            "height": 44,
+            "cx": 186.796875,
+            "cy": 674,
+            "radius": "50%"
+          }
+        ],
+        "diamond": true,
+        "abilitiesRight": true,
+        "bounds": true,
+        "targets": true,
+        "separate": true,
+        "overflow": false
+      }
+    },
+    {
+      "name": "aligned circular controls fit 844x390",
+      "passed": true,
+      "detail": {
+        "width": 844,
+        "height": 390,
+        "buttons": [
+          {
+            "name": "duel-touch-action touch-ultimate",
+            "x": 782,
+            "y": 331,
+            "width": 44,
+            "height": 44,
+            "cx": 804,
+            "cy": 353,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-special",
+            "x": 782,
+            "y": 216.609375,
+            "width": 44,
+            "height": 44,
+            "cx": 804,
+            "cy": 238.609375,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-grab",
+            "x": 632.40625,
+            "y": 273.796875,
+            "width": 44,
+            "height": 44,
+            "cx": 654.40625,
+            "cy": 295.796875,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-attack",
+            "x": 729.203125,
+            "y": 273.796875,
+            "width": 44,
+            "height": 44,
+            "cx": 751.203125,
+            "cy": 295.796875,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-sprint",
+            "x": 680.796875,
+            "y": 216.609375,
+            "width": 44,
+            "height": 44,
+            "cx": 702.796875,
+            "cy": 238.609375,
+            "radius": "50%"
+          },
+          {
+            "name": "duel-touch-action touch-dodge",
+            "x": 680.796875,
+            "y": 331,
+            "width": 44,
+            "height": 44,
+            "cx": 702.796875,
+            "cy": 353,
+            "radius": "50%"
+          }
+        ],
+        "diamond": true,
+        "abilitiesRight": true,
+        "bounds": true,
+        "targets": true,
+        "separate": true,
+        "overflow": false
+      }
+    },
+    {
+      "name": "joystick dead zone prevents drift",
+      "passed": true
+    },
+    {
+      "name": "joystick supports partial movement strength",
+      "passed": true,
+      "detail": {
+        "right": 0.32675827837726473,
+        "forward": 0,
+        "at": 83520
+      }
+    },
+    {
+      "name": "joystick clamps diagonal movement to unit strength",
+      "passed": true,
+      "detail": {
+        "right": 0.7071067811865475,
+        "forward": 0.7071067811865475,
+        "at": 86697.69999998808
+      }
+    },
+    {
+      "name": "movement and Sprint work with independent touches",
+      "passed": true,
+      "detail": {
+        "samples": [
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 69415.30000001192
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 71179.39999997616
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 72126.30000001192
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 73170.19999998808
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 74235
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 75124.5
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 76080.19999998808
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 77050
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 78058.80000001192
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 79095.19999998808
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 80158.19999998808
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 81394.69999998808
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 82446.89999997616
+          },
+          {
+            "x": 0.32001027378908425,
+            "z": 0.06606358420120255,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 83524.39999997616
+          },
+          {
+            "x": 0.3205151159728953,
+            "z": 0.06356911924004836,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 84545.39999997616
+          },
+          {
+            "x": 0.32179292064386905,
+            "z": 0.05674758771580212,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 85604.59999996424
+          },
+          {
+            "x": 0.8162600994640579,
+            "z": -0.5776845592734208,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 86698.19999998808
+          },
+          {
+            "x": 0.814531792669465,
+            "z": -0.5801189177493419,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 87853.39999997616
+          },
+          {
+            "x": 0.8116122933642249,
+            "z": -0.5841964440666025,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 88910
+          },
+          {
+            "x": 0.8093854220385545,
+            "z": -0.587277820619399,
+            "sprint": true,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 90019.5
+          }
+        ],
+        "moves": [
+          {
+            "right": 0,
+            "forward": 0,
+            "at": 60238.80000001192
+          },
+          {
+            "right": 0,
+            "forward": 0,
+            "at": 67015.59999996424
+          },
+          {
+            "right": 0,
+            "forward": 0,
+            "at": 77078.09999996424
+          },
+          {
+            "right": 0,
+            "forward": 0,
+            "at": 80157.39999997616
+          },
+          {
+            "right": 0.32675827837726473,
+            "forward": 0,
+            "at": 83520
+          },
+          {
+            "right": 0.7071067811865475,
+            "forward": 0.7071067811865475,
+            "at": 86697.69999998808
+          }
+        ],
+        "snapshot": "fight",
+        "paused": false,
+        "button": "true",
+        "held": [
+          "ShiftLeft"
+        ],
+        "inputEnabled": true,
+        "pointers": [
+          {
+            "type": "pointerdown",
+            "pointer": 4,
+            "button": 0,
+            "target": "duel-joystick",
+            "x": 72,
+            "y": 309,
+            "at": 77077.80000001192,
+            "enabled": true,
+            "paused": false
+          },
+          {
+            "type": "pointerdown",
+            "pointer": 5,
+            "button": 0,
+            "target": "duel-touch-action touch-sprint",
+            "x": 702.796875,
+            "y": 238.609375,
+            "at": 88941.80000001192,
+            "enabled": true,
+            "paused": false
+          }
+        ],
+        "injections": [
+          {
+            "code": "KeyI",
+            "down": false,
+            "at": 60238.59999996424
+          },
+          {
+            "code": "KeyU",
+            "down": false,
+            "at": 60239
+          },
+          {
+            "code": "KeyE",
+            "down": false,
+            "at": 60239
+          },
+          {
+            "code": "KeyJ",
+            "down": false,
+            "at": 60239
+          },
+          {
+            "code": "ShiftLeft",
+            "down": false,
+            "at": 60239.09999996424
+          },
+          {
+            "code": "Space",
+            "down": false,
+            "at": 60239.09999996424
+          },
+          {
+            "code": "KeyI",
+            "down": false,
+            "at": 67015.59999996424
+          },
+          {
+            "code": "KeyU",
+            "down": false,
+            "at": 67015.69999998808
+          },
+          {
+            "code": "KeyE",
+            "down": false,
+            "at": 67015.69999998808
+          },
+          {
+            "code": "KeyJ",
+            "down": false,
+            "at": 67015.69999998808
+          },
+          {
+            "code": "ShiftLeft",
+            "down": false,
+            "at": 67015.69999998808
+          },
+          {
+            "code": "Space",
+            "down": false,
+            "at": 67015.69999998808
+          },
+          {
+            "code": "ShiftLeft",
+            "down": true,
+            "at": 88942.09999996424
+          }
+        ]
+      }
+    },
+    {
+      "name": "releasing action touch keeps joystick movement",
+      "passed": true
+    },
+    {
+      "name": "joystick release clears movement",
+      "passed": true
+    },
+    {
+      "name": "pointer cancellation resets the joystick",
+      "passed": true
+    },
+    {
+      "name": "pausing clears and disables mobile controls",
+      "passed": true
+    },
+    {
+      "name": "round Attack button reaches combat input",
+      "passed": true,
+      "detail": {
+        "samples": [
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 113115
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 113270.89999997616
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 114268
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": false,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 114324.19999998808
+          },
+          {
+            "x": 0,
+            "z": 0,
+            "sprint": false,
+            "guard": false,
+            "light": true,
+            "heavy": false,
+            "dodge": false,
+            "special": false,
+            "ultimate": false,
+            "jump": false,
+            "grapple": false,
+            "lockOn": true,
+            "at": 115370.39999997616
+          }
+        ],
+        "injections": [
+          {
+            "code": "KeyJ",
+            "down": true,
+            "at": 114322.09999996424
+          },
+          {
+            "code": "KeyJ",
+            "down": false,
+            "at": 114323.39999997616
+          }
+        ],
+        "pointers": [
+          {
+            "type": "pointerdown",
+            "pointer": 8,
+            "button": 0,
+            "target": "duel-touch-action touch-attack",
+            "x": 751.2000122070312,
+            "y": 295.7900085449219,
+            "at": 114321.89999997616,
+            "enabled": true,
+            "paused": false
+          },
+          {
+            "type": "pointerup",
+            "pointer": 8,
+            "button": 0,
+            "target": "duel-touch-action touch-attack",
+            "x": 751.2000122070312,
+            "y": 295.7900085449219,
+            "at": 114323.19999998808,
+            "enabled": true,
+            "paused": false
+          },
+          {
+            "type": "lostpointercapture",
+            "pointer": 8,
+            "button": 0,
+            "target": "duel-touch-action touch-attack",
+            "x": 751.2000122070312,
+            "y": 295.7900085449219,
+            "at": 114323.39999997616,
+            "enabled": true,
+            "paused": false
+          }
+        ],
+        "inputEnabled": true,
+        "paused": false,
+        "phase": "fight"
+      }
+    },
+    {
+      "name": "exiting fullscreen releases landscape lock",
+      "passed": true
+    },
+    {
+      "name": "unsupported rotation shows a usable home hint",
+      "passed": true
+    },
+    {
+      "name": "reduced motion skips the fast shuffle",
+      "passed": true
+    },
+    {
+      "name": "portrait remains playable without orientation support",
+      "passed": true
+    },
+    {
+      "name": "two real PvP clients exclude reveal and onboarding",
       "passed": false,
-      "detail": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'BEGIN DUEL', exact: true })\u001b[22m\n"
+      "detail": "locator.waitFor: Timeout 90000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.duel-loading') to be detached\u001b[22m\n\u001b[2m    12 × locator resolved to visible <div class=\"duel-overlay duel-loading\">…</div>\u001b[22m\n\n    at fight (C:\\Users\\Great\\Desktop\\goldrush\\scripts\\entry-mobile-check.mjs:63:39)\n    at async file:///C:/Users/Great/Desktop/goldrush/scripts/entry-mobile-check.mjs:284:7\n    at async scenario (C:\\Users\\Great\\Desktop\\goldrush\\scripts\\entry-mobile-check.mjs:69:9)\n    at async file:///C:/Users/Great/Desktop/goldrush/scripts/entry-mobile-check.mjs:270:3"
+    },
+    {
+      "name": "browser checks have no application errors",
+      "passed": true,
+      "detail": []
     }
   ],
-  "errors": []
+  "errors": [],
+  "evidence": {
+    "firstLoad": [
+      {
+        "value": 0,
+        "at": 6375.400000035763
+      },
+      {
+        "value": 20,
+        "at": 12270.200000047684
+      },
+      {
+        "value": 84,
+        "at": 23101
+      },
+      {
+        "value": 100,
+        "at": 23167.5
+      }
+    ],
+    "matchup": [
+      {
+        "at": 115535.30000001192,
+        "revealed": "false",
+        "ready": "false",
+        "opponent": "",
+        "reel": "none",
+        "ring": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      {
+        "at": 115589.20000004768,
+        "revealed": "false",
+        "ready": "false",
+        "opponent": "",
+        "reel": "none",
+        "ring": "matrix(1, 0, 0, 1, 0, 0)"
+      },
+      {
+        "at": 123778.40000003576,
+        "revealed": "false",
+        "ready": "false",
+        "opponent": "",
+        "reel": "matrix(1, 0, 0, 1, 0, 0)",
+        "ring": "matrix(1, 0, 0, 1, 0, 0)",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 123810.30000001192,
+        "revealed": "false",
+        "ready": "false",
+        "opponent": "",
+        "reel": "matrix(1, 0, 0, 1, 0, 0)",
+        "ring": "matrix(0.62164, -0.783303, 0.783303, 0.62164, 0, 0)",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 124414.90000003576,
+        "revealed": "false",
+        "ready": "false",
+        "opponent": "",
+        "reel": "matrix(1, 0, 0, 1, 0, -2128.85)",
+        "ring": "matrix(-0.659537, 0.751672, -0.751672, -0.659537, 0, 0)",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 124426.5,
+        "revealed": "false",
+        "ready": "false",
+        "opponent": "",
+        "reel": "matrix(1, 0, 0, 1, 0, -2186.51)",
+        "ring": "matrix(-0.824905, 0.565271, -0.565271, -0.824905, 0, 0)",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 124698.80000001192,
+        "revealed": "false",
+        "ready": "false",
+        "opponent": "",
+        "reel": "matrix(1, 0, 0, 1, 0, -3050.01)",
+        "ring": "matrix(1, -0.000867678, 0.000867678, 1, 0, 0)",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 125073.5,
+        "revealed": "false",
+        "ready": "false",
+        "opponent": "",
+        "reel": "matrix(1, 0, 0, 1, 0, -3107.32)",
+        "ring": "matrix(0.969536, 0.24495, -0.24495, 0.969536, 0, 0)",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 133075.40000003576,
+        "revealed": "false",
+        "ready": "false",
+        "opponent": "",
+        "reel": "matrix(1, 0, 0, 1, 0, -4430.72)",
+        "ring": "matrix(0.954873, -0.297013, 0.297013, 0.954873, 0, 0)",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142046.80000001192,
+        "revealed": "false",
+        "ready": "true",
+        "opponent": "",
+        "reel": "matrix(1, 0, 0, 1, 0, -6560)",
+        "ring": "matrix(-0.351963, 0.936014, -0.936014, -0.351963, 0, 0)",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142062.60000002384,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142210.20000004768,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142455.5,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142732.5,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142771.60000002384,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142803.20000004768,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142840.20000004768,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142853.20000004768,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142872.90000003576,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142887.20000004768,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      },
+      {
+        "at": 142955.10000002384,
+        "revealed": "true",
+        "ready": "true",
+        "opponent": "nomet",
+        "reel": "none",
+        "ring": "none",
+        "simulationTime": 0,
+        "actualOpponent": "nomet"
+      }
+    ],
+    "audio": {
+      "mode": "menu",
+      "arena": "sanctum",
+      "muted": false,
+      "suspended": false,
+      "levels": {
+        "master": 0.82,
+        "music": 0.55,
+        "effects": 0.88,
+        "voice": 0.92
+      },
+      "manifestReady": true,
+      "effectsLoaded": 34,
+      "voicesLoaded": 24,
+      "voice": null,
+      "musicPlaying": true,
+      "musicVolume": 0.09350000000000001,
+      "events": [
+        {
+          "type": "music",
+          "name": "menu",
+          "at": 13264.399999976158
+        },
+        {
+          "type": "music",
+          "name": "menu",
+          "at": 15302.099999964237
+        },
+        {
+          "type": "effect",
+          "name": "ui-hover",
+          "at": 24309.599999964237
+        },
+        {
+          "type": "effect",
+          "name": "ui-click",
+          "at": 24369.299999952316
+        },
+        {
+          "type": "effect",
+          "name": "ui-hover",
+          "at": 27214.899999976158
+        },
+        {
+          "type": "effect",
+          "name": "ui-click",
+          "at": 27470.399999976158
+        }
+      ]
+    },
+    "directLoad": [
+      {
+        "value": 0,
+        "at": 5579.099999964237
+      },
+      {
+        "value": 20,
+        "at": 6272
+      },
+      {
+        "value": 84,
+        "at": 16696.19999998808
+      },
+      {
+        "value": 100,
+        "at": 16792.5
+      }
+    ],
+    "mobile-390": {
+      "width": 390,
+      "height": 844,
+      "buttons": [
+        {
+          "name": "duel-touch-action touch-ultimate",
+          "x": 330,
+          "y": 772,
+          "width": 48,
+          "height": 48,
+          "cx": 354,
+          "cy": 796,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-special",
+          "x": 330,
+          "y": 647.203125,
+          "width": 48,
+          "height": 48,
+          "cx": 354,
+          "cy": 671.203125,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-grab",
+          "x": 166.8125,
+          "y": 709.59375,
+          "width": 48,
+          "height": 48,
+          "cx": 190.8125,
+          "cy": 733.59375,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-attack",
+          "x": 272.40625,
+          "y": 709.59375,
+          "width": 48,
+          "height": 48,
+          "cx": 296.40625,
+          "cy": 733.59375,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-sprint",
+          "x": 219.609375,
+          "y": 647.203125,
+          "width": 48,
+          "height": 48,
+          "cx": 243.609375,
+          "cy": 671.203125,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-dodge",
+          "x": 219.609375,
+          "y": 772,
+          "width": 48,
+          "height": 48,
+          "cx": 243.609375,
+          "cy": 796,
+          "radius": "50%"
+        }
+      ],
+      "diamond": true,
+      "abilitiesRight": true,
+      "bounds": true,
+      "targets": true,
+      "separate": true,
+      "overflow": false
+    },
+    "mobile-320": {
+      "width": 320,
+      "height": 720,
+      "buttons": [
+        {
+          "name": "duel-touch-action touch-ultimate",
+          "x": 266,
+          "y": 652,
+          "width": 44,
+          "height": 44,
+          "cx": 288,
+          "cy": 674,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-special",
+          "x": 266,
+          "y": 537.609375,
+          "width": 44,
+          "height": 44,
+          "cx": 288,
+          "cy": 559.609375,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-grab",
+          "x": 116.40625,
+          "y": 594.796875,
+          "width": 44,
+          "height": 44,
+          "cx": 138.40625,
+          "cy": 616.796875,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-attack",
+          "x": 213.203125,
+          "y": 594.796875,
+          "width": 44,
+          "height": 44,
+          "cx": 235.203125,
+          "cy": 616.796875,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-sprint",
+          "x": 164.796875,
+          "y": 537.609375,
+          "width": 44,
+          "height": 44,
+          "cx": 186.796875,
+          "cy": 559.609375,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-dodge",
+          "x": 164.796875,
+          "y": 652,
+          "width": 44,
+          "height": 44,
+          "cx": 186.796875,
+          "cy": 674,
+          "radius": "50%"
+        }
+      ],
+      "diamond": true,
+      "abilitiesRight": true,
+      "bounds": true,
+      "targets": true,
+      "separate": true,
+      "overflow": false
+    },
+    "mobile-landscape": {
+      "width": 844,
+      "height": 390,
+      "buttons": [
+        {
+          "name": "duel-touch-action touch-ultimate",
+          "x": 782,
+          "y": 331,
+          "width": 44,
+          "height": 44,
+          "cx": 804,
+          "cy": 353,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-special",
+          "x": 782,
+          "y": 216.609375,
+          "width": 44,
+          "height": 44,
+          "cx": 804,
+          "cy": 238.609375,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-grab",
+          "x": 632.40625,
+          "y": 273.796875,
+          "width": 44,
+          "height": 44,
+          "cx": 654.40625,
+          "cy": 295.796875,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-attack",
+          "x": 729.203125,
+          "y": 273.796875,
+          "width": 44,
+          "height": 44,
+          "cx": 751.203125,
+          "cy": 295.796875,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-sprint",
+          "x": 680.796875,
+          "y": 216.609375,
+          "width": 44,
+          "height": 44,
+          "cx": 702.796875,
+          "cy": 238.609375,
+          "radius": "50%"
+        },
+        {
+          "name": "duel-touch-action touch-dodge",
+          "x": 680.796875,
+          "y": 331,
+          "width": 44,
+          "height": 44,
+          "cx": 702.796875,
+          "cy": 353,
+          "radius": "50%"
+        }
+      ],
+      "diamond": true,
+      "abilitiesRight": true,
+      "bounds": true,
+      "targets": true,
+      "separate": true,
+      "overflow": false
+    },
+    "multitouch": {
+      "samples": [
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 69415.30000001192
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 71179.39999997616
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 72126.30000001192
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 73170.19999998808
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 74235
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 75124.5
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 76080.19999998808
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 77050
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 78058.80000001192
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 79095.19999998808
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 80158.19999998808
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 81394.69999998808
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 82446.89999997616
+        },
+        {
+          "x": 0.32001027378908425,
+          "z": 0.06606358420120255,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 83524.39999997616
+        },
+        {
+          "x": 0.3205151159728953,
+          "z": 0.06356911924004836,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 84545.39999997616
+        },
+        {
+          "x": 0.32179292064386905,
+          "z": 0.05674758771580212,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 85604.59999996424
+        },
+        {
+          "x": 0.8162600994640579,
+          "z": -0.5776845592734208,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 86698.19999998808
+        },
+        {
+          "x": 0.814531792669465,
+          "z": -0.5801189177493419,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 87853.39999997616
+        },
+        {
+          "x": 0.8116122933642249,
+          "z": -0.5841964440666025,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 88910
+        },
+        {
+          "x": 0.8093854220385545,
+          "z": -0.587277820619399,
+          "sprint": true,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 90019.5
+        }
+      ],
+      "moves": [
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 60238.80000001192
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 67015.59999996424
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 77078.09999996424
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 80157.39999997616
+        },
+        {
+          "right": 0.32675827837726473,
+          "forward": 0,
+          "at": 83520
+        },
+        {
+          "right": 0.7071067811865475,
+          "forward": 0.7071067811865475,
+          "at": 86697.69999998808
+        }
+      ],
+      "snapshot": "fight",
+      "paused": false,
+      "button": "true",
+      "held": [
+        "ShiftLeft"
+      ],
+      "inputEnabled": true,
+      "pointers": [
+        {
+          "type": "pointerdown",
+          "pointer": 4,
+          "button": 0,
+          "target": "duel-joystick",
+          "x": 72,
+          "y": 309,
+          "at": 77077.80000001192,
+          "enabled": true,
+          "paused": false
+        },
+        {
+          "type": "pointerdown",
+          "pointer": 5,
+          "button": 0,
+          "target": "duel-touch-action touch-sprint",
+          "x": 702.796875,
+          "y": 238.609375,
+          "at": 88941.80000001192,
+          "enabled": true,
+          "paused": false
+        }
+      ],
+      "injections": [
+        {
+          "code": "KeyI",
+          "down": false,
+          "at": 60238.59999996424
+        },
+        {
+          "code": "KeyU",
+          "down": false,
+          "at": 60239
+        },
+        {
+          "code": "KeyE",
+          "down": false,
+          "at": 60239
+        },
+        {
+          "code": "KeyJ",
+          "down": false,
+          "at": 60239
+        },
+        {
+          "code": "ShiftLeft",
+          "down": false,
+          "at": 60239.09999996424
+        },
+        {
+          "code": "Space",
+          "down": false,
+          "at": 60239.09999996424
+        },
+        {
+          "code": "KeyI",
+          "down": false,
+          "at": 67015.59999996424
+        },
+        {
+          "code": "KeyU",
+          "down": false,
+          "at": 67015.69999998808
+        },
+        {
+          "code": "KeyE",
+          "down": false,
+          "at": 67015.69999998808
+        },
+        {
+          "code": "KeyJ",
+          "down": false,
+          "at": 67015.69999998808
+        },
+        {
+          "code": "ShiftLeft",
+          "down": false,
+          "at": 67015.69999998808
+        },
+        {
+          "code": "Space",
+          "down": false,
+          "at": 67015.69999998808
+        },
+        {
+          "code": "ShiftLeft",
+          "down": true,
+          "at": 88942.09999996424
+        }
+      ]
+    },
+    "attack": {
+      "samples": [
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 113115
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 113270.89999997616
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 114268
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 114324.19999998808
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": true,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 115370.39999997616
+        }
+      ],
+      "injections": [
+        {
+          "code": "KeyJ",
+          "down": true,
+          "at": 114322.09999996424
+        },
+        {
+          "code": "KeyJ",
+          "down": false,
+          "at": 114323.39999997616
+        }
+      ],
+      "pointers": [
+        {
+          "type": "pointerdown",
+          "pointer": 8,
+          "button": 0,
+          "target": "duel-touch-action touch-attack",
+          "x": 751.2000122070312,
+          "y": 295.7900085449219,
+          "at": 114321.89999997616,
+          "enabled": true,
+          "paused": false
+        },
+        {
+          "type": "pointerup",
+          "pointer": 8,
+          "button": 0,
+          "target": "duel-touch-action touch-attack",
+          "x": 751.2000122070312,
+          "y": 295.7900085449219,
+          "at": 114323.19999998808,
+          "enabled": true,
+          "paused": false
+        },
+        {
+          "type": "lostpointercapture",
+          "pointer": 8,
+          "button": 0,
+          "target": "duel-touch-action touch-attack",
+          "x": 751.2000122070312,
+          "y": 295.7900085449219,
+          "at": 114323.39999997616,
+          "enabled": true,
+          "paused": false
+        }
+      ],
+      "inputEnabled": true,
+      "paused": false,
+      "phase": "fight"
+    },
+    "mobileInput": {
+      "moves": [
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 60238.80000001192
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 67015.59999996424
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 77078.09999996424
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 80157.39999997616
+        },
+        {
+          "right": 0.32675827837726473,
+          "forward": 0,
+          "at": 83520
+        },
+        {
+          "right": 0.7071067811865475,
+          "forward": 0.7071067811865475,
+          "at": 86697.69999998808
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 95472.80000001192
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 97868.59999996424
+        },
+        {
+          "right": 0.7071067811865475,
+          "forward": 0.7071067811865475,
+          "at": 102850.5
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 104280.30000001192
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 106582.09999996424
+        },
+        {
+          "right": 0.7071067811865475,
+          "forward": 0.7071067811865475,
+          "at": 109114.80000001192
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 109685.80000001192
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 109689.19999998808
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 112481.30000001192
+        },
+        {
+          "right": 0,
+          "forward": 0,
+          "at": 112481.59999996424
+        }
+      ],
+      "samples": [
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 82446.89999997616
+        },
+        {
+          "x": 0.32001027378908425,
+          "z": 0.06606358420120255,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 83524.39999997616
+        },
+        {
+          "x": 0.3205151159728953,
+          "z": 0.06356911924004836,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 84545.39999997616
+        },
+        {
+          "x": 0.32179292064386905,
+          "z": 0.05674758771580212,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 85604.59999996424
+        },
+        {
+          "x": 0.8162600994640579,
+          "z": -0.5776845592734208,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 86698.19999998808
+        },
+        {
+          "x": 0.814531792669465,
+          "z": -0.5801189177493419,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 87853.39999997616
+        },
+        {
+          "x": 0.8116122933642249,
+          "z": -0.5841964440666025,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 88910
+        },
+        {
+          "x": 0.8093854220385545,
+          "z": -0.587277820619399,
+          "sprint": true,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 90019.5
+        },
+        {
+          "x": 0.8081153696143615,
+          "z": -0.5890242349793802,
+          "sprint": true,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 91055.5
+        },
+        {
+          "x": 0.8072226822599766,
+          "z": -0.5902470171419831,
+          "sprint": true,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 92087.69999998808
+        },
+        {
+          "x": 0.806447203824775,
+          "z": -0.5913061029984397,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 93176.39999997616
+        },
+        {
+          "x": 0.8060258823650885,
+          "z": -0.5918802893808683,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 94352.69999998808
+        },
+        {
+          "x": 0.8058653214172377,
+          "z": -0.592098880033641,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 95442.69999998808
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 96603.30000001192
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 97798.30000001192
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 98832.59999996424
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 99868.69999998808
+        },
+        {
+          "x": 0.8030748040729279,
+          "z": -0.5958782250285946,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 102851.5
+        },
+        {
+          "x": 0.8025573225959516,
+          "z": -0.5965750111659199,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 103125.09999996424
+        },
+        {
+          "x": 0.8084371199426098,
+          "z": -0.5885825541917619,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 104241.89999997616
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 105391.69999998808
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 106533.09999996424
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 107704.39999997616
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 108876.39999997616
+        },
+        {
+          "x": 0.8375125453375399,
+          "z": -0.5464180967009008,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 109116
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 113115
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 113270.89999997616
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 114268
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": false,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 114324.19999998808
+        },
+        {
+          "x": 0,
+          "z": 0,
+          "sprint": false,
+          "guard": false,
+          "light": true,
+          "heavy": false,
+          "dodge": false,
+          "special": false,
+          "ultimate": false,
+          "jump": false,
+          "grapple": false,
+          "lockOn": true,
+          "at": 115370.39999997616
+        }
+      ]
+    },
+    "pvpDiagnostics": [
+      {
+        "snapshot": {
+          "time": 0,
+          "round": 1,
+          "timer": 150,
+          "phase": "intro",
+          "phaseTime": 0,
+          "wins": [
+            0,
+            0
+          ],
+          "winner": null,
+          "aiIntent": "Reading your stance",
+          "events": [],
+          "fighters": [
+            {
+              "id": "karen",
+              "x": -1.2,
+              "z": 2.5,
+              "yaw": 3.141592653589793,
+              "hp": 116,
+              "stamina": 114,
+              "charge": 0,
+              "state": "idle",
+              "attack": null,
+              "stateTime": 0,
+              "vx": 0,
+              "vz": 0,
+              "guardTime": 0,
+              "regenDelay": 0,
+              "dodgeCooldown": 0,
+              "combo": 0,
+              "comboUntil": 0,
+              "y": 0,
+              "vy": 0,
+              "dodgeX": 0,
+              "dodgeZ": 0,
+              "grabbedBy": null,
+              "stunDuration": 0.22,
+              "specialCooldown": 0,
+              "momentum": 0,
+              "impactLoad": 0,
+              "impactRecovery": 0,
+              "runeTime": 0,
+              "runeX": 0,
+              "runeZ": 0,
+              "wardTime": 0
+            },
+            {
+              "id": "taren",
+              "x": 1.2,
+              "z": -2.5,
+              "yaw": 0,
+              "hp": 142,
+              "stamina": 133,
+              "charge": 0,
+              "state": "idle",
+              "attack": null,
+              "stateTime": 0,
+              "vx": 0,
+              "vz": 0,
+              "guardTime": 0,
+              "regenDelay": 0,
+              "dodgeCooldown": 0,
+              "combo": 0,
+              "comboUntil": 0,
+              "y": 0,
+              "vy": 0,
+              "dodgeX": 0,
+              "dodgeZ": 0,
+              "grabbedBy": null,
+              "stunDuration": 0.22,
+              "specialCooldown": 0,
+              "momentum": 0,
+              "impactLoad": 0,
+              "impactRecovery": 0,
+              "runeTime": 0,
+              "runeX": 0,
+              "runeZ": 0,
+              "wardTime": 0
+            }
+          ]
+        },
+        "audio": {
+          "mode": null,
+          "arena": "sanctum",
+          "muted": false,
+          "suspended": false,
+          "levels": {
+            "master": 0.82,
+            "music": 0.55,
+            "effects": 0.88,
+            "voice": 0.92
+          },
+          "manifestReady": true,
+          "effectsLoaded": 166,
+          "voicesLoaded": 24,
+          "voice": null,
+          "musicPlaying": false,
+          "musicVolume": 0,
+          "events": [
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 7315.800000011921
+            },
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 9508.800000011921
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 19265
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 19347.80000001192
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 23968.399999976158
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 23996.5
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 25315.100000023842
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 25342.5
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 25614.69999998808
+            },
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 25756.399999976158
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 25758.100000023842
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 57838
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 64688.30000001192
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 64715.39999997616
+            }
+          ]
+        },
+        "inputEnabled": false,
+        "paused": false,
+        "visibility": "visible",
+        "loading": "WAITING FOR YOUR OPPONENTBoth fighters enter together.ARENA LOADING100%",
+        "intro": [],
+        "sawCombatTour": false
+      },
+      {
+        "snapshot": {
+          "time": 0,
+          "round": 1,
+          "timer": 150,
+          "phase": "intro",
+          "phaseTime": 0,
+          "wins": [
+            0,
+            0
+          ],
+          "winner": null,
+          "aiIntent": "Reading your stance",
+          "events": [],
+          "fighters": [
+            {
+              "id": "karen",
+              "x": -1.2,
+              "z": 2.5,
+              "yaw": 3.141592653589793,
+              "hp": 116,
+              "stamina": 114,
+              "charge": 0,
+              "state": "idle",
+              "attack": null,
+              "stateTime": 0,
+              "vx": 0,
+              "vz": 0,
+              "guardTime": 0,
+              "regenDelay": 0,
+              "dodgeCooldown": 0,
+              "combo": 0,
+              "comboUntil": 0,
+              "y": 0,
+              "vy": 0,
+              "dodgeX": 0,
+              "dodgeZ": 0,
+              "grabbedBy": null,
+              "stunDuration": 0.22,
+              "specialCooldown": 0,
+              "momentum": 0,
+              "impactLoad": 0,
+              "impactRecovery": 0,
+              "runeTime": 0,
+              "runeX": 0,
+              "runeZ": 0,
+              "wardTime": 0
+            },
+            {
+              "id": "taren",
+              "x": 1.2,
+              "z": -2.5,
+              "yaw": 0,
+              "hp": 142,
+              "stamina": 133,
+              "charge": 0,
+              "state": "idle",
+              "attack": null,
+              "stateTime": 0,
+              "vx": 0,
+              "vz": 0,
+              "guardTime": 0,
+              "regenDelay": 0,
+              "dodgeCooldown": 0,
+              "combo": 0,
+              "comboUntil": 0,
+              "y": 0,
+              "vy": 0,
+              "dodgeX": 0,
+              "dodgeZ": 0,
+              "grabbedBy": null,
+              "stunDuration": 0.22,
+              "specialCooldown": 0,
+              "momentum": 0,
+              "impactLoad": 0,
+              "impactRecovery": 0,
+              "runeTime": 0,
+              "runeX": 0,
+              "runeZ": 0,
+              "wardTime": 0
+            }
+          ]
+        },
+        "audio": {
+          "mode": null,
+          "arena": "sanctum",
+          "muted": false,
+          "suspended": false,
+          "levels": {
+            "master": 0.82,
+            "music": 0.55,
+            "effects": 0.88,
+            "voice": 0.92
+          },
+          "manifestReady": true,
+          "effectsLoaded": 141,
+          "voicesLoaded": 24,
+          "voice": null,
+          "musicPlaying": false,
+          "musicVolume": 0,
+          "events": [
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 9834.100000023842
+            },
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 11915.199999988079
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 21715.900000035763
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 21811.69999998808
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 24649.19999998808
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 25159.19999998808
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 27559.600000023842
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 27585.600000023842
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 30547.80000001192
+            },
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 30564.80000001192
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 30565.19999998808
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 37072.60000002384
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 39182.30000001192
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 39184.60000002384
+            }
+          ]
+        },
+        "inputEnabled": false,
+        "paused": false,
+        "visibility": "visible",
+        "loading": "WAITING FOR YOUR OPPONENTBoth fighters enter together.ARENA LOADING100%",
+        "intro": [],
+        "sawCombatTour": false
+      }
+    ]
+  }
 }

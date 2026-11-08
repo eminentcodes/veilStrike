@@ -8,6 +8,9 @@ previews.mkdir(parents=True, exist_ok=True)
 portraits.mkdir(parents=True, exist_ok=True)
 for name in ['story', 'fighters', 'achievements', 'leaderboards']:
     image = Image.open(source / f'{name}.png').convert('RGB')
+    if name == 'fighters':
+        # Frame the pair closely enough for faces and armor to read in the lobby.
+        image = image.crop((245, 110, 715, 410))
     image = ImageEnhance.Color(image).enhance(1.18)
     image = ImageEnhance.Contrast(image).enhance(1.08)
     image.save(previews / f'{name}.webp', quality=90)

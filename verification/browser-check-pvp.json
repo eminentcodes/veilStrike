@@ -1,0 +1,441 @@
+{
+  "checks": [
+    {
+      "name": "two real PvP clients exclude reveal and onboarding",
+      "passed": false,
+      "detail": "page.waitForFunction: Timeout 90000ms exceeded.\n    at fight (C:\\Users\\Great\\Desktop\\goldrush\\scripts\\entry-mobile-check.mjs:64:14)\n    at async file:///C:/Users/Great/Desktop/goldrush/scripts/entry-mobile-check.mjs:293:7\n    at async scenario (C:\\Users\\Great\\Desktop\\goldrush\\scripts\\entry-mobile-check.mjs:69:9)\n    at async file:///C:/Users/Great/Desktop/goldrush/scripts/entry-mobile-check.mjs:271:3"
+    },
+    {
+      "name": "browser checks have no application errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "evidence": {
+    "pvpWire": {
+      "host": {
+        "sent": [
+          "create",
+          "ready",
+          "loaded"
+        ],
+        "received": [
+          {
+            "type": "seat"
+          },
+          {
+            "type": "room",
+            "status": "waiting"
+          },
+          {
+            "type": "room",
+            "status": "waiting"
+          },
+          {
+            "type": "room",
+            "status": "waiting"
+          },
+          {
+            "type": "room",
+            "status": "loading"
+          },
+          {
+            "type": "start"
+          }
+        ],
+        "states": 0
+      },
+      "guest": {
+        "sent": [
+          "join",
+          "ready",
+          "loaded"
+        ],
+        "received": [
+          {
+            "type": "seat"
+          },
+          {
+            "type": "room",
+            "status": "waiting"
+          },
+          {
+            "type": "room",
+            "status": "waiting"
+          },
+          {
+            "type": "room",
+            "status": "loading"
+          },
+          {
+            "type": "start"
+          }
+        ],
+        "states": 0
+      }
+    },
+    "pvpDiagnostics": [
+      {
+        "snapshot": {
+          "time": 0,
+          "round": 1,
+          "timer": 150,
+          "phase": "intro",
+          "phaseTime": 0,
+          "wins": [
+            0,
+            0
+          ],
+          "winner": null,
+          "aiIntent": "Reading your stance",
+          "events": [],
+          "fighters": [
+            {
+              "id": "karen",
+              "x": -1.2,
+              "z": 2.5,
+              "yaw": 3.141592653589793,
+              "hp": 116,
+              "stamina": 114,
+              "charge": 0,
+              "state": "idle",
+              "attack": null,
+              "stateTime": 0,
+              "vx": 0,
+              "vz": 0,
+              "guardTime": 0,
+              "regenDelay": 0,
+              "dodgeCooldown": 0,
+              "combo": 0,
+              "comboUntil": 0,
+              "y": 0,
+              "vy": 0,
+              "dodgeX": 0,
+              "dodgeZ": 0,
+              "grabbedBy": null,
+              "stunDuration": 0.22,
+              "specialCooldown": 0,
+              "momentum": 0,
+              "impactLoad": 0,
+              "impactRecovery": 0,
+              "runeTime": 0,
+              "runeX": 0,
+              "runeZ": 0,
+              "wardTime": 0
+            },
+            {
+              "id": "taren",
+              "x": 1.2,
+              "z": -2.5,
+              "yaw": 0,
+              "hp": 142,
+              "stamina": 133,
+              "charge": 0,
+              "state": "idle",
+              "attack": null,
+              "stateTime": 0,
+              "vx": 0,
+              "vz": 0,
+              "guardTime": 0,
+              "regenDelay": 0,
+              "dodgeCooldown": 0,
+              "combo": 0,
+              "comboUntil": 0,
+              "y": 0,
+              "vy": 0,
+              "dodgeX": 0,
+              "dodgeZ": 0,
+              "grabbedBy": null,
+              "stunDuration": 0.22,
+              "specialCooldown": 0,
+              "momentum": 0,
+              "impactLoad": 0,
+              "impactRecovery": 0,
+              "runeTime": 0,
+              "runeX": 0,
+              "runeZ": 0,
+              "wardTime": 0
+            }
+          ]
+        },
+        "audio": {
+          "mode": null,
+          "arena": "sanctum",
+          "muted": false,
+          "suspended": false,
+          "levels": {
+            "master": 0.82,
+            "music": 0.55,
+            "effects": 0.88,
+            "voice": 0.92
+          },
+          "manifestReady": true,
+          "effectsLoaded": 166,
+          "voicesLoaded": 24,
+          "voice": null,
+          "musicPlaying": false,
+          "musicVolume": 0,
+          "events": [
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 44713.90000003576
+            },
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 47267
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 58522
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 58707.30000001192
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 61621.30000001192
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 61665.5
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 64306
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 64341.19999998808
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 66308.80000001192
+            },
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 66355.80000001192
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 66356.60000002384
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 108600.90000003576
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 111875.80000001192
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 111878
+            }
+          ]
+        },
+        "inputEnabled": false,
+        "paused": false,
+        "visibility": "visible",
+        "loading": "WAITING FOR YOUR OPPONENTBoth fighters enter together.ARENA LOADING100%",
+        "intro": [],
+        "sawCombatTour": false
+      },
+      {
+        "snapshot": {
+          "time": 0,
+          "round": 1,
+          "timer": 150,
+          "phase": "intro",
+          "phaseTime": 0,
+          "wins": [
+            0,
+            0
+          ],
+          "winner": null,
+          "aiIntent": "Reading your stance",
+          "events": [],
+          "fighters": [
+            {
+              "id": "karen",
+              "x": -1.2,
+              "z": 2.5,
+              "yaw": 3.141592653589793,
+              "hp": 116,
+              "stamina": 114,
+              "charge": 0,
+              "state": "idle",
+              "attack": null,
+              "stateTime": 0,
+              "vx": 0,
+              "vz": 0,
+              "guardTime": 0,
+              "regenDelay": 0,
+              "dodgeCooldown": 0,
+              "combo": 0,
+              "comboUntil": 0,
+              "y": 0,
+              "vy": 0,
+              "dodgeX": 0,
+              "dodgeZ": 0,
+              "grabbedBy": null,
+              "stunDuration": 0.22,
+              "specialCooldown": 0,
+              "momentum": 0,
+              "impactLoad": 0,
+              "impactRecovery": 0,
+              "runeTime": 0,
+              "runeX": 0,
+              "runeZ": 0,
+              "wardTime": 0
+            },
+            {
+              "id": "taren",
+              "x": 1.2,
+              "z": -2.5,
+              "yaw": 0,
+              "hp": 142,
+              "stamina": 133,
+              "charge": 0,
+              "state": "idle",
+              "attack": null,
+              "stateTime": 0,
+              "vx": 0,
+              "vz": 0,
+              "guardTime": 0,
+              "regenDelay": 0,
+              "dodgeCooldown": 0,
+              "combo": 0,
+              "comboUntil": 0,
+              "y": 0,
+              "vy": 0,
+              "dodgeX": 0,
+              "dodgeZ": 0,
+              "grabbedBy": null,
+              "stunDuration": 0.22,
+              "specialCooldown": 0,
+              "momentum": 0,
+              "impactLoad": 0,
+              "impactRecovery": 0,
+              "runeTime": 0,
+              "runeX": 0,
+              "runeZ": 0,
+              "wardTime": 0
+            }
+          ]
+        },
+        "audio": {
+          "mode": null,
+          "arena": "sanctum",
+          "muted": false,
+          "suspended": false,
+          "levels": {
+            "master": 0.82,
+            "music": 0.55,
+            "effects": 0.88,
+            "voice": 0.92
+          },
+          "manifestReady": true,
+          "effectsLoaded": 95,
+          "voicesLoaded": 24,
+          "voice": null,
+          "musicPlaying": false,
+          "musicVolume": 0,
+          "events": [
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 12868.5
+            },
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 15382.699999988079
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 30745.399999976158
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 30835.19999998808
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 35845.09999996424
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 36078.89999997616
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 37827
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 37850.09999996424
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 38818.19999998808
+            },
+            {
+              "type": "music",
+              "name": "menu",
+              "at": 38836.30000001192
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 38837
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 44274.5
+            },
+            {
+              "type": "effect",
+              "name": "ui-hover",
+              "at": 44625.5
+            },
+            {
+              "type": "effect",
+              "name": "ui-click",
+              "at": 44627.69999998808
+            }
+          ]
+        },
+        "inputEnabled": false,
+        "paused": false,
+        "visibility": "visible",
+        "loading": "WAITING FOR YOUR OPPONENTBoth fighters enter together.ARENA LOADING100%",
+        "intro": [],
+        "sawCombatTour": false
+      }
+    ]
+  }
+}
