@@ -1,0 +1,25 @@
+{
+  "reportedDeploymentCommit": "1b4d1a0cfccbb2ccec58a72070243ec2b1abe76f",
+  "reportedError": "tsc: command not found",
+  "cause": "The apps/web workspace did not declare TypeScript; its scoped install omitted root development dependencies.",
+  "fix": {
+    "workspace": "@veilstrike/web",
+    "addedDevelopmentDependencies": {
+      "typescript": "^5.7.3",
+      "@types/howler": "^2.2.13"
+    }
+  },
+  "validation": {
+    "method": "Isolated project using the installed dependency versions selected by npm ls --workspace @veilstrike/web --all --parseable",
+    "selectedDependencyCount": 115,
+    "rootEslintPackagePresent": false,
+    "typescriptPresent": true,
+    "howlerTypingsPresent": true,
+    "buildWorkingDirectory": "apps/web",
+    "buildCommand": "npm run build",
+    "typescriptAndViteBuildExitCode": 0,
+    "cleanRegistryInstallCompleted": false,
+    "cleanRegistryInstallLimitation": "Uncached archive downloads stalled on the local connection; the isolated build reused the existing installed package versions.",
+    "warnings": ["Existing GameLobby bundle exceeds Vite's 500 kB chunk warning threshold."]
+  }
+}

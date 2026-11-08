@@ -545,3 +545,10 @@ Next log update due by 14:16 WAT during active work.
 - Confirmed the combined browser report contains 45 passing checks out of 46, with no application errors recorded. The remaining check is the two-browser PvP scenario; its timeout remains a validation limitation despite the successful direct and Vite-proxied WebSocket probes.
 - Whitespace verification passed for the changed entry, matchup, mobile-control, browser-check, and documentation files. The entry guide now accurately describes the animation-completion-based reveal and final mobile controls.
 - Finished the build handoff with the user's confirmed mobile layout preserved. No further browser investigation, commit, or deployment was performed.
+
+## 2026-11-08 — Workspace-scoped Vercel dependency repair
+
+- User supplied the latest Vercel log for commit `1b4d1a0`: `npm ci --include=dev` installed only the web workspace's dependencies, then its `tsc --build` command failed because TypeScript was declared only in the repository root.
+- Added TypeScript and Howler's declaration package directly to `apps/web` development dependencies and updated the workspace lockfile. The existing Vercel install/build/output commands are retained.
+- An isolated web production build passed TypeScript compilation and Vite bundling with the selected web dependency closure and without the root ESLint package. Full registry clean-install validation was interrupted by uncached downloads; reused the existing installed package versions to finish the isolated build. Evidence: `verification/vercel-workspace-build.json`.
+- Updated deployment documentation to explain scoped dependency installation. User authorized pushing the repair when complete.

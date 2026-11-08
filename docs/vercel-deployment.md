@@ -21,6 +21,11 @@ dependencies because TypeScript and Vite are needed during the build, including
 when `NODE_ENV` is `production` or npm is configured to omit development packages.
 This addresses the reported `tsc: command not found` failure.
 
+The web workspace declares `typescript` and `@types/howler` directly in its own
+development dependencies. An install started from `apps/web` can omit the
+repository root's development tools, so adding them only to the root package
+does not make them available for a workspace-only Vercel build.
+
 ## Online PvP
 
 Vercel hosts the web application. The persistent WebSocket arena server needs
