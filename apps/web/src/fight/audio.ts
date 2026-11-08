@@ -80,12 +80,31 @@ class FightAudio {
       const response = await fetch(BASE + 'manifest.json');
       if (response.ok) this.manifest = await response.json() as Manifest;
       const revision = encodeURIComponent(this.manifest.revision ?? '4');
-      for (const file of this.manifest.samples ?? []) this.samples.set(stem(file), new Howl({ src: [BASE + file + '?v=' + revision], preload: true, pool: 8 }));
-      for (const [cue, file] of Object.entries(this.manifest.voices ?? {})) this.voices.set(cue, new Howl({ src: [BASE + file + '?v=' + revision], preload: true, volume: this.voiceVolume(), pool: 1, onloaderror: () => { this.voices.delete(cue); this.changed(); } }));
+      for (const file of this.manifest.samples ?? []) this.samples.set(stem(file), new Howl({ src: [BASE + file + '?v=' + revision], preload: false, pool: 8 }));
+      for (const [cue, file] of Object.entries(this.manifest.voices ?? {})) this.voices.set(cue, new Howl({ src: [BASE + file + '?v=' + revision], preload: false, volume: this.voiceVolume(), pool: 1, onloaderror: () => { this.voices.delete(cue); this.changed(); } }));
     } catch { /* Short procedural effects cover missing samples; unavailable voice stays silent. */ }
     this.manifestReady = true;
     if (this.mode) { const mode = this.mode; this.mode = null; this.startMusic(mode); }
     this.changed();
+    this.preloadAudio();
+  }
+  private preloadAudio(): void {
+    // Keep network slots available for the lobby, portraits, and fighter models.
+    const ui = [...this.samples].filter(([name]) => name.startsWith('ui-') || name === 'spin-wheel-0');
+    const early = new Set(['round-start-1', 'body-hit-1', 'blade-hit-1', 'punch-impact-1', 'weapon-swing-1', 'fist-swing-1', 'footstep-stone-1', 'dodge-1', 'metal-clash-1']);
+    const common = [...this.samples].filter(([name]) => early.has(name));
+    const firstRound = this.voices.get('round-fight-1');
+    const voices = [...this.voices].filter(([cue]) => cue !== 'round-fight-1').map(([, sound]) => sound);
+    const rest = [...this.samples].filter(([name]) => !name.startsWith('ui-') && name !== 'spin-wheel-0' && !early.has(name));
+    const queue = [...ui.map(([, sound]) => sound), ...(firstRound ? [firstRound] : []), ...common.map(([, sound]) => sound), ...voices, ...rest.map(([, sound]) => sound)];
+    const next = () => {
+      const sound = queue.shift();
+      if (!sound) return;
+      if (sound.state() === 'loaded') { next(); return; }
+      const done = () => { sound.off('load', done); sound.off('loaderror', done); next(); };
+      sound.once('load', done); sound.once('loaderror', done); sound.load();
+    };
+    next(); next();
   }
   private context(): AudioContext | null {
     if (Howler.ctx) return Howler.ctx;

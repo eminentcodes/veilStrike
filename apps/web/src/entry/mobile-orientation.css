@@ -1,0 +1,7 @@
+.mobile-orientation-hint { position:fixed; z-index:16; left:50%; bottom:48px; transform:translateX(-50%); display:flex; align-items:center; gap:9px; padding:8px 12px; border:1px solid #bbad873d; background:#0d1b29eb; color:#d9c69e; font:700 10px 'Nunito',sans-serif; white-space:nowrap; box-shadow:0 3px 15px #040b1330; }
+.mobile-orientation-hint > svg { transform:rotate(90deg); flex:none; }
+.mobile-orientation-hint button { display:grid; place-items:center; width:36px; height:32px; margin:-5px -7px -5px 0; padding:0; border:0; background:transparent; color:#eed3a2; cursor:pointer; }
+.mobile-orientation-hint.is-game { top:128px; bottom:auto; }
+@media (orientation:landscape) { .mobile-orientation-hint { display:none; } }
+@media (max-width:359px) { .mobile-orientation-hint { font-size:9px; } }
+@media (prefers-reduced-transparency:reduce) { .mobile-orientation-hint { background:#0d1b29; } }

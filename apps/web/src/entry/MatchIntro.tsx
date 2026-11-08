@@ -5,12 +5,13 @@ import { ARENAS, CHAMPIONS, PLAYABLE_FIGHTER_IDS } from '@/duel/catalog';
 import type { ChampionId, DuelConfig } from '@/duel/catalog';
 import { fightAudio } from '@/fight/audio';
 import { FighterPortrait } from './FighterPortrait';
+import { LoadingProgress } from './LoadingProgress';
 import './match-intro.css';
 
 const SPIN_DURATION = 1900;
 
-export function MatchIntro({ config, playerName, ready, onComplete, onExit }: {
-  config: DuelConfig; playerName: string; ready: boolean; onComplete: () => void; onExit: () => void;
+export function MatchIntro({ config, playerName, ready, loadProgress = 0, onComplete, onExit }: {
+  config: DuelConfig; playerName: string; ready: boolean; loadProgress?: number; onComplete: () => void; onExit: () => void;
 }) {
   const reducedMotion = useRef(window.matchMedia('(prefers-reduced-motion: reduce)').matches).current;
   const [revealed, setRevealed] = useState(reducedMotion), [spinning, setSpinning] = useState(false);
@@ -68,7 +69,7 @@ export function MatchIntro({ config, playerName, ready, onComplete, onExit }: {
           </div>}
       </div>
     </div>
-    <footer><span className="match-intro-line" aria-hidden="true"/><p aria-live="polite">{revealed ? ready ? 'Fighters ready. The arena awaits.' : 'Loading the arena…' : 'A challenger awaits.'}</p><span className="match-intro-line" aria-hidden="true"/></footer>
+    <footer><span className="match-intro-line" aria-hidden="true"/>{revealed && !ready ? <LoadingProgress value={loadProgress} label="LOADING ARENA"/> : <p aria-live="polite">{revealed ? 'Fighters ready. The arena awaits.' : 'A challenger awaits.'}</p>}<span className="match-intro-line" aria-hidden="true"/></footer>
   </section>;
 }
 

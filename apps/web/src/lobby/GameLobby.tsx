@@ -28,11 +28,12 @@ export interface GameLobbyProps {
   setProfile: Dispatch<SetStateAction<PlayerProfile>>;
   active: boolean;
   onReady: (ready: boolean) => void;
+  onProgress?: (progress: number) => void;
   onError?: (message: string) => void;
   backdrop?: boolean;
   scenePaused?: boolean;
 }
-export function GameLobby({ profile, setProfile, active, onReady, onError, backdrop = false, scenePaused = false }: GameLobbyProps) {
+export function GameLobby({ profile, setProfile, active, onReady, onProgress, onError, backdrop = false, scenePaused = false }: GameLobbyProps) {
   const [screen, setScreen] = useState<Screen>('lobby'), [panel, setPanel] = useState<Panel>(null);
   const player = profile.selectedFighter;
   const setPlayer = (selectedFighter: ChampionId) => setProfile(p => ({ ...p, selectedFighter }));
@@ -67,7 +68,7 @@ export function GameLobby({ profile, setProfile, active, onReady, onError, backd
   if (screen === 'network') return <NetworkLobby config={config} onBack={leave} onStart={(connection, next) => { roomRef.current = connection; setRoom(connection); setNetworkConfig(next); setScreen('fight'); }}/>;
   const SignatureIcon = icons[character.skill];
   return <main className="game-lobby" style={{ '--character-accent': character.accent } as CSSProperties}>
-    <ScenePreview config={previewConfig} signature={signature} backdrop={backdrop} paused={scenePaused || (!active && !backdrop) || !!panel} onReady={sceneReady} onError={onError}/><div className="lobby-shade" aria-hidden="true"/>
+    <ScenePreview config={previewConfig} signature={signature} backdrop={backdrop} paused={scenePaused || (!active && !backdrop) || !!panel} onReady={sceneReady} onProgress={onProgress} onError={onError}/><div className="lobby-shade" aria-hidden="true"/>
     <header className="lobby-topbar">
       <button className="player-card" aria-label="Player profile" onClick={() => setPanel('profile')}><span className="player-avatar"><User size={25}/></span><span><strong>{profile.name}</strong><small>WAYFARER · {profile.wins} WINS</small></span><CaretDown size={14}/></button>
       <a className="lobby-brand" href="#home" aria-label="Veilstrike home">VEILSTRIKE<small>THE OATHBOUND ARENA</small></a>
@@ -99,7 +100,7 @@ export function GameLobby({ profile, setProfile, active, onReady, onError, backd
       {panel === 'profile' && <><p className="panel-intro">Your progress is saved on this device.</p><label className="setup-label" htmlFor="player-name">PLAYER NAME</label><input id="player-name" maxLength={18} value={profile.name} onChange={e => setProfile(p => ({ ...p, name: e.target.value }))}/><p className="profile-id">PLAYER ID · {profile.id}</p><div className="profile-stats"><div><strong>{profile.matches}</strong><small>DUELS</small></div><div><strong>{profile.wins}</strong><small>WINS</small></div><div><strong>{profile.embers}</strong><small>EMBERS</small></div></div><p className="panel-intro">Match win: 75 Embers. Lose with a round won: 25. Draw: 30. A loss with no round wins earns nothing.</p><button className="duel-primary panel-confirm" onClick={() => { setProfile(p => ({ ...p, name: p.name.trim() || 'Wayfarer' })); setPanel(null); }}>SAVE PROFILE <Check size={18}/></button></>}
       {panel === 'audio' && <AudioSettings levels={levels}/>}
       {panel === 'spin' && <EmberSpin profile={profile} onChange={setProfile}/>}
-      {panel === 'controls' && <div className="lobby-control-guide">{[['WASD','Move around the arena'],['SHIFT','Sprint; costs stamina'],['SPACE','Dodge through an attack'],['C','Jump'],['E','Grab and throw at close range'],['J / LEFT CLICK','Attack once for light; twice quickly for heavy'],['L / RIGHT CLICK','Guard; tap precisely to parry'],['U','Character signature move'],['I','Ultimate; requires full charge'],['TAB','Toggle target lock'],['ESC','Pause or open the match menu']].map(([key,text]) => <div key={key}><kbd>{key}</kbd><span>{text}</span></div>)}</div>}
+      {panel === 'controls' && <div className="lobby-control-guide"><p className="panel-intro">On mobile, drag the left joystick to move. Round buttons on the right form a diamond: Jump above, Grab left, Attack right, and Dodge below. Sprint, Special, and Ultimate sit beside it. Guard and parry use keyboard or mouse. Rotate your phone for a wider arena.</p>{[['WASD','Move around the arena'],['SHIFT','Sprint; costs stamina'],['SPACE','Dodge through an attack'],['C','Jump'],['E','Grab and throw at close range'],['J / LEFT CLICK','Attack once for light; twice quickly for heavy'],['L / RIGHT CLICK','Guard; tap precisely to parry'],['U','Character signature move'],['I','Ultimate; requires full charge'],['TAB','Toggle target lock'],['ESC','Pause or open the match menu']].map(([key,text]) => <div key={key}><kbd>{key}</kbd><span>{text}</span></div>)}</div>}
     </LobbyPanel>}
     {screen === 'result' && result && <LobbyPanel title={result.tied ? 'Stalemate' : result.won ? 'Victory' : 'Rise again'} onClose={leave}><div className="lobby-result"><p className="lobby-eyebrow">THE DUEL IS DECIDED</p><strong>{result.playerRounds}<span>:</span>{result.botRounds}</strong><p>{result.won ? 'Your steel held true.' : result.tied ? 'The arena awaits a rematch.' : 'The next opening is yours.'}</p><div className="result-embers"><Fire size={24} weight="fill"/> +{reward} EMBERS</div><button className="duel-primary" onClick={() => { setNetworkConfig(null); begin(); }}>{mode === 'pvp' ? 'NEW PVP DUEL' : 'REMATCH'}<ArrowRight size={18}/></button><button className="duel-secondary" onClick={leave}>RETURN TO LOBBY</button></div></LobbyPanel>}
     {active && previewReady && screen === 'lobby' && !panel && profile.onboarding.setup && !profile.onboarding.lobby && <GuidedTour kind="lobby" stops={LOBBY_TOUR} values={{ name: profile.name, fighter: character.name }} onComplete={() => setProfile(p => completeOnboarding(p, 'lobby'))}/>}
@@ -110,20 +111,21 @@ function LobbyPanel({ title, children, wide = false, full = false, onClose }: { 
   useEffect(() => { const element = dialog.current; if (element && !element.open) element.showModal(); return () => { element?.close(); }; }, []);
   return <dialog ref={dialog} className={'lobby-dialog ' + (wide ? 'dialog-wide' : '') + (full ? ' dialog-full' : '')} aria-labelledby="panel-heading" onCancel={e => { e.preventDefault(); closeRef.current(); }} onClick={e => { if (e.target === e.currentTarget) { const b = e.currentTarget.getBoundingClientRect(); if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) closeRef.current(); } }}><header><div><small>VEILSTRIKE</small><h2 id="panel-heading">{title}</h2></div><button className="lobby-icon-button" aria-label="Close panel" onClick={onClose}><X size={23}/></button></header><div className="dialog-content">{children}</div></dialog>;
 }
-function ScenePreview({ config, signature, inspection = false, paused = false, backdrop = false, onReady, onError }: {
+function ScenePreview({ config, signature, inspection = false, paused = false, backdrop = false, onReady, onProgress, onError }: {
   config: DuelConfig; signature: number; inspection?: boolean; paused?: boolean; backdrop?: boolean;
-  onReady?: (ready: boolean) => void; onError?: (message: string) => void;
+  onReady?: (ready: boolean) => void; onProgress?: (progress: number) => void; onError?: (message: string) => void;
 }) {
   const host = useRef<HTMLDivElement>(null), renderer = useRef<DuelRenderer | null>(null);
   const [error, setError] = useState(''), [loaded, setLoaded] = useState(false);
   const presentation = useRef({ paused, backdrop }); presentation.current = { paused, backdrop };
-  const callbacks = useRef({ onReady, onError }); callbacks.current = { onReady, onError };
+  const callbacks = useRef({ onReady, onProgress, onError }); callbacks.current = { onReady, onProgress, onError };
   const refreshAnimation = useRef<(() => void) | null>(null);
   useEffect(() => {
     if (!host.current) return;
-    setError(''); setLoaded(false); callbacks.current.onReady?.(false);
+    let active = true;
+    setError(''); setLoaded(false); callbacks.current.onReady?.(false); callbacks.current.onProgress?.(0);
     let stage: DuelRenderer;
-    try { stage = new DuelRenderer(host.current, config, true); }
+    try { stage = new DuelRenderer(host.current, config, true, true, value => { if (active) callbacks.current.onProgress?.(value); }); }
     catch {
       const message = '3D preview unavailable. Enable hardware acceleration and try again.';
       setError(message); callbacks.current.onError?.(message); return;
@@ -131,7 +133,7 @@ function ScenePreview({ config, signature, inspection = false, paused = false, b
     stage.inspection = inspection; renderer.current = stage;
     const snapshot = new DuelSimulation(config).snapshot();
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let active = true, frame = 0, last = performance.now();
+    let frame = 0, last = performance.now();
     const tick = (now: number) => {
       frame = 0;
       if (!active || document.hidden || presentation.current.paused) return;

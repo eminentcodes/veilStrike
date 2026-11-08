@@ -4,7 +4,7 @@
     "karen": {
       "file": "karen-swordcoat-v6.glb",
       "height": 1.74,
-      "source": "karen-swordswoman-v4.blend",
+      "source": "karen-release-v1.blend",
       "rigged": true,
       "clips": [
         "Death",
@@ -79,7 +79,7 @@
     "nomet": {
       "file": "nomet-gravebreaker-v5.glb",
       "height": 1.92,
-      "source": "nomet-human-v1.blend",
+      "source": "nomet-release-v1.blend",
       "rigged": true,
       "clips": [
         "Death",
@@ -117,7 +117,7 @@
     "veyra": {
       "file": "veyra-premium-v1.glb",
       "height": 1.74,
-      "source": "veyra-premium-v1.blend",
+      "source": "veyra-release-v1.blend",
       "rigged": true,
       "revision": "premium-v1",
       "refinementScript": "scripts/build-premium.mjs",
@@ -126,14 +126,14 @@
     "mawren": {
       "file": "mawren-premium-v1.glb",
       "height": 1.91,
-      "source": "mawren-premium-v1.blend",
+      "source": "mawren-release-v1.blend",
       "rigged": true,
       "revision": "premium-v1",
       "refinementScript": "scripts/build-premium.mjs",
       "baseLicense": "CC0 MakeHuman anatomical mesh and weights; original Veilstrike costume and equipment"
     }
   },
-  "generator": "Blender 4.5 · Original Veilstrike assets",
+  "generator": "Blender 4.5 \u00b7 Original Veilstrike assets",
   "playable": [
     "karen",
     "taren",

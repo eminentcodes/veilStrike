@@ -1,0 +1,6 @@
+.loading-progress { display:grid; gap:13px; width:min(240px,60vw); color:#c4d0d8; font-family:'Nunito',sans-serif; }
+.loading-progress-track { height:3px; overflow:hidden; background:#52606a66; }
+.loading-progress-track > span { display:block; height:100%; background:#ddbd79; transition:width .18s ease-out; }
+.loading-progress-label { display:flex; justify-content:space-between; align-items:center; gap:20px; font-size:9px; font-weight:900; letter-spacing:.16em; }
+.loading-progress-label strong { color:#e4cc9c; font-size:12px; font-variant-numeric:tabular-nums; letter-spacing:.05em; }
+@media (prefers-reduced-motion:reduce) { .loading-progress-track > span { transition:none; } }

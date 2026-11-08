@@ -6,6 +6,7 @@ export class DuelInput {
   private enabled = true;
   private held = new Set<string>();
   private edges = new Set<string>();
+  private movement = { right: 0, forward: 0 };
   private attack = new AttackGesture();
   private host: HTMLElement;
   private alternate: boolean;
@@ -44,13 +45,19 @@ export class DuelInput {
     else this.edges.add(code);
   }
   setEnabled(value: boolean): void { this.enabled = value; if (!value) this.reset(); }
-  inject(code: string, down: boolean): void { if (!this.enabled) return; if (down) { if (!this.held.has(code)) this.press(code); this.held.add(code); } else this.held.delete(code); }
+  inject(code: string, down: boolean): void { if (!down) { this.held.delete(code); return; } if (!this.enabled) return; if (!this.held.has(code)) this.press(code); this.held.add(code); }
+  move(right: number, forward: number): void {
+    if (!this.enabled) return;
+    const x = Number.isFinite(right) ? right : 0, z = Number.isFinite(forward) ? forward : 0;
+    const length = Math.max(1, Math.hypot(x, z));
+    this.movement = { right: x / length, forward: z / length };
+  }
   sample(basis: { forwardX: number; forwardZ: number; rightX: number; rightZ: number }, lockOn = true): InputFrame {
     const input = emptyInput();
     const left = this.alternate ? 'ArrowLeft' : 'KeyA', right = this.alternate ? 'ArrowRight' : 'KeyD';
     const forward = this.alternate ? 'ArrowUp' : 'KeyW', backward = this.alternate ? 'ArrowDown' : 'KeyS';
-    const x = Number(this.held.has(right)) - Number(this.held.has(left));
-    const z = Number(this.held.has(forward)) - Number(this.held.has(backward));
+    const x = Number(this.held.has(right)) - Number(this.held.has(left)) + this.movement.right;
+    const z = Number(this.held.has(forward)) - Number(this.held.has(backward)) + this.movement.forward;
     input.x = basis.rightX * x + basis.forwardX * z; input.z = basis.rightZ * x + basis.forwardZ * z;
     input.sprint = this.held.has(this.alternate ? 'ControlRight' : 'ShiftLeft') || (!this.alternate && this.held.has('ShiftRight'));
     input.guard = this.held.has(this.alternate ? 'Numpad3' : 'KeyL');
@@ -64,7 +71,7 @@ export class DuelInput {
     this.edges.clear(); return input;
   }
   pulse(code: string): void { if (this.enabled) this.press(code); }
-  reset(): void { this.held.clear(); this.edges.clear(); this.attack.reset(); }
+  reset(): void { this.held.clear(); this.edges.clear(); this.attack.reset(); this.movement = { right: 0, forward: 0 }; }
   destroy(): void {
     this.reset();
     window.removeEventListener('keydown', this.keyDown); window.removeEventListener('keyup', this.keyUp); window.removeEventListener('blur', this.blur);

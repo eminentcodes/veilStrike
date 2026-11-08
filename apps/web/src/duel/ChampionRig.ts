@@ -12,14 +12,28 @@ import { buildStanceClips, FIGHTING_STANCES } from './stances';
 
 const loader = new GLTFLoader();
 const modelCache = new Map<string, Promise<{ scene: THREE.Group; animations: THREE.AnimationClip[] }>>();
-function loadModel(name: string) {
-  let promise = modelCache.get(name);
+const modelProgress = new Map<string, number>();
+const modelProgressListeners = new Map<string, Set<(progress: number) => void>>();
+function cachedModel(key: string, url: string, onProgress?: (progress: number) => void) {
+  const listeners = modelProgressListeners.get(key) ?? new Set<(progress: number) => void>();
+  modelProgressListeners.set(key, listeners);
+  if (onProgress) { listeners.add(onProgress); onProgress(modelProgress.get(key) ?? 0); }
+  const report = (progress: number) => {
+    modelProgress.set(key, progress);
+    for (const listener of listeners) listener(progress);
+  };
+  let promise = modelCache.get(key);
   if (!promise) {
-    promise = loader.loadAsync(import.meta.env.BASE_URL + 'models/kaykit/' + name + '.glb').then(gltf => ({ scene: gltf.scene, animations: gltf.animations }));
-    modelCache.set(name, promise);
-    promise.catch(() => modelCache.delete(name));
+    promise = loader.loadAsync(url, event => {
+      if (event.total > 0) report(Math.min(.95, event.loaded / event.total * .95));
+    }).then(gltf => { report(1); return { scene: gltf.scene, animations: gltf.animations }; });
+    modelCache.set(key, promise);
+    void promise.catch(() => { modelCache.delete(key); modelProgress.delete(key); modelProgressListeners.delete(key); });
   }
-  return promise;
+  return promise.finally(() => { if (onProgress) listeners.delete(onProgress); });
+}
+function loadModel(name: string, onProgress?: (progress: number) => void) {
+  return cachedModel(name, import.meta.env.BASE_URL + 'models/kaykit/' + name + '.glb', onProgress);
 }
 type CharacterAsset = { file: string; height: number; clips: string[] };
 type CharacterManifest = { characters?: Partial<Record<ChampionId, CharacterAsset>> };
@@ -34,20 +48,18 @@ function characterManifest(): Promise<CharacterManifest> {
   }
   return manifestRequest;
 }
-async function loadCharacter(id: ChampionId) {
+async function loadCharacter(id: ChampionId, onProgress?: (progress: number) => void) {
+  onProgress?.(0);
   let entry: CharacterAsset | undefined;
   try {
     const manifest = await characterManifest();
     entry = manifest.characters?.[id];
   } catch { /* The previous rig keeps the lobby usable while assets are built. */ }
-  if (!entry) return { ...await loadModel(CHAMPIONS[id].model), original: false, height: 0 };
+  onProgress?.(.05);
+  const transfer = (progress: number) => onProgress?.(.05 + progress * .85);
+  if (!entry) return { ...await loadModel(CHAMPIONS[id].model, transfer), original: false, height: 0 };
   const url = import.meta.env.BASE_URL + 'models/characters/' + entry.file;
-  let promise = modelCache.get(url);
-  if (!promise) {
-    promise = loader.loadAsync(url).then(gltf => ({ scene: gltf.scene, animations: gltf.animations }));
-    modelCache.set(url, promise); promise.catch(() => modelCache.delete(url));
-  }
-  return { ...await promise, original: true, height: entry.height };
+  return { ...await cachedModel(url, url, transfer), original: true, height: entry.height };
 }
 function mesh(geo: THREE.BufferGeometry, material: THREE.Material, position: [number, number, number] = [0, 0, 0]): THREE.Mesh {
   const object = new THREE.Mesh(geo, material);
@@ -137,16 +149,16 @@ export class ChampionRig {
   private equipment: THREE.Mesh[] = [];
   private equipmentReleased = false;
   private resolveReady: Promise<void>;
-  constructor(id: ChampionId, autoload = true) {
+  constructor(id: ChampionId, autoload = true, onProgress?: (progress: number) => void) {
     this.id = id;
     this.root.name = 'champion-' + id;
     const shadow = mesh(new THREE.CircleGeometry(.62, 32), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: .24, depthWrite: false }));
     shadow.rotation.x = -Math.PI / 2; shadow.position.y = .025; this.root.add(shadow);
-    this.resolveReady = autoload ? this.install() : Promise.resolve();
+    this.resolveReady = autoload ? this.install(onProgress) : Promise.resolve();
   }
   ready(): Promise<void> { return this.resolveReady; }
-  private async install(): Promise<void> {
-    const asset = await loadCharacter(this.id);
+  private async install(onProgress?: (progress: number) => void): Promise<void> {
+    const asset = await loadCharacter(this.id, onProgress);
     if (this.dead) return;
     const model = clone(asset.scene) as THREE.Group;
     this.modelSource = asset.original ? 'blender' : 'legacy';
@@ -165,7 +177,7 @@ export class ChampionRig {
         if (o instanceof THREE.SkinnedMesh) o.frustumCulled = false;
         if (o.morphTargetDictionary?.Blink !== undefined) this.blinkMeshes.push(o);
         o.castShadow = true; o.receiveShadow = true;
-        if (asset.original && /^(Sword (?!vest|coat)|Spear |Shield |arming sword|blade |pommel|crossguard|grip winding|hand binding|spear socket|Forged hooked chain dagger|Hooked dagger leather grip|Gnarled bronze rune staff|Restrained rune staff focus|Curved staff focus guard)/i.test(o.name)) this.equipment.push(o);
+        if (asset.original && /^(Sword (?!vest|coat)|Spear |Shield |Ash short spear|Forged spear socket|Leaf steel spearhead|Repaired curved tower shield|Rolled tower shield rim|arming sword|blade |pommel|crossguard|Diagonal grip winding|grip winding|hand binding|spear socket|Forged hooked chain dagger|Hooked dagger leather grip|Gnarled bronze rune staff|Restrained rune staff focus|Curved staff focus guard)/i.test(o.name)) this.equipment.push(o);
       }
     });
     this.bones = resolveBones(model);
@@ -207,6 +219,7 @@ export class ChampionRig {
     this.addArmor(scale);
     const idle = resolveClip(index, ['Idle', '2H_Melee_Idle', 'Unarmed_Idle']);
     if (idle) this.play(idle, false, 'idle');
+    onProgress?.(1);
   }
   private addArmor(_scale: number): void {
     this.model?.traverse(object => { if (object.userData.duelCape) this.animatedCloth.push(object); });

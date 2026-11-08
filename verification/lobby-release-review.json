@@ -1,0 +1,35 @@
+{
+  "checks": [
+    {
+      "name": "Visible preview above spinner",
+      "bounds": {
+        "card": {
+          "top": 108,
+          "bottom": 270,
+          "left": 994,
+          "right": 1246
+        },
+        "spin": {
+          "top": 324,
+          "bottom": 478
+        }
+      }
+    },
+    {
+      "preview": "ACHIEVEMENTS"
+    },
+    {
+      "preview": "LEADERBOARDS"
+    },
+    {
+      "preview": "STORY MODE"
+    },
+    {
+      "preview": "MORE FIGHTERS"
+    },
+    {
+      "failure": "TimeoutError: locator.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Characters', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button aria-label=\"Characters\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n"
+    }
+  ],
+  "errors": []
+}

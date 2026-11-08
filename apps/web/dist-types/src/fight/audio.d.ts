@@ -44,6 +44,7 @@ declare class FightAudio {
     isMuted(): boolean;
     toggle(): boolean;
     private load;
+    private preloadAudio;
     private context;
     unlock(): Promise<void>;
     private musicVolume;

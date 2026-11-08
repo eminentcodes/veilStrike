@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { DuelSimulation, emptyInput } from './simulation';
 import type { DuelSnapshot, Slot } from './simulation';
 import { DuelRenderer } from './DuelRenderer';
@@ -12,6 +12,8 @@ import { DuelSoundscape } from './audio';
 import { GuidedTour } from '../entry/GuidedTour';
 import { COMBAT_TOUR } from '../entry/tours';
 import { MatchIntro } from '../entry/MatchIntro';
+import { LoadingProgress } from '../entry/LoadingProgress';
+import { MobileControls } from './MobileControls';
 
 interface Props { config: DuelConfig; room?: RoomConnection | null; onExit: () => void; onComplete: (result: MatchResult) => void; active?: boolean; playerName?: string; showControlsTutorial?: boolean; onControlsTutorialComplete?: () => void; }
 export function DuelGame({ config, room, onExit, onComplete, active: screenActive = true, playerName, showControlsTutorial = false, onControlsTutorialComplete }: Props) {
@@ -22,6 +24,7 @@ export function DuelGame({ config, room, onExit, onComplete, active: screenActiv
   const [tutorial, setTutorial] = useState(needsTutorial);
   const [entryPhase, setEntryPhase] = useState<'versus' | 'veil' | 'ready'>(() => config.mode === 'practice' && !room ? 'versus' : 'veil');
   const [arenaMounted, setArenaMounted] = useState(false);
+  const [arenaProgress, setArenaProgress] = useState(0);
   const entryBlocked = useRef(true); entryBlocked.current = entryPhase !== 'ready' || tutorial;
   const screenActiveRef = useRef(screenActive); screenActiveRef.current = screenActive;
   const pausedRef = useRef(false);
@@ -54,11 +57,13 @@ export function DuelGame({ config, room, onExit, onComplete, active: screenActiv
     if (!arenaMounted) return;
     const element = host.current;
     if (!element) return;
+    let active = true;
+    setArenaProgress(0);
     let renderer: DuelRenderer;
-    try { renderer = new DuelRenderer(element, config); } catch { setError('Your browser could not open the 3D arena. Enable hardware acceleration and try again.'); return; }
+    try { renderer = new DuelRenderer(element, config, false, true, value => { if (active) setArenaProgress(progress => Math.max(progress, Math.floor(value * 95))); }); } catch { setError('Your browser could not open the 3D arena. Enable hardware acceleration and try again.'); return; }
     const simulation = room ? null : new DuelSimulation(config);
     const initialSnapshot = simulation?.snapshot() ?? new DuelSimulation(config).snapshot();
-    let active = true, loaded = false, rendered = false, notifiedReady = false, frame = 0, last = performance.now(), nextHud = 0, nextNetwork = 0, complete = false, lastAudioEvent = 0, lastHudTime = -1;
+    let loaded = false, rendered = false, notifiedReady = false, frame = 0, last = performance.now(), nextHud = 0, nextNetwork = 0, complete = false, lastAudioEvent = 0, lastHudTime = -1;
     let currentSnapshot = initialSnapshot;
     let warnedRound = 0, announcedResult = false;
     const soundscape = new DuelSoundscape(config.arena, fightAudio, CHAMPIONS);
@@ -107,7 +112,7 @@ export function DuelGame({ config, room, onExit, onComplete, active: screenActiv
       // A paused arena keeps its last frame; avoid continuously redrawing static shadows and bloom.
       if (loaded && screenActiveRef.current && !document.hidden && (!rendered || canAdvance || room)) {
         renderer.render(snapshot, dt, slot); rendered = true;
-        if (!notifiedReady) { notifiedReady = true; setReady(true); room?.loaded(); }
+        if (!notifiedReady) { notifiedReady = true; setArenaProgress(100); setReady(true); room?.loaded(); }
       }
       for (const event of snapshot.events) if (event.id > lastAudioEvent) { soundscape.event(event, snapshot, slot); if(event.kind==='hit'&&event.knockdown)setHighImpact(event.id);lastAudioEvent = event.id; }
       if (canAdvance) soundscape.update(snapshot, slot);
@@ -140,7 +145,9 @@ export function DuelGame({ config, room, onExit, onComplete, active: screenActiv
   const self = state.fighters[slot], enemy = state.fighters[slot === 0 ? 1 : 0];
   const player = CHAMPIONS[self.id], opponent = CHAMPIONS[enemy.id];
   const banner = state.phase === 'intro' ? 'ROUND ' + state.round : state.phase === 'fight' && state.phaseTime < .55 ? 'FIGHT' : state.phase === 'roundEnd' ? (state.winner === null ? 'STALEMATE' : state.winner === slot ? 'ROUND VICTORY' : 'ROUND DEFEAT') : state.phase === 'complete' ? (state.winner === null ? 'DRAW' : state.winner === slot ? 'VICTORY' : 'DEFEAT') : '';
-  const inject = (code: string, down: boolean) => runtime.current?.input.inject(code, down);
+  const inject = useCallback((code: string, down: boolean) => runtime.current?.input.inject(code, down), []);
+  const move = useCallback((right: number, forward: number) => runtime.current?.input.move(right, forward), []);
+  const controlsEnabled = ready && screenActive && entryPhase === 'ready' && !tutorial && !paused && !error;
   return <main className="duel-game">
     <div ref={host} className="duel-render-host" />
     <div className="duel-vignette" aria-hidden="true" />
@@ -162,22 +169,18 @@ export function DuelGame({ config, room, onExit, onComplete, active: screenActiv
       </div>
       <div className="duel-controls-legend"><span><kbd>WASD</kbd> MOVE</span><span><kbd>SPACE</kbd> DODGE</span><span><kbd>J / CLICK</kbd> ATTACK · DOUBLE FOR HEAVY</span><span><kbd>L</kbd> GUARD / PARRY</span><span><kbd>SHIFT</kbd> SPRINT</span><button onClick={() => { setHelp(true); pause(true); }}>CONTROLS</button></div>
     </footer>
-    <div className="duel-touch">
-      <div className="duel-touch-dpad"><Touch code="KeyW" label="↑" inject={inject}/><Touch code="KeyA" label="←" inject={inject}/><Touch code="KeyS" label="↓" inject={inject}/><Touch code="KeyD" label="→" inject={inject}/></div>
-      <div className="duel-touch-actions"><Touch code="KeyL" label="GUARD" inject={inject}/><Touch code="Space" label="DODGE" inject={inject}/><Touch code="KeyJ" label="ATTACK" inject={inject}/><Touch code="KeyC" label="JUMP" inject={inject}/><Touch code="KeyE" label="GRAB" inject={inject}/><Touch code="ShiftLeft" label="SPRINT" inject={inject}/><small>Double tap Attack for heavy</small></div>
+    <MobileControls enabled={!!controlsEnabled} move={move} inject={inject}
+      special={{ name: player.specialName, cooldown: self.specialCooldown, duration: player.cooldown, lowStamina: self.stamina < player.moves.special.stamina }}
+      ultimate={{ name: player.ultimateName, charge: self.charge }}/>
     </div>
-    </div>
-    {entryPhase === 'versus' && !error && <MatchIntro config={config} playerName={playerName || CHAMPIONS[config.player].name} ready={ready} onComplete={() => setEntryPhase('veil')} onExit={onExit}/>}
-    {entryPhase !== 'versus' && (entryPhase === 'veil' || !ready || (room && !room.snapshot)) && !error && <div className="duel-overlay duel-loading"><div className="loading-mark"/><strong>{ready && room && !room.snapshot ? 'WAITING FOR YOUR OPPONENT' : 'ENTERING THE VEIL'}</strong><span>{ready ? room && !room.snapshot ? 'Both fighters enter together.' : 'Your fighters and arena are ready.' : 'Preparing the arena and your fighter.'}</span></div>}
+    {entryPhase === 'versus' && !error && <MatchIntro config={config} playerName={playerName || CHAMPIONS[config.player].name} ready={ready} loadProgress={arenaProgress} onComplete={() => setEntryPhase('veil')} onExit={onExit}/>}
+    {entryPhase !== 'versus' && (entryPhase === 'veil' || !ready || (room && !room.snapshot)) && !error && <div className="duel-overlay duel-loading"><div className="loading-mark"/><strong>{ready && room && !room.snapshot ? 'WAITING FOR YOUR OPPONENT' : 'ENTERING THE VEIL'}</strong><span>{ready ? room && !room.snapshot ? 'Both fighters enter together.' : 'Your fighters and arena are ready.' : 'Preparing the arena and your fighter.'}</span><LoadingProgress value={arenaProgress} label="ARENA LOADING"/></div>}
     {((paused && !tutorial) || error) && <div className="duel-overlay"><section className="duel-pause"><p>{error ? 'CONNECTION INTERRUPTED' : help ? 'YOUR MOVESET' : 'THE ARENA'}</p><h2>{error ? 'The duel is on hold.' : help ? 'Read. React. Strike.' : room ? 'Leave the duel?' : 'Take a breath.'}</h2>{error ? <div className="duel-error" role="alert">{error}</div> : help ? <div className="control-guide"><span>W / A / S / D <b>Move in the arena</b></span><span>Space <b>Dodge with invulnerability</b></span><span>Shift <b>Sprint; drains stamina</b></span><span>J / Left click <b>One press: light · Two quick presses: heavy</b></span><span>L / Right click <b>Hold guard; tap for parry</b></span><span>U / I <b>Signature ability / ultimate</b></span><span>C <b>Jump</b></span><span>E <b>Grab and throw at close range</b></span><span>Tab <b>Toggle target lock</b></span></div> : <span>{room ? 'The online match continues while this menu is open.' : 'The fight resumes when you are ready.'}</span>}<div className="pause-actions">{!error && <button className="duel-primary" onClick={() => { setHelp(false); pause(false); }}>RETURN TO FIGHT</button>}<button className="duel-secondary" onClick={onExit}>LEAVE ARENA</button></div></section></div>}
     {tutorial && entryPhase === 'ready' && ready && screenActive && !error && <GuidedTour kind="combat" stops={COMBAT_TOUR} values={{ special: player.specialName, ultimate: player.ultimateName }} finalLabel="START FIGHTING" onComplete={() => { setTutorial(false); pause(false); onControlsTutorialComplete?.(); }}/>}
   </main>;
 }
 function HealthBar({ name, title, hp, stamina, wins, enemy = false }: { name: string; title: string; hp: number; stamina: number; wins: number; enemy?: boolean }) {
   return <div className={'duel-health ' + (enemy ? 'is-enemy' : '')}><div className="health-heading"><strong>{name}</strong><small>{title}</small><span className="round-seals" aria-label={wins + ' rounds won'}>{[0, 1].map(i => <i key={i} className={i < wins ? 'won' : ''}/>)}</span></div><div className="health-track" role="progressbar" aria-label={name + ' health'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(hp * 100)}><i style={{ width: Math.max(0, hp) * 100 + '%' }}/></div><div className="stamina-track" role="progressbar" aria-label={name + ' stamina'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(stamina * 100)}><i style={{ width: stamina * 100 + '%' }}/></div></div>;
-}
-function Touch({ code, label, inject }: { code: string; label: string; inject: (code: string, down: boolean) => void }) {
-  return <button onPointerDown={event => { event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId); inject(code, true); }} onPointerUp={() => inject(code, false)} onPointerCancel={() => inject(code, false)} onLostPointerCapture={() => inject(code, false)}>{label}</button>;
 }
 
 

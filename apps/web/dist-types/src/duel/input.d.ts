@@ -3,6 +3,7 @@ export declare class DuelInput {
     private enabled;
     private held;
     private edges;
+    private movement;
     private attack;
     private host;
     private alternate;
@@ -19,6 +20,7 @@ export declare class DuelInput {
     private press;
     setEnabled(value: boolean): void;
     inject(code: string, down: boolean): void;
+    move(right: number, forward: number): void;
     sample(basis: {
         forwardX: number;
         forwardZ: number;

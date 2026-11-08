@@ -416,3 +416,38 @@ Next log update due by 15:00 WAT during active work.
 - Fresh typecheck, production build, and complete browser checks remain pending.
 
 Next log update due by 15:53 WAT during active work.
+
+## 2026-11-07 16:15 WAT — Percentage loading and network priority
+
+- User requested a visible loading percentage and asked to continue. Added a shared determinate progress bar to lobby entry, arena loading, and the opponent reveal when the arena is still preparing.
+- Progress follows completed module loading, actual shared model transfer/parsing, rig installation, and the first rendered frame. Cached/in-flight assets share progress subscribers; combat never starts before readiness.
+- Loading diagnosis found the lobby request queued behind eager downloads of the entire audio pack. Limited sound preloading to two requests, prioritizing interface/spin sounds and the first round call. Existing files, soundtrack, effects settings, voice gates, and fallback behavior are preserved.
+- Excluded generated type declarations/build metadata from Vite watching after its log showed repeated full-page reloads during typecheck.
+- Fresh forced typecheck passed for the percentage loader and bounded audio queue. Full live entry/match verification and production build are next; earlier audio-session results do not verify this final flow.
+
+Next log update due by 16:30 WAT during active work.
+
+## 2026-11-07 16:33 WAT — Mobile controls and landscape steering
+
+- Latest mobile request replaces directional movement buttons with a circular analog joystick. The action controls should be round, arranged as a diamond with diagonal side controls, including signature and ultimate abilities.
+- Added requirement: begin automatic landscape handling on the home page and retain it through the lobby and matches. Use the browser orientation/fullscreen APIs when supported, with a nonblocking rotate hint for browsers that cannot lock orientation.
+- Audited the existing input, combat HUD, tutorial targeting, responsive layouts, and native-dialog entry flow. Implementing continuous camera-relative joystick input, independent multitouch actions, safe release/reset behavior, and updated guide/tour copy.
+- Earlier percentage loading and queued audio changes remain in place. The combined entry flow, new controls, and final build still need fresh verification.
+
+Next log update due by 16:48 WAT during active work.
+## 2026-11-07 16:48 WAT — Mobile controls implemented
+
+- Replaced the directional pad with a round analog joystick. Its 12% dead zone, continuous movement strength, and camera-relative axes feed the existing local/PvP input frames; pointer movement updates the thumb directly without React rerenders.
+- Added circular action buttons in a diamond/diagonal layout: Jump above, Guard left, Attack right, Dodge below, side Grab/Sprint, and Special/Ultimate above. Ability rings retain actual cooldown/stamina/charge gating. All mobile targets remain at least 44px at 320px width.
+- Landscape handling now mounts with home and remains active across game routes. Supported browsers request fullscreen from the first gesture and then lock landscape; unsupported browsers retain responsive controls and a nonblocking rotate hint. Added safe-area support.
+- Joystick and actions reset on release/cancel/lost capture, blur, hidden tabs, resize, pause/tutorial, and unmount. Updated the combat tutorial, guide, and lobby controls copy.
+- Forced typecheck passed. Replacing outdated browser selectors to validate real first-time loading, saved onboarding, visible opponent shuffle, mobile controls, orientation handling, and PvP exclusion. Production build and final suites remain pending.
+
+Next log update due by 17:03 WAT during active work.
+## 2026-11-08 10:12 WAT — Final mobile steering and browser checks
+
+- User removed Guard from mobile. The four main buttons are now an aligned diamond: Jump top, Grab left, Attack right, Dodge bottom. Sprint, Special, and Ultimate sit beside it. Desktop guard/parry inputs remain available; guide and tour copy reflect the mobile change.
+- Added repeatable browser checks for first-time automatic entry/percentage progress, saved welcome gift/tours, home renderer reuse, guide/FAQs, live synchronized shuffle, mobile joystick/multitouch/reset behavior, 320px and short landscape layouts, home orientation API ordering, reduced motion, and two real PvP browsers.
+- A fresh typecheck and live browser run are starting. No deployment or commit is requested.
+
+Next log update due by 10:27 WAT during active work.

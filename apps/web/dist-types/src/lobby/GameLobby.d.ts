@@ -7,8 +7,9 @@ export interface GameLobbyProps {
     setProfile: Dispatch<SetStateAction<PlayerProfile>>;
     active: boolean;
     onReady: (ready: boolean) => void;
+    onProgress?: (progress: number) => void;
     onError?: (message: string) => void;
     backdrop?: boolean;
     scenePaused?: boolean;
 }
-export declare function GameLobby({ profile, setProfile, active, onReady, onError, backdrop, scenePaused }: GameLobbyProps): import("react").JSX.Element;
+export declare function GameLobby({ profile, setProfile, active, onReady, onProgress, onError, backdrop, scenePaused }: GameLobbyProps): import("react").JSX.Element;

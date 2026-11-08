@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   server: {
     port: 5173,
+    watch: { ignored: ['**/dist-types/**', '**/*.tsbuildinfo'] },
     host: '0.0.0.0',
     proxy: { '/duel': { target: 'ws://127.0.0.1:8787', ws: true }, '/health': { target: 'http://127.0.0.1:8787' } },
   },

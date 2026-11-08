@@ -10,9 +10,9 @@ export class SkillVisuals {
   private wards:(THREE.Mesh|null)[]=[null,null];
   private bolts:{mesh:THREE.Mesh;start:THREE.Vector3;end:THREE.Vector3;age:number;life:number}[]=[];
   bolt(slot:number,state:DuelSnapshot,ultimate:boolean):void {
-    const f=state.fighters[slot]!,enemy=state.fighters[slot===0?1:0];
+    const f=state.fighters[slot]!;
     const start=new THREE.Vector3(f.x-Math.cos(f.yaw)*.3,1.95,f.z+Math.sin(f.yaw)*.3);
-    const end=new THREE.Vector3(enemy.x,1.4,enemy.z);
+    const end=new THREE.Vector3(f.attack?.aimX??f.x+Math.sin(f.yaw)*8,1.4,f.attack?.aimZ??f.z+Math.cos(f.yaw)*8);
     const mesh=new THREE.Mesh(new THREE.OctahedronGeometry(ultimate?.3:.15,1),new THREE.MeshBasicMaterial({color:ultimate?0xe4c5ff:0xbfa5f0,transparent:true,opacity:.9,blending:THREE.AdditiveBlending,depthWrite:false}));
     mesh.name=ultimate?'mawren-rune-collapse-bolt':'mawren-arcane-bolt';mesh.position.copy(start);this.scene.add(mesh);
     this.bolts.push({mesh,start,end,age:0,life:.28});
@@ -60,7 +60,7 @@ export class SkillVisuals {
           const starPoints:number[]=[];for(let i=0;i<5;i++){const a=i*Math.PI*4/5,b=(i+1)*Math.PI*4/5;starPoints.push(Math.sin(a)*.67,.02,Math.cos(a)*.67,Math.sin(b)*.67,.02,Math.cos(b)*.67);}seal.add(new THREE.LineSegments(new THREE.BufferGeometry().setAttribute('position',new THREE.Float32BufferAttribute(starPoints,3)),new THREE.LineBasicMaterial({color:0xcdb6ef,transparent:true,opacity:.7})));
           this.scene.add(seal);this.seals[slot]=seal;
         }
-        seal.visible=f.runeTime>0;seal.position.set(f.runeX,.07,f.runeZ);seal.rotation.y=time*.16;
+        seal.visible=f.runeTime>0;seal.position.set(f.runeX,.07,f.runeZ);seal.rotation.y=time*.16;seal.scale.setScalar(1.7);
         let ward=this.wards[slot];
         if(!ward){ward=new THREE.Mesh(new THREE.SphereGeometry(1,24,16,0,Math.PI),new THREE.MeshBasicMaterial({color:0xb49de0,transparent:true,opacity:.22,side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending,wireframe:true}));ward.name='mawren-forward-arcane-ward';ward.scale.set(1.5,1.6,1.1);this.scene.add(ward);this.wards[slot]=ward;}
         ward.visible=f.wardTime>0;ward.position.set(f.x,1.25,f.z);ward.rotation.y=f.yaw;

@@ -57,7 +57,7 @@ export class DuelRenderer {
   private desiredCamera = new THREE.Vector3();
   private desiredLook = new THREE.Vector3();
 
-  constructor(host: HTMLElement, config: DuelConfig, preview = false, highQuality = true) {
+  constructor(host: HTMLElement, config: DuelConfig, preview = false, highQuality = true, onProgress?: (progress: number) => void) {
     this.host = host; this.preview = preview;
     this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, preview ? 1.3 : 1.5));
@@ -75,7 +75,12 @@ export class DuelRenderer {
       const fill = new THREE.PointLight(0xb4d2e5, 13, 16, 2); fill.position.set(2.6, 2.5, 2); this.scene.add(fill);
       const rim = new THREE.PointLight(0xd5eaf3, 21, 16, 2); rim.position.set(.4, 3.6, -2); this.scene.add(rim);
     }
-    this.fighters = [new ChampionRig(config.player), new ChampionRig(config.opponent, !preview)];
+    const loading = [0, 0];
+    const progress = (slot: number, value: number) => {
+      loading[slot] = value;
+      onProgress?.(preview ? loading[0]! : (loading[0]! + loading[1]!) / 2);
+    };
+    this.fighters = [new ChampionRig(config.player, true, value => progress(0, value)), new ChampionRig(config.opponent, !preview, value => progress(1, value))];
     this.scene.add(...this.fighters.map(f => f.root));
     this.fighters[0].root.position.set(-1.4, 0, 4.3); this.fighters[0].root.rotation.y = Math.PI;
     this.fighters[1].root.position.set(1.4, 0, -4.3);

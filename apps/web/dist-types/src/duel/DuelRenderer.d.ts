@@ -43,7 +43,7 @@ export declare class DuelRenderer {
     private look;
     private desiredCamera;
     private desiredLook;
-    constructor(host: HTMLElement, config: DuelConfig, preview?: boolean, highQuality?: boolean);
+    constructor(host: HTMLElement, config: DuelConfig, preview?: boolean, highQuality?: boolean, onProgress?: (progress: number) => void);
     private resize;
     movementBasis(): {
         forwardX: number;

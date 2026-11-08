@@ -151,14 +151,6 @@ kbd { font: 800 9px 'Nunito', sans-serif; display: inline-block; border: 1px sol
 .control-guide { display: grid; gap: 13px; }
 .control-guide span { display: flex; gap: 15px; justify-content: space-between; font-size: 10px; color: #d1bb92; }
 .control-guide b { text-align: right; font-weight: 600; color: #a6b9c9; max-width: 240px; }
-.duel-touch { display: none; position: absolute; left: 20px; right: 20px; bottom: 20px; align-items: end; justify-content: space-between; pointer-events: none; }
-.duel-touch-dpad { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(2, 45px); gap: 4px; }
-.duel-touch-dpad button:first-child { grid-column: 2; }
-.duel-touch-dpad button:nth-child(2) { grid-column: 1; }
-.duel-touch-actions { display: grid; grid-template-columns: repeat(3, 54px); gap: 5px; }
-.duel-touch-actions button:nth-child(3) { background: #734333e8; font-size: 9px; }
-.duel-touch-actions small { grid-column: 1 / -1; color: #f0e9da; font-size: 9px; text-align: center; }
-.duel-touch button { border: 1px solid #9eacb28a; background: #13212bd4; color: #f0e9da; min-height: 45px; touch-action: none; pointer-events: auto; font: 900 8px 'Nunito', sans-serif; }
 @keyframes veil-appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes veil-load { 50% { opacity: .3; transform: rotate(225deg); } }
 @media (max-width: 1100px) {
@@ -219,26 +211,19 @@ kbd { font: 800 9px 'Nunito', sans-serif; display: inline-block; border: 1px sol
   .duel-toolbar { top: 86px; right: 15px; gap: 4px; }
   .duel-toolbar button { font-size: 7px; padding: 7px 5px; }
   .duel-controls-legend { display: none; }
-  .duel-bottom { left: 15px; right: 15px; bottom: 146px; }
   .duel-abilities button { padding: 8px; }
   .duel-abilities button span { font-size: 7px; }
   .duel-abilities button kbd { display: none; }
-  .duel-touch { display: flex; }
   .duel-banner > span { font-size: 25px; }
 }
 @media (pointer: coarse) and (min-width: 761px) {
-  .duel-touch { display: flex; }
   .duel-controls-legend { display: none; }
-  .duel-bottom { bottom: 130px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
 .duel-high-impact { position:absolute; z-index:8; left:50%; top:26%; pointer-events:none; font:900 clamp(23px,4vw,48px) 'Nunito',sans-serif; font-style:italic; letter-spacing:.12em; color:#ffe0a7; text-shadow:0 3px 0 #6e2e1f,0 0 24px #d96d35; white-space:nowrap; animation:high-impact .95s both; }
-@media (max-width:359px) {
-  .duel-touch { left:12px; right:12px; }
-  .duel-touch-actions { grid-template-columns:repeat(3,46px); gap:4px; }
-}
+
 @keyframes high-impact { 0% { opacity:0; transform:translate(-50%,15px) scale(1.45) rotate(-4deg); } 12%,65% { opacity:1; transform:translate(-50%,0) scale(1) rotate(-4deg); } 100% { opacity:0; transform:translate(-50%,-22px) scale(.96) rotate(-4deg); } }
 @media(prefers-reduced-motion:reduce){.duel-high-impact{animation:none;opacity:0;}}

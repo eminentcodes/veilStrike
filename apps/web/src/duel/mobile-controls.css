@@ -1,0 +1,58 @@
+.duel-touch { --touch-unit:52px; --joystick-size:124px; display:none; position:absolute; z-index:10; left:max(18px,env(safe-area-inset-left)); right:max(18px,env(safe-area-inset-right)); bottom:max(24px,env(safe-area-inset-bottom)); align-items:flex-end; justify-content:space-between; gap:12px; pointer-events:none; user-select:none; -webkit-user-select:none; }
+.duel-joystick-wrap { position:relative; flex:none; padding-bottom:12px; }
+.duel-joystick { position:relative; display:grid; place-items:center; width:var(--joystick-size); height:var(--joystick-size); border:1px solid #ddbd796b; border-radius:50%; background:radial-gradient(circle,#2134418c 0 32%,#0c1829b3 34% 70%); box-shadow:inset 0 0 0 7px #13213170,0 3px 20px #050c1b66; touch-action:none; pointer-events:auto; outline-offset:5px; }
+.duel-joystick::before { content:''; position:absolute; inset:13px; border:1px dashed #d1c19740; border-radius:50%; pointer-events:none; }
+.joystick-axis { position:absolute; background:#d1c19725; pointer-events:none; }
+.joystick-axis-x { left:10px; right:10px; height:1px; }
+.joystick-axis-y { top:10px; bottom:10px; width:1px; }
+.joystick-thumb { display:grid; place-items:center; width:44%; height:44%; border:1px solid #dfc995aa; border-radius:50%; background:radial-gradient(circle at 40% 30%,#526371,#1c2c3b 72%); box-shadow:inset 0 1px 4px #ead9b633,0 4px 12px #02071080; transform:translate3d(0,0,0); pointer-events:none; will-change:transform; }
+.joystick-thumb i { width:8px; height:8px; border-radius:50%; background:#ddc48d; box-shadow:0 0 10px #ddbd7955; }
+.duel-joystick[data-moving=true] { border-color:#e6c485; }
+.duel-joystick[data-moving=true] .joystick-thumb { border-color:#f0cf90; background:radial-gradient(circle at 40% 30%,#796c4c,#2e3841 72%); }
+.duel-joystick[aria-disabled=true] { opacity:.45; }
+.joystick-label { position:absolute; bottom:-9px; left:0; right:0; color:#dfd3b7; font-size:8px; font-weight:900; letter-spacing:.14em; text-align:center; text-shadow:0 1px 4px #020711; }
+.touch-description { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+.duel-touch-actions { position:relative; flex:none; width:calc(var(--touch-unit) * 4.4); height:calc(var(--touch-unit) * 3.6); }
+.duel-touch-abilities { position:absolute; top:0; left:0; width:var(--touch-unit); height:calc(var(--touch-unit) * 2.3); }
+.duel-touch .duel-touch-action { position:absolute; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; width:var(--touch-unit); height:var(--touch-unit); min-height:44px; padding:0; border:1px solid #c2c4b98a; border-radius:50%; background:radial-gradient(circle at 40% 25%,#293b49ed,#101e2ee8 75%); color:#f4e9d2; box-shadow:inset 0 1px 2px #f4dfbb26,0 3px 10px #050c1b55; touch-action:none; pointer-events:auto; font:900 7px/1 'Nunito',sans-serif; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.duel-touch-action svg { width:19px; height:19px; flex:none; }
+.duel-touch-action span { letter-spacing:.035em; }
+.duel-touch .duel-touch-action small { color:#f0dfb9; font-size:7px; line-height:1; letter-spacing:0; text-align:center; }
+.duel-touch .duel-touch-action[data-pressed=true] { background:#726142eb; border-color:#f5d697; box-shadow:inset 0 0 0 2px #e7ce9755,0 0 16px #dabd7940; }
+.duel-touch .duel-touch-action:disabled { color:#a9b8c4; border-color:#75848b6b; cursor:default; opacity:.6; }
+.touch-jump { left:calc(var(--touch-unit) * 2.25); top:0; }
+.duel-touch .touch-attack { left:calc(var(--touch-unit) * 3.4); top:calc(var(--touch-unit) * 1.3); border-color:#d5aa77; background:radial-gradient(circle at 40% 25%,#8b563ded,#4a3028ed 75%); }
+.touch-dodge { left:calc(var(--touch-unit) * 2.25); top:calc(var(--touch-unit) * 2.6); }
+.touch-grab { left:calc(var(--touch-unit) * 1.1); top:calc(var(--touch-unit) * 1.3); }
+.touch-sprint { left:0; top:calc(var(--touch-unit) * 2.6); }
+.duel-touch .touch-special { left:0; top:0; border-color:#ddbd79; }
+.duel-touch .touch-ultimate { left:0; top:calc(var(--touch-unit) * 1.3); border-color:#a8bbd0; }
+.touch-special::before,.touch-ultimate::before { content:''; position:absolute; inset:-4px; border-radius:50%; background:conic-gradient(from -90deg,#e2c285 var(--ability-fill,0deg),#71819240 0); mask:radial-gradient(circle,transparent calc(50% - 3px),#000 calc(50% - 2px)); -webkit-mask:radial-gradient(circle,transparent calc(50% - 3px),#000 calc(50% - 2px)); pointer-events:none; }
+.touch-attack-hint { position:absolute; left:0; right:0; bottom:-17px; color:#e3d7bc; text-align:right; font-size:8px; text-shadow:0 1px 4px #020711; }
+@media (max-width:760px), (pointer:coarse) {
+  .duel-touch { display:flex; }
+  .duel-game .duel-bottom { display:none; }
+  .duel-game .duel-controls-legend { display:none; }
+  .duel-toolbar { right:max(14px,env(safe-area-inset-right)); }
+}
+@media (max-width:420px) {
+  .duel-touch { --touch-unit:48px; --joystick-size:112px; left:12px; right:12px; }
+}
+@media (max-width:359px) {
+  .duel-touch { --touch-unit:44px; --joystick-size:94px; left:10px; right:10px; }
+  .duel-touch-action svg { width:17px; height:17px; }
+  .duel-touch .duel-touch-action { font-size:6.5px; }
+}
+@media (max-height:500px) and (orientation:landscape) {
+  .duel-touch { --touch-unit:44px; --joystick-size:108px; bottom:max(15px,env(safe-area-inset-bottom)); }
+  .touch-attack-hint { display:none; }
+  .duel-game .duel-hud { top:max(12px,env(safe-area-inset-top)); left:max(16px,env(safe-area-inset-left)); right:max(16px,env(safe-area-inset-right)); gap:14px; grid-template-columns:1fr 62px 1fr; }
+  .duel-game .health-heading strong { font-size:14px; }
+  .duel-game .health-heading small,.duel-game .duel-location small { display:none; }
+  .duel-game .health-heading { padding-bottom:5px; }
+  .duel-game .duel-clock strong { font-size:25px; }
+  .duel-game .duel-location { top:80px; left:max(16px,env(safe-area-inset-left)); }
+  .duel-game .duel-toolbar { top:78px; }
+  .duel-game .duel-toolbar button { min-height:36px; }
+  .joystick-label { bottom:-6px; }
+}

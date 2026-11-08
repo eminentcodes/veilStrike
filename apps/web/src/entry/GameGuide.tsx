@@ -13,17 +13,17 @@ const topics = [
   ['arenas', 'Arenas'], ['modes', 'Game modes'], ['embers', 'Embers & upgrades'], ['settings', 'Profile & audio'], ['faq', 'FAQs'],
 ] as const;
 const controls = [
-  ['Move', 'W / A / S / D', 'Directional buttons', 'Move freely around the arena.'],
+  ['Move', 'W / A / S / D', 'Drag the round joystick', 'Move in any direction. Drag further to move faster; release to stop.'],
   ['Sprint', 'Hold Shift', 'Hold Sprint', 'Move faster while spending stamina.'],
   ['Jump', 'C', 'Jump', 'Leap and reposition.'],
   ['Light attack', 'J / Left click', 'Attack', 'Press once for a quick strike.'],
   ['Heavy attack', 'Double-press J / Left click', 'Double-tap Attack', 'Press twice quickly for a stronger, slower strike.'],
-  ['Guard', 'Hold L / Right click', 'Hold Guard', 'Block attacks in front of your fighter.'],
-  ['Parry', 'Tap L / Right click', 'Tap Guard', 'Time your guard just before an incoming strike.'],
+  ['Guard', 'Hold L / Right click', 'Keyboard / mouse only', 'Block attacks in front of your fighter.'],
+  ['Parry', 'Tap L / Right click', 'Keyboard / mouse only', 'Time your guard just before an incoming strike.'],
   ['Dodge', 'Space', 'Dodge', 'Evade through an attack with a brief invulnerable window.'],
   ['Grab & throw', 'E', 'Grab', 'Grapple an opponent within close range.'],
-  ['Signature', 'U', 'Signature ability button', 'Use your fighter’s special move when stamina and cooldown allow.'],
-  ['Ultimate', 'I', 'Ultimate ability button', 'Use your strongest move when soul charge is full.'],
+  ['Signature', 'U', 'Round Special button', 'Use your fighter’s special move when stamina and cooldown allow.'],
+  ['Ultimate', 'I', 'Round Ultimate button', 'Use your strongest move when soul charge is full.'],
   ['Target lock', 'Tab', 'Lock On / Free Camera', 'Toggle automatic tracking of the opponent.'],
   ['Match menu', 'Escape', 'Menu', 'Pause a Quick Match or open the menu during online PvP.'],
 ] as const;
@@ -68,7 +68,8 @@ export default function GameGuide({ section }: { section?: string }) {
 
         <section id="guide-controls"><h2 tabIndex={-1}>Controls</h2><p>Keyboard, mouse, and touch controls use the same combat system. One Attack control handles both light and heavy strikes.</p>
           <div className="guide-control-table"><table><caption>Keyboard, mouse, and touch controls</caption><thead><tr><th scope="col">Action</th><th scope="col">Keyboard / mouse</th><th scope="col">Touch</th><th scope="col">What it does</th></tr></thead><tbody>{controls.map(([action, key, touch, effect]) => <tr key={action}><th scope="row">{action}</th><td><kbd>{key}</kbd></td><td>{touch}</td><td>{effect}</td></tr>)}</tbody></table></div>
-          <p className="guide-note">Touch controls appear on small screens and devices with coarse pointers. Hold directional buttons, Guard, or Sprint for continuous actions.</p>
+          <p className="guide-note">Touch controls appear on small screens and devices with coarse pointers. Use the left joystick to move while your right thumb uses the round action buttons. Jump is above, Grab is left, Attack is right, and Dodge is below. Sprint, Special, and Ultimate sit beside the diamond. Hold Sprint to move faster. Guard and parry use keyboard or mouse.</p>
+          <p className="guide-note">Landscape handling starts on the home screen after your first touch. Supported phones enter landscape automatically; rotate your device if the browser keeps the page in portrait. Controls adapt to both orientations.</p>
         </section>
 
         <section id="guide-combat"><h2 tabIndex={-1}>Combat & rounds</h2><div className="guide-combat-rules">

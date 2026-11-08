@@ -4,6 +4,8 @@ import { completeSetup, loadProfile, saveProfile } from '@/duel/progression';
 import type { StarterFighterId } from '@/duel/catalog';
 import type { GameLobbyProps } from '@/lobby/GameLobby';
 import { HomePage } from '@/entry/HomePage';
+import { LoadingProgress } from '@/entry/LoadingProgress';
+import { MobileOrientation } from '@/entry/MobileOrientation';
 import { FirstTimeSetup, FaqDialog } from '@/entry/EntryDialogs';
 import './entry/entry.css';
 
@@ -17,6 +19,7 @@ export function App() {
   const [setupOpen, setSetupOpen] = useState(false);
   const [Lobby, setLobby] = useState<ComponentType<GameLobbyProps> | null>(null);
   const [lobbyReady, setLobbyReady] = useState(false);
+  const [lobbyProgress, setLobbyProgress] = useState(0);
   const [lobbyAttempt, setLobbyAttempt] = useState(0);
   const [loadError, setLoadError] = useState('');
   const alive = useRef(true);
@@ -26,7 +29,7 @@ export function App() {
   const prepareLobby = useCallback(() => {
     lobbyRequest ??= import('@/lobby/GameLobby');
     void lobbyRequest.then(module => {
-      if (alive.current) { setLoadError(''); setLobby(() => module.GameLobby); }
+      if (alive.current) { setLoadError(''); setLobbyProgress(value => Math.max(value, 20)); setLobby(() => module.GameLobby); }
     }).catch(() => {
       lobbyRequest = undefined;
       if (alive.current) setLoadError('The game could not load. Check your connection and try again.');
@@ -71,21 +74,30 @@ export function App() {
     setSetupOpen(false);
     window.location.hash = 'lobby';
   };
+  const markLobbyReady = useCallback((ready: boolean) => {
+    setLobbyReady(ready);
+    setLobbyProgress(ready ? 100 : 20);
+    if (ready) setLoadError('');
+  }, []);
+  const reportLobbyProgress = useCallback((progress: number) => {
+    setLobbyProgress(value => Math.max(value, Math.min(95, Math.floor(20 + progress * 75))));
+  }, []);
   const retryLobby = () => {
-    setLoadError(''); setLobbyReady(false); setLobbyAttempt(value => value + 1); prepareLobby();
+    setLoadError(''); setLobbyReady(false); setLobbyProgress(0); setLobbyAttempt(value => value + 1); prepareLobby();
   };
 
-  return <div className={'entry-shell' + (isGuide ? ' is-guide' : '')} data-lobby-ready={lobbyReady} data-lobby-prepared={!!Lobby}>
+  return <div className={'entry-shell' + (isGuide ? ' is-guide' : '')} data-lobby-ready={lobbyReady} data-lobby-prepared={!!Lobby} data-lobby-progress={lobbyProgress}>
+    <MobileOrientation location={entered ? 'game' : 'home'} hidden={isGuide || setupOpen || route === 'faq'}/>
     {Lobby && <div className={'prepared-lobby' + (entered ? ' is-active' : '')} inert={!entered || !lobbyReady} aria-hidden={!entered}>
       <Lobby key={lobbyAttempt} profile={profile} setProfile={setProfile} active={entered} backdrop={!entered}
-        scenePaused={isGuide || setupOpen || route === 'faq'} onReady={setLobbyReady} onError={setLoadError}/>
+        scenePaused={isGuide || setupOpen || route === 'faq'} onReady={markLobbyReady} onProgress={reportLobbyProgress} onError={setLoadError}/>
     </div>}
     {!entered && !isGuide && <HomePage worldReady={lobbyReady} onPlay={play} onPrepare={prepareLobby}/>}
     {entered && (!Lobby || !lobbyReady) && <main className="entry-loading entry-curtain" aria-live="polite" aria-busy={!loadError}>
       <img src={import.meta.env.BASE_URL + 'veilstrike-mark.svg'} width="58" height="58" alt=""/>
       <h1>VEILSTRIKE</h1>
       {loadError ? <><p role="alert">{loadError}</p><button className="entry-primary" onClick={retryLobby}>Try again</button></> : <>
-        <div className="entry-loading-line" aria-hidden="true"/><p>LOADING</p>
+        <LoadingProgress value={lobbyProgress}/>
       </>}
       <a className="entry-text-link" href="#home">Back to home</a>
     </main>}

@@ -22,7 +22,7 @@ export declare class ChampionRig {
     private equipment;
     private equipmentReleased;
     private resolveReady;
-    constructor(id: ChampionId, autoload?: boolean);
+    constructor(id: ChampionId, autoload?: boolean, onProgress?: (progress: number) => void);
     ready(): Promise<void>;
     private install;
     private addArmor;

@@ -11,11 +11,13 @@ await page.addInitScript(()=>{if(!localStorage.getItem('veilstrike:profile:v1'))
 const base=process.env.REVIEW_URL||'http://127.0.0.1:5173/';await mkdir('verification/screenshots/lobby-release',{recursive:true});
 try{
  await page.goto(base+'#lobby');await page.waitForSelector('.game-lobby > .lobby-scene[data-ready="true"]');
- await page.getByRole('button',{name:'Pause previews',exact:true}).click();
+ await page.locator('.lobby-coming').hover();assert.equal(await page.locator('.lobby-coming button').count(),0);await page.clock.install();
  const bounds=await page.evaluate(()=>{const c=document.querySelector('.lobby-coming').getBoundingClientRect(),s=document.querySelector('.lobby-spin-event').getBoundingClientRect();return {card:{top:c.top,bottom:c.bottom,left:c.left,right:c.right},spin:{top:s.top,bottom:s.bottom}};});
  assert.ok(bounds.card.bottom<bounds.spin.top,'Preview must appear above the spinner');checks.push({name:'Visible preview above spinner',bounds});
  await page.screenshot({path:'verification/screenshots/lobby-release/desktop.png'});console.log('Preview visible above spinner.');
- for(const title of ['MORE FIGHTERS','ACHIEVEMENTS','LEADERBOARDS','STORY MODE']){await page.getByRole('button',{name:'Next preview',exact:true}).click();assert.equal(await page.locator('.coming-slide.is-current h2').textContent(),title);}
+ const before=await page.locator('.coming-slide.is-current h2').textContent();await page.clock.fastForward(15000);assert.equal(await page.locator('.coming-slide.is-current h2').textContent(),before,'Hover should pause the card');
+ await page.mouse.move(0,0);
+ for(let i=0;i<4;i++){const prior=await page.locator('.coming-slide.is-current h2').textContent();await page.clock.fastForward(10100);const next=await page.locator('.coming-slide.is-current h2').textContent();assert.notEqual(next,prior);checks.push({preview:next});}
  await page.getByRole('button',{name:'400 Embers. Open Ember shop',exact:true}).click();assert.equal(await page.getByRole('button',{name:'PURCHASE EMBERS — COMING SOON',exact:true}).isDisabled(),true);
  await page.screenshot({path:'verification/screenshots/lobby-release/ember-shop.png'});await page.getByRole('button',{name:'Close panel',exact:true}).click();
  await page.getByRole('button',{name:'Characters',exact:true}).click();await page.getByRole('button',{name:'VEYRA Select',exact:true}).click();await page.getByRole('button',{name:'Close panel',exact:true}).click();await page.locator('.lobby-play').click();
